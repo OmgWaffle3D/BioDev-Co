@@ -1,0 +1,62 @@
+body.bg {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('../imagenes/fondo.jpg'); /* Ajusta esto según la imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 2em;
+    background-color: #fffbe7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    height: 40px;
+  }
+  
+  .navbar a {
+    margin-left: 1em;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px);
+  }
+  
+  .form-box {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2em;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .form-box h2 {
+    text-align: center;
+    margin-bottom: 1em;
+    font-family: 'Arial Black', sans-serif;
+  }
+  
+  .form-box label {
+    font-weight: bold;
+    margin-top: 0.5em;
+  }
+  
+  .form-box input,
+  .form-box textarea {
+    padding: 0.6em;
+  }
