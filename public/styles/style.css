@@ -186,3 +186,141 @@ body.bg {
 .back-link:hover {
     color: #A85523;
 }
+
+/* Estilos para la página Home */
+.home-bg {
+    background-color: #2F2F2F;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+.assistants-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.assistant-card {
+    background-color: #3F3F3F;
+    border-radius: 10px;
+    padding: 30px;
+    position: relative;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.assistant-icon {
+    margin-bottom: 20px;
+    width: 60px;
+    height: 60px;
+}
+
+.assistant-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.assistant-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+}
+
+.assistant-info p {
+    font-size: 0.9rem;
+    color: #CCCCCC;
+    line-height: 1.4;
+}
+
+.support-container {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.support-button {
+    background-color: #3F3F3F;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    max-width: 300px;
+}
+
+.support-button:hover {
+    background-color: #505050;
+}
+
+.support-button svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Estilos responsivos para pantallas más pequeñas */
+@media (max-width: 992px) {
+    .assistants-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .assistants-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .assistant-card {
+        height: auto;
+    }
+}
