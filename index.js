@@ -4,7 +4,7 @@ import express from "express";
 
 const app = express();
 app.use(express.json());
-app.use(express.static("public")); // Sirve los archivos de la carpeta public
+app.use(express.static("public")); 
 app.use(indexRoutes);
 const port = 4000;
 
