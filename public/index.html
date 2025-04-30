@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Login - BioDev</title>
-  <link rel="stylesheet" href="styles/style.css">
-</head>
-<body class="bg">
-  <header class="navbar">
-    <img src="imagenes/logo.png" alt="BioDev Logo" class="logo">
-    <nav>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-    </nav>
-  </header>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mawi - BioDev</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body class="login-bg">
+    <main class="login-container">
+      <div class="login-box">
+        <h1>Mawi</h1>
+        <p class="login-description">
+          Inicia sesión o crea tu cuenta para empezar a usar Mawi y todas sus
+          funciones.
+        </p>
 
-  <main class="form-container">
-    <form class="form-box">
-      <h2>LOGIN</h2>
-      <label>Email</label>
-      <input type="email" required>
-      <label>Password</label>
-      <input type="password" required>
-      <p class="link">Do not have an account? <a href="register.html">Register here</a></p>
-      <button type="submit">Login</button>
-    </form>
-  </main>
-</body>
+        <div class="login-buttons">
+          <a href="./pages/login.html" class="btn btn-primary"
+            >Iniciar sesión</a
+          >
+          <a href="./pages/register.html" class="btn btn-secondary"
+            >Crear cuenta</a
+          >
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
