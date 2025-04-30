@@ -206,7 +206,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 header h1 {
@@ -323,4 +323,25 @@ header h1 {
     .assistant-card {
         height: auto;
     }
+}
+
+/* Estilos para la barra de navegación oscura */
+.navbar-container {
+    width: 100%;
+    background-color: #252525; /* Color más oscuro para la barra de navegación */
+}
+
+.navbar-dark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: white;
+}
+
+.navbar-dark h1 {
+    margin: 0;
+    font-size: 1.8rem;
 }
