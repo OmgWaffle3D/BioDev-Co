@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { getRegitros } from "../controllers/index.controllers.js";
+import { getRegitros, getUsuarios } from "../controllers/index.controllers.js";
 
 
 const router = Router();
 
-router.get("/api", getRegitros); // http://localhost:4000/
+router.get("/registros", getRegitros);
+router.get("/usuarios", getUsuarios);
+
 
 
 export default router;
