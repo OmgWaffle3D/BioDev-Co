@@ -15,20 +15,28 @@ export const getUsuarios = (req, res) => {
   });
 };
 
-// POST ecological data
+// Combined POST for ecological data and images
 export const createRecord = (req, res) => {
   const { estadoTiempo, estacion, tipoRegistro, usuario_id = 1, transecto } = req.body;
+
+  // Validate required fields
   if (!estadoTiempo || !estacion || !tipoRegistro || !transecto) {
     return res.status(400).json({ message: "Missing required fields" });
   }
 
+  // Insert into registros table
   pool.query(
     "INSERT INTO registros (usuario_id, estadoTiempo, estacion, tipoRegistro) VALUES (?, ?, ?, ?)",
     [usuario_id, estadoTiempo, estacion, tipoRegistro],
     (error, results) => {
-      if (error) return res.status(500).json({ message: error.message });
+      if (error) {
+        console.error("Database error on registros:", error);
+        return res.status(500).json({ message: error.message });
+      }
+
       const registroId = results.insertId;
 
+      // Insert into specific table (e.g., fauna_transecto)
       const specificData = {
         id: registroId,
         numero: transecto.numero,
@@ -42,42 +50,33 @@ export const createRecord = (req, res) => {
         `INSERT INTO ${tipoRegistro} SET ?`,
         specificData,
         (error) => {
-          if (error) return res.status(500).json({ message: error.message });
-          res.status(201).json({ msg: "Record created", id: registroId });
-        }
-      );
-    }
-  );
-};
+          if (error) {
+            console.error("Database error on specific table:", error);
+            return res.status(500).json({ message: error.message });
+          }
 
-// POST image uploads
-export const uploadImages = (req, res) => {
-  const registroId = req.body.registro_id;
-  if (!registroId) return res.status(400).json({ message: "registro_id is required" });
+          // Handle images if present
+          if (req.files && req.files.length > 0) {
+            const values = req.files.map((file) => [
+              registroId,
+              `/uploads/${file.filename}`,
+              Math.round(file.size / 1024),
+            ]);
 
-  pool.query(
-    "SELECT COUNT(*) as count FROM evidencias WHERE registro_id = ?",
-    [registroId],
-    (error, results) => {
-      if (error) return res.status(500).json({ message: error.message });
-      const currentCount = results[0].count;
-      const newImagesCount = req.files.length;
-      if (currentCount + newImagesCount > 5) {
-        return res.status(400).json({ message: "Maximum 5 images allowed" });
-      }
-
-      const values = req.files.map((file) => [
-        registroId,
-        `/uploads/${file.filename}`,
-        Math.round(file.size / 1024),
-      ]);
-
-      pool.query(
-        "INSERT INTO evidencias (registro_id, file_path, file_size_kb) VALUES ?",
-        [values],
-        (error) => {
-          if (error) return res.status(500).json({ message: error.message });
-          res.status(200).json({ msg: "Images uploaded" });
+            pool.query(
+              "INSERT INTO evidencias (registro_id, file_path, file_size_kb) VALUES ?",
+              [values],
+              (error) => {
+                if (error) {
+                  console.error("Database error on evidencias:", error);
+                  return res.status(500).json({ message: error.message });
+                }
+                res.status(201).json({ msg: "Record and images created", id: registroId });
+              }
+            );
+          } else {
+            res.status(201).json({ msg: "Record created", id: registroId });
+          }
         }
       );
     }
