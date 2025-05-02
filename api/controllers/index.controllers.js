@@ -26,6 +26,7 @@ export const createRecord = (req, res) => {
     reporteIdLocal,
     fechaCapturaLocal,
     evidencias,
+    images, // Explicitly capture to exclude it
     ...specificData
   } = req.body;
 
@@ -34,10 +35,27 @@ export const createRecord = (req, res) => {
     return res.status(400).json({ message: "Missing required fields" });
   }
 
+  // Validate tipoRegistro against allowed values
+  const validRegistros = [
+    "fauna_transecto",
+    "fauna_punto_conteo",
+    "fauna_busqueda_libre",
+    "validacion_cobertura",
+    "parcela_vegetacion",
+    "camaras_trampa",
+    "variables_climaticas",
+  ];
+  if (!validRegistros.includes(tipoRegistro)) {
+    return res.status(400).json({ message: "Invalid tipoRegistro" });
+  }
+
   // Format date to 'YYYY-MM-DD HH:MM:SS'
   let fechaMysql = null;
   if (fechaCapturaLocal) {
     const fecha = new Date(fechaCapturaLocal);
+    if (isNaN(fecha)) {
+      return res.status(400).json({ message: "Invalid fechaCapturaLocal" });
+    }
     fechaMysql = fecha.toISOString().slice(0, 19).replace("T", " ");
   }
 
@@ -67,16 +85,42 @@ export const createRecord = (req, res) => {
 
       const query = `INSERT INTO ${tipoRegistro} (${keys}) VALUES (${placeholders})`;
 
+      // Insert into the specific subtable
       pool.query(query, values, (error) => {
         if (error) {
           console.error(`Database error on ${tipoRegistro}:`, error);
           return res.status(500).json({ message: error.message });
         }
 
-        res.status(201).json({
-          msg: "Record created successfully",
-          id: registroId,
-        });
+        // Handle file uploads (store in evidencias table)
+        if (req.files && req.files.length > 0) {
+          const fileInserts = req.files.map((file) => [
+            registroId,
+            file.path,
+            Math.round(file.size / 1024), // Convert bytes to KB
+          ]);
+
+          pool.query(
+            "INSERT INTO evidencias (registro_id, file_path, file_size_kb) VALUES ?",
+            [fileInserts],
+            (error) => {
+              if (error) {
+                console.error("Database error on evidencias:", error);
+                return res.status(500).json({ message: error.message });
+              }
+
+              res.status(201).json({
+                msg: "Record created successfully",
+                id: registroId,
+              });
+            }
+          );
+        } else {
+          res.status(201).json({
+            msg: "Record created successfully",
+            id: registroId,
+          });
+        }
       });
     }
   );
