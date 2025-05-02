@@ -1,13 +1,14 @@
 import { pool } from "../db/db.js";
 
-// GET routes (existing)
-export const getRegitros = (req, res) => {
+// GET all registros
+export const getRegistros = (req, res) => {
   pool.query("SELECT * FROM registros", (error, results) => {
     if (error) return res.status(500).json({ message: error.message });
     res.status(200).json({ msg: "OK", data: results });
   });
 };
 
+// GET all usuarios
 export const getUsuarios = (req, res) => {
   pool.query("SELECT * FROM usuarios", (error, results) => {
     if (error) return res.status(500).json({ message: error.message });
@@ -17,17 +18,33 @@ export const getUsuarios = (req, res) => {
 
 // Combined POST for ecological data and images
 export const createRecord = (req, res) => {
-  const { estadoTiempo, estacion, tipoRegistro, usuario_id = 1, transecto } = req.body;
+  const {
+    estadoTiempo,
+    estacion,
+    tipoRegistro,
+    usuario_id = 1,
+    reporteIdLocal,
+    fechaCapturaLocal,
+    evidencias,
+    ...specificData
+  } = req.body;
 
   // Validate required fields
-  if (!estadoTiempo || !estacion || !tipoRegistro || !transecto) {
+  if (!estadoTiempo || !estacion || !tipoRegistro) {
     return res.status(400).json({ message: "Missing required fields" });
   }
 
-  // Insert into registros table
+  // Format date to 'YYYY-MM-DD HH:MM:SS'
+  let fechaMysql = null;
+  if (fechaCapturaLocal) {
+    const fecha = new Date(fechaCapturaLocal);
+    fechaMysql = fecha.toISOString().slice(0, 19).replace("T", " ");
+  }
+
+  // Insert into the main 'registros' table
   pool.query(
-    "INSERT INTO registros (usuario_id, estadoTiempo, estacion, tipoRegistro) VALUES (?, ?, ?, ?)",
-    [usuario_id, estadoTiempo, estacion, tipoRegistro],
+    "INSERT INTO registros (usuario_id, estadoTiempo, estacion, tipoRegistro, reporteIdLocal, fechaCapturaLocal) VALUES (?, ?, ?, ?, ?, ?)",
+    [usuario_id, estadoTiempo, estacion, tipoRegistro, reporteIdLocal, fechaMysql],
     (error, results) => {
       if (error) {
         console.error("Database error on registros:", error);
@@ -36,49 +53,31 @@ export const createRecord = (req, res) => {
 
       const registroId = results.insertId;
 
-      // Insert into specific table (e.g., fauna_transecto)
-      const specificData = {
+      // Prepare data for the specific subtable, including evidences as JSON
+      const subTableData = {
         id: registroId,
-        numero: transecto.numero,
-        numeroIndividuos: transecto.numeroIndividuos,
-        nombreComun: transecto.nombreComun,
-        tipoAnimal: transecto.tipoAnimal,
-        observacionTipo: transecto.observacionTipo,
+        ...specificData,
+        evidencias: evidencias ? JSON.stringify(evidencias) : null,
       };
 
-      pool.query(
-        `INSERT INTO ${tipoRegistro} SET ?`,
-        specificData,
-        (error) => {
-          if (error) {
-            console.error("Database error on specific table:", error);
-            return res.status(500).json({ message: error.message });
-          }
+      // Dynamically construct the query for the specific subtable
+      const keys = Object.keys(subTableData).join(", ");
+      const placeholders = Object.keys(subTableData).map(() => "?").join(", ");
+      const values = Object.values(subTableData);
 
-          // Handle images if present
-          if (req.files && req.files.length > 0) {
-            const values = req.files.map((file) => [
-              registroId,
-              `/uploads/${file.filename}`,
-              Math.round(file.size / 1024),
-            ]);
+      const query = `INSERT INTO ${tipoRegistro} (${keys}) VALUES (${placeholders})`;
 
-            pool.query(
-              "INSERT INTO evidencias (registro_id, file_path, file_size_kb) VALUES ?",
-              [values],
-              (error) => {
-                if (error) {
-                  console.error("Database error on evidencias:", error);
-                  return res.status(500).json({ message: error.message });
-                }
-                res.status(201).json({ msg: "Record and images created", id: registroId });
-              }
-            );
-          } else {
-            res.status(201).json({ msg: "Record created", id: registroId });
-          }
+      pool.query(query, values, (error) => {
+        if (error) {
+          console.error(`Database error on ${tipoRegistro}:`, error);
+          return res.status(500).json({ message: error.message });
         }
-      );
+
+        res.status(201).json({
+          msg: "Record created successfully",
+          id: registroId,
+        });
+      });
     }
   );
 };
