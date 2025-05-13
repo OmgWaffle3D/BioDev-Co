@@ -59,6 +59,28 @@ export const createRecord = (req, res) => {
     fechaMysql = fecha.toISOString().slice(0, 19).replace("T", " ");
   }
 
+  // fecha de instalación para 'camaras_trampa' DATETIME
+  let fechaInstalacionMysql = null;
+if (tipoRegistro === "camaras_trampa" && specificData.fechaInstalacion) {
+  const fechaInst = new Date(specificData.fechaInstalacion);
+  if (isNaN(fechaInst)) {
+    return res.status(400).json({ message: "Invalid fechaInstalacion" });
+  }
+  fechaInstalacionMysql = fechaInst.toISOString().slice(0, 19).replace("T", " ");
+  specificData.fechaInstalacion = fechaInstalacionMysql; // Sobrescribe el valor original
+}
+
+// Quitar campos innecesarios para tablas que no los usan
+if (tipoRegistro !== "camaras_trampa") {
+  delete specificData.fechaInstalacion;
+}
+
+// Asegurar que listaChequeo se guarde como JSON string si existe
+if (specificData.listaChequeo) {
+  specificData.listaChequeo = JSON.stringify(specificData.listaChequeo);
+}
+
+
   // Insert into the main 'registros' table
   pool.query(
     "INSERT INTO registros (usuario_id, estadoTiempo, estacion, tipoRegistro, reporteIdLocal, fechaCapturaLocal) VALUES (?, ?, ?, ?, ?, ?)",

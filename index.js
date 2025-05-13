@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import indexRoutes from "../BioDev-Co/api/routes/index.routes.js"; // Change according to your Workspace structure
+import indexRoutes from "./api/routes/index.routes.js";
 import { fileURLToPath } from "url";
 import path from "path";
 import cors from "cors";
