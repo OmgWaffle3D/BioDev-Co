@@ -6,11 +6,19 @@ const bcrypt = require('bcrypt');
  * @returns encrypted password
  */
 
+//* @param {*} pass the users password
+//* @returns encrypted password
+
+//* This method hashes a given password
 async function encryptPassword(pass){
     let password = await bcrypt.hash(pass, 8);
     return password;
 }
 
+//* This method checks if the user is valid
+//* @param {*} username the users username
+//* @param {*} password the users password
+//* @returns user object if valid, null otherwise
 async function isValidUser(username, encryptPassword){
     let query = `SELECT id, name, username, password, age, hash_password FROM users WHERE username = ?`;  
     let params = [username];
@@ -25,6 +33,7 @@ async function isValidUser(username, encryptPassword){
     return null;
 }
 
+// Export the functions
 module.exports = {
     encryptPassword,
     isValidUser
