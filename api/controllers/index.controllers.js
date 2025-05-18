@@ -98,6 +98,7 @@ if (specificData.listaChequeo) {
       // Prepare data for the specific subtable, including evidences as JSON
       const subTableData = {
         id: registroId,
+        usuario_id,
         ...specificData,
         evidencias: evidencias ? JSON.stringify(evidencias) : null,
       };
