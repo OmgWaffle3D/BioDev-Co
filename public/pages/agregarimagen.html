@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tu imagen de perfil</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-900 min-h-screen flex items-center justify-center">
+
+  <div class="bg-gray-800 text-white p-10 rounded-xl w-full max-w-sm text-center shadow-lg">
+    <h2 class="text-xl font-semibold mb-6">Tu imagen de perfil</h2>
+
+    <!-- Icono circular + -->
+    <label for="profile-image" class="cursor-pointer inline-block">
+      <div class="w-40 h-40 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
+        <span class="text-5xl text-gray-600">+</span>
+      </div>
+      <input type="file" id="profile-image" class="hidden" />
+    </label>
+
+    <!-- Botón siguiente -->
+    <a href="register3.html" class="block w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-2 rounded-md mb-4">
+      Siguiente <span class="ml-2">➔</span>
+    </a>
+
+    <!-- Ayuda -->
+    <p class="text-xs text-gray-400">
+      <a href="#" class="hover:underline">¿Necesitas ayuda? Contacta con nosotros</a>
+    </p>
+  </div>
+
+</body>
+</html>
