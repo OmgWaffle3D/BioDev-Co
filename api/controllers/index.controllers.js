@@ -171,3 +171,72 @@ if (specificData.listaChequeo) {
     }
   );
 };
+
+// ...existing code...
+
+export const createBiomas = (req, res) => {
+  const {
+    codigo_bioma,
+    region,
+    fecha_inicio,
+    fase_actual,
+    comunidad_vinculada,
+    indicador_avance,
+    ultima_actividad,
+  } = req.body;
+
+  // Validate required fields
+// Validate required fields
+if (
+  !codigo_bioma ||
+  !region ||
+  !fecha_inicio ||
+  !fase_actual ||
+  !comunidad_vinculada ||
+  indicador_avance === undefined ||
+  indicador_avance === null ||
+  indicador_avance === "" ||
+  !ultima_actividad
+) {
+  return res.status(400).json({ message: "Missing required fields" });
+}
+
+  // Validate fase_actual
+  const validFases = ["Validación", "Desarrollo", "Implementación"];
+  if (!validFases.includes(fase_actual)) {
+    return res.status(400).json({ message: "Invalid fase_actual" });
+  }
+
+  // Validate indicador_avance
+  const avance = parseFloat(indicador_avance);
+  if (isNaN(avance) || avance < 0 || avance > 100) {
+    return res.status(400).json({ message: "indicador_avance must be between 0 and 100" });
+  }
+
+  // Insert into the biomas table
+  pool.query(
+    `INSERT INTO biomas 
+      (codigo_bioma, region, fecha_inicio, fase_actual, comunidad_vinculada, indicador_avance, ultima_actividad)
+      VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    [
+      codigo_bioma,
+      region,
+      fecha_inicio,
+      fase_actual,
+      comunidad_vinculada,
+      indicador_avance,
+      ultima_actividad,
+    ],
+    (error, results) => {
+      if (error) {
+        console.error("Database error on biomas:", error);
+        return res.status(500).json({ message: error.message });
+      }
+      res.status(201).json({
+        msg: "Bioma created successfully",
+        id: results.insertId,
+      });
+    }
+  );
+}
+// ...existing code...

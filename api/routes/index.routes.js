@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getRegistros, getUsuarios, getBiomas, getAnteproyectos, getEcorangers, createRecord } from "../controllers/index.controllers.js";
+import { getRegistros, getUsuarios, getBiomas, getAnteproyectos, getEcorangers, createRecord, createBiomas } from "../controllers/index.controllers.js";
 import upload from "../middleware/multerConfig.js";
 //import { verificarToken } from "../middleware/token.js";
 
@@ -11,6 +11,7 @@ router.get("/anteproyectos", getAnteproyectos);
 router.get("/biomas", getBiomas);
 router.get("/ecorangers", getEcorangers);
 router.post("/records",upload.array("images", 5), createRecord);
+router.post('/biomas', upload.none(), createBiomas);
 
 
 export default router;
