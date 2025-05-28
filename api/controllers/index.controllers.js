@@ -239,4 +239,29 @@ if (
     }
   );
 }
-// ...existing code...
+
+export const autenticacion = (req, res) => {
+  const { username, password } = req.body;
+  pool.query(
+    "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?",
+    [username, password],
+    (err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ isLogin: false, error: "Error en el servidor" });
+      }
+      if (results.length > 0) {
+        return res.json({
+          isLogin: true,
+          user: {
+            id: results[0].id,
+            name: results[0].nombre,
+            correo: results[0].correo
+          }
+        });
+      } else {
+        return res.json({ isLogin: false });
+      }
+    }
+  );
+};
