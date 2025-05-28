@@ -1,13 +1,17 @@
 import { Router } from "express";
-import { getRegistros, getUsuarios, createRecord } from "../controllers/index.controllers.js";
+import { getRegistros, getUsuarios, getBiomas, getAnteproyectos, getEcorangers, createRecord, createBiomas } from "../controllers/index.controllers.js";
 import upload from "../middleware/multerConfig.js";
-import {pool} from "../db/db.js"; // Import the database connection pool
 //import { verificarToken } from "../middleware/token.js";
 
 const router = Router();
 
 router.get("/registros", getRegistros);
 router.get("/usuarios", getUsuarios);
-router.post("/records", upload.array("images", 5), createRecord);
+router.get("/anteproyectos", getAnteproyectos);
+router.get("/biomas", getBiomas);
+router.get("/ecorangers", getEcorangers);
+router.post("/records",upload.array("images", 5), createRecord);
+router.post('/biomas', upload.none(), createBiomas);
+
 
 export default router;
