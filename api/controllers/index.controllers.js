@@ -18,6 +18,27 @@ export const getUsuarios = (req, res) => {
   });
 };
 
+export const getAnteproyectos = (req, res) => {
+  pool.query("SELECT * FROM anteproyectos", (error, results) => {
+    if (error) return res.status(500).json({ message: error.message });
+    res.status(200).json({ msg: "OK", data: results });
+  });
+};
+
+export const getBiomas = (req, res) => {
+  pool.query("SELECT * FROM biomas", (error, results) => {
+    if (error) return res.status(500).json({ message: error.message });
+    res.status(200).json({ msg: "OK", data: results });
+  });
+};
+
+export const getEcorangers = (req, res) => {
+  pool.query("SELECT * FROM ecorangers", (error, results) => {
+    if (error) return res.status(500).json({ message: error.message });
+    res.status(200).json({ msg: "OK", data: results });
+  });
+};
+
 // Combined POST for ecological data and images
 export const createRecord = (req, res) => {
   const {
