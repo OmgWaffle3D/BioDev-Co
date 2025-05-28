@@ -6,7 +6,7 @@ const password = document.getElementById("password");
 const  login =  async () => {
     // validar credenciales
     const credentials = {username:username.value, password: password.value}
-    const data = await fetch("http://localhost:5001/login", {
+    const data = await fetch("http://localhost:4000/api/login", {
         method:"POST",
         headers:{"content-type":"application/json"}, 
         body: JSON.stringify(credentials)});
@@ -17,7 +17,7 @@ const  login =  async () => {
     if (res.isLogin) {
         sessionStorage.setItem("name", res.user.name);
         sessionStorage.setItem("id", res.user.id);
-        window.location = "./pages/profile.html";
+        window.location = "../pages/home.html";
     }else {
         // Si el login es incorrecto
     alert("Credenciales incorrectas");
