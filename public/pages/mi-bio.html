@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mawi - Asistente Mi Bio</title>
+    <link rel="stylesheet" href="../styles/style.css" />
+  </head>
+  <body class="home-bg">
+    <div class="navbar-container">
+      <header class="navbar-dark">
+        <h1>Mawi</h1>
+        <div class="user-profile">
+          <span>EcoRanger</span>
+          <div class="avatar"></div>
+        </div>
+      </header>
+    </div>
+
+    <div class="container">
+      <!-- Sidebar -->
+      <nav
+        style="
+          position: fixed;
+          left: 0;
+          top: 70px;
+          width: 250px;
+          height: calc(100vh - 70px);
+          background-color: #2a2a2a;
+          padding: 20px;
+          box-sizing: border-box;
+        "
+      >
+        <ul style="list-style: none; margin: 0; padding: 0">
+          <li style="margin-bottom: 15px">
+            <a
+              href="home.html"
+              style="
+                color: #cccccc;
+                text-decoration: none;
+                display: block;
+                padding: 10px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+              "
+            >
+              Inicio
+            </a>
+          </li>
+          <li style="margin-bottom: 15px">
+            <a
+              href="mi-bio.html"
+              style="
+                color: #7dae5b;
+                text-decoration: none;
+                display: block;
+                padding: 10px;
+                border-radius: 5px;
+                background-color: #3a3a3a;
+              "
+            >
+              Asistente de Mi Bioma
+            </a>
+          </li>
+          <li style="margin-bottom: 15px">
+            <a
+              href="#"
+              style="
+                color: #cccccc;
+                text-decoration: none;
+                display: block;
+                padding: 10px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+              "
+            >
+              Asistente de Nuevas Convocatorias
+            </a>
+          </li>
+          <li style="margin-bottom: 15px">
+            <a
+              href="#"
+              style="
+                color: #cccccc;
+                text-decoration: none;
+                display: block;
+                padding: 10px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+              "
+            >
+              Asistente Explorador de Anteproyectos
+            </a>
+          </li>
+          <li style="margin-bottom: 15px">
+            <a
+              href="#"
+              style="
+                color: #cccccc;
+                text-decoration: none;
+                display: block;
+                padding: 10px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+              "
+            >
+              Informes, Métricas y Análisis
+            </a>
+          </li>
+        </ul>
+
+        <div style="position: absolute; bottom: 20px; left: 20px; right: 20px">
+          <button
+            style="
+              width: 100%;
+              background-color: #3f3f3f;
+              border: none;
+              border-radius: 20px;
+              color: white;
+              padding: 10px;
+              cursor: pointer;
+              font-size: 0.9rem;
+            "
+          >
+            Contacta con el soporte
+          </button>
+        </div>
+      </nav>
+
+      <!-- Main content -->
+      <main style="margin-left: 270px; padding: 20px">
+        <div style="max-width: 800px">
+          <h1 style="color: #ffffff; font-size: 2rem; margin-bottom: 10px">
+            Asistente de Mi Bioma
+          </h1>
+          <p style="color: #cccccc; margin-bottom: 20px">Bioma ID: 1234</p>
+
+          <!-- Chat interface -->
+          <div
+            style="
+              background-color: #3a3a3a;
+              border-radius: 10px;
+              height: 400px;
+              padding: 20px;
+              margin-bottom: 20px;
+              display: flex;
+              flex-direction: column;
+            "
+          >
+            <div style="flex: 1; overflow-y: auto; margin-bottom: 15px">
+              <!-- Chat messages would go here -->
+              <div
+                style="color: #cccccc; text-align: center; margin-top: 150px"
+              >
+                Escribe tu consulta sobre biomonitorización...
+              </div>
+            </div>
+
+            <!-- Chat input -->
+            <div style="display: flex; gap: 10px">
+              <input
+                type="text"
+                placeholder="Escribe..."
+                style="
+                  flex: 1;
+                  padding: 12px;
+                  background-color: #4a4a4a;
+                  border: none;
+                  border-radius: 25px;
+                  color: white;
+                  outline: none;
+                "
+              />
+              <button
+                style="
+                  background-color: #7dae5b;
+                  border: none;
+                  border-radius: 50%;
+                  width: 45px;
+                  height: 45px;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="2"
+                >
+                  <path d="m5 12 7-7 7 7"></path>
+                  <path d="m12 19 0-14"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Action button -->
+          <div style="text-align: right">
+            <button
+              style="
+                background-color: #7dae5b;
+                border: none;
+                border-radius: 25px;
+                color: white;
+                padding: 10px 20px;
+                cursor: pointer;
+                font-size: 0.9rem;
+              "
+            >
+              📊 Subir Datos
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
