@@ -2,15 +2,20 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Mawi - Recuperar contraseña</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contraseña actualizada</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Redirigir automáticamente en 5 segundos
+    setTimeout(() => {
+      window.location.href = "Pinicio.html";
+    }, 5000);
+  </script>
 </head>
-<body class="bg-green-900 min-h-screen flex items-center justify-center">
+<body class="bg-gray-800 flex items-center justify-center min-h-screen">
 
-  <div class="bg-gray-700 text-white text-center p-8 rounded-xl max-w-md w-full shadow-lg">
-    <p class="text-lg font-medium">
-      Se ha enviado un email a tu correo electrónico con las instrucciones a seguir
-    </p>
+  <div class="bg-gray-700 text-white text-center px-6 py-4 rounded-xl shadow-lg max-w-md">
+    <p>Has actualizado tu contraseña,<br>ahora se te redirigirá a la pestaña<br>de inicio de sesión</p>
   </div>
 
 </body>
