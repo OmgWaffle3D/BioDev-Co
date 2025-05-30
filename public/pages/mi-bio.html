@@ -3,220 +3,440 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mawi - Asistente Mi Bio</title>
+    <title>Mawi - Asistente Mi Biomo</title>
     <link rel="stylesheet" href="../styles/style.css" />
+    <style>
+      .mi-bio-container {
+        display: flex;
+        height: 100vh;
+        background-color: #2f2f2f;
+        font-family: "Arial", sans-serif;
+        position: relative;
+      }
+
+      .sidebar {
+        width: 280px;
+        background-color: #252525;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #3a3a3a;
+        position: fixed;
+        height: 100vh;
+        left: -280px;
+        top: 0;
+        transition: left 0.3s ease;
+        z-index: 1000;
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .menu-toggle {
+        position: fixed;
+        top: 50%;
+        left: 0;
+        background-color: #7dae5b;
+        border: none;
+        border-radius: 0 8px 8px 0;
+        color: white;
+        padding: 8px 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 48px;
+        z-index: 1001;
+        transition: left 0.3s ease, background-color 0.3s ease;
+        transform: translateY(-50%);
+      }
+
+      .menu-toggle.open {
+        left: 280px;
+      }
+
+      .menu-toggle:hover {
+        background-color: #6a9549;
+      }
+
+      .sidebar-header {
+        padding: 20px;
+        border-bottom: 1px solid #3a3a3a;
+      }
+
+      .sidebar-header h1 {
+        color: white;
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+
+      .sidebar-nav {
+        flex: 1;
+        padding: 20px 0;
+      }
+
+      .nav-item {
+        display: block;
+        padding: 12px 20px;
+        color: #cccccc;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+      }
+
+      .nav-item:hover {
+        background-color: #3a3a3a;
+        color: white;
+      }
+
+      .nav-item.active {
+        background-color: #3a3a3a;
+        color: #7dae5b;
+        border-left-color: #7dae5b;
+      }
+
+      .sidebar-footer {
+        padding: 20px;
+        border-top: 1px solid #3a3a3a;
+      }
+
+      .support-btn {
+        width: 100%;
+        background-color: #3a3a3a;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        padding: 12px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.3s;
+      }
+
+      .support-btn:hover {
+        background-color: #4a4a4a;
+      }
+
+      .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-left: 0;
+        transition: margin-left 0.3s ease;
+      }
+
+      .topbar {
+        background-color: #252525;
+        padding: 15px 30px;
+        border-bottom: 1px solid #3a3a3a;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: white;
+      }
+
+      .user-avatar {
+        width: 36px;
+        height: 36px;
+        background-color: #7dae5b;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      .content-area {
+        flex: 1;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .page-header {
+        margin-bottom: 30px;
+      }
+
+      .page-title {
+        color: white;
+        font-size: 2.2rem;
+        font-weight: 300;
+        margin: 0 0 8px 0;
+        letter-spacing: -0.5px;
+      }
+
+      .page-subtitle {
+        color: #888;
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .chat-container {
+        flex: 1;
+        background-color: #3a3a3a;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        min-height: 600px;
+        margin-bottom: 20px;
+      }
+
+      .chat-messages {
+        flex: 1;
+        padding: 30px;
+        overflow-y: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .empty-state {
+        text-align: center;
+        color: #888;
+        font-size: 1.1rem;
+      }
+
+      .chat-input-area {
+        padding: 25px;
+        border-top: 1px solid #4a4a4a;
+        background-color: #353535;
+      }
+
+      .input-container {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .chat-input {
+        flex: 1;
+        background-color: #4a4a4a;
+        border: none;
+        border-radius: 25px;
+        padding: 15px 20px;
+        color: white;
+        font-size: 1rem;
+        outline: none;
+        transition: background-color 0.3s;
+      }
+
+      .chat-input:focus {
+        background-color: #555;
+      }
+
+      .chat-input::placeholder {
+        color: #999;
+      }
+
+      .send-btn {
+        background-color: #7dae5b;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s, transform 0.2s;
+      }
+
+      .send-btn:hover {
+        background-color: #6a9549;
+        transform: scale(1.05);
+      }
+
+      .actions-bar {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .upload-btn {
+        background-color: #7dae5b;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        padding: 12px 20px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background-color 0.3s;
+      }
+
+      .upload-btn:hover {
+        background-color: #6a9549;
+      }
+    </style>
   </head>
-  <body class="home-bg">
-    <div class="navbar-container">
-      <header class="navbar-dark">
-        <h1>Mawi</h1>
-        <div class="user-profile">
-          <span>EcoRanger</span>
-          <div class="avatar"></div>
-        </div>
-      </header>
-    </div>
+  <body>
+    <div class="mi-bio-container">
+      <!-- Menu Toggle Button -->
+      <button class="menu-toggle" onclick="toggleSidebar()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
+      </button>
 
-    <div class="container">
+      <!-- Sidebar Overlay -->
+      <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
       <!-- Sidebar -->
-      <nav
-        style="
-          position: fixed;
-          left: 0;
-          top: 70px;
-          width: 250px;
-          height: calc(100vh - 70px);
-          background-color: #2a2a2a;
-          padding: 20px;
-          box-sizing: border-box;
-        "
-      >
-        <ul style="list-style: none; margin: 0; padding: 0">
-          <li style="margin-bottom: 15px">
-            <a
-              href="home.html"
-              style="
-                color: #cccccc;
-                text-decoration: none;
-                display: block;
-                padding: 10px;
-                border-radius: 5px;
-                transition: background-color 0.3s;
-              "
-            >
-              Inicio
-            </a>
-          </li>
-          <li style="margin-bottom: 15px">
-            <a
-              href="mi-bio.html"
-              style="
-                color: #7dae5b;
-                text-decoration: none;
-                display: block;
-                padding: 10px;
-                border-radius: 5px;
-                background-color: #3a3a3a;
-              "
-            >
-              Asistente de Mi Bioma
-            </a>
-          </li>
-          <li style="margin-bottom: 15px">
-            <a
-              href="#"
-              style="
-                color: #cccccc;
-                text-decoration: none;
-                display: block;
-                padding: 10px;
-                border-radius: 5px;
-                transition: background-color 0.3s;
-              "
-            >
-              Asistente de Nuevas Convocatorias
-            </a>
-          </li>
-          <li style="margin-bottom: 15px">
-            <a
-              href="#"
-              style="
-                color: #cccccc;
-                text-decoration: none;
-                display: block;
-                padding: 10px;
-                border-radius: 5px;
-                transition: background-color 0.3s;
-              "
-            >
-              Asistente Explorador de Anteproyectos
-            </a>
-          </li>
-          <li style="margin-bottom: 15px">
-            <a
-              href="#"
-              style="
-                color: #cccccc;
-                text-decoration: none;
-                display: block;
-                padding: 10px;
-                border-radius: 5px;
-                transition: background-color 0.3s;
-              "
-            >
-              Informes, Métricas y Análisis
-            </a>
-          </li>
-        </ul>
-
-        <div style="position: absolute; bottom: 20px; left: 20px; right: 20px">
-          <button
-            style="
-              width: 100%;
-              background-color: #3f3f3f;
-              border: none;
-              border-radius: 20px;
-              color: white;
-              padding: 10px;
-              cursor: pointer;
-              font-size: 0.9rem;
-            "
-          >
-            Contacta con el soporte
-          </button>
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h1>Mawi</h1>
         </div>
-      </nav>
 
-      <!-- Main content -->
-      <main style="margin-left: 270px; padding: 20px">
-        <div style="max-width: 800px">
-          <h1 style="color: #ffffff; font-size: 2rem; margin-bottom: 10px">
-            Asistente de Mi Bioma
-          </h1>
-          <p style="color: #cccccc; margin-bottom: 20px">Bioma ID: 1234</p>
-
-          <!-- Chat interface -->
-          <div
-            style="
-              background-color: #3a3a3a;
-              border-radius: 10px;
-              height: 400px;
-              padding: 20px;
-              margin-bottom: 20px;
-              display: flex;
-              flex-direction: column;
-            "
+        <nav class="sidebar-nav">
+          <a href="home.html" class="nav-item">Inicio</a>
+          <a href="mi-bio.html" class="nav-item active"
+            >Asistente de Mi Biomo</a
           >
-            <div style="flex: 1; overflow-y: auto; margin-bottom: 15px">
-              <!-- Chat messages would go here -->
-              <div
-                style="color: #cccccc; text-align: center; margin-top: 150px"
-              >
+          <a href="#" class="nav-item">Asistente de Nuevas Convocatorias</a>
+          <a href="#" class="nav-item">Asistente Explorador de Anteproyectos</a>
+          <a href="#" class="nav-item">Informes, Métricas y Análisis</a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button class="support-btn">Contacta con el soporte</button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="topbar">
+          <div class="user-info">
+            <span>EcoRanger</span>
+            <div class="user-avatar">E</div>
+          </div>
+        </div>
+
+        <div class="content-area">
+          <header class="page-header">
+            <h1 class="page-title">Mi Biomo</h1>
+            <p class="page-subtitle">Bioma ID: 1234</p>
+          </header>
+
+          <div class="chat-container">
+            <div class="chat-messages">
+              <div class="empty-state">
                 Escribe tu consulta sobre biomonitorización...
               </div>
             </div>
 
-            <!-- Chat input -->
-            <div style="display: flex; gap: 10px">
-              <input
-                type="text"
-                placeholder="Escribe..."
-                style="
-                  flex: 1;
-                  padding: 12px;
-                  background-color: #4a4a4a;
-                  border: none;
-                  border-radius: 25px;
-                  color: white;
-                  outline: none;
-                "
-              />
-              <button
-                style="
-                  background-color: #7dae5b;
-                  border: none;
-                  border-radius: 50%;
-                  width: 45px;
-                  height: 45px;
-                  cursor: pointer;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                "
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  stroke-width="2"
-                >
-                  <path d="m5 12 7-7 7 7"></path>
-                  <path d="m12 19 0-14"></path>
-                </svg>
-              </button>
+            <div class="chat-input-area">
+              <div class="input-container">
+                <input
+                  type="text"
+                  class="chat-input"
+                  placeholder="Escribe..."
+                />
+                <button class="send-btn">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="2"
+                  >
+                    <path d="m5 12 7-7 7 7"></path>
+                    <path d="m12 19 0-14"></path>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Action button -->
-          <div style="text-align: right">
-            <button
-              style="
-                background-color: #7dae5b;
-                border: none;
-                border-radius: 25px;
-                color: white;
-                padding: 10px 20px;
-                cursor: pointer;
-                font-size: 0.9rem;
-              "
-            >
-              📊 Subir Datos
+          <div class="actions-bar">
+            <button class="upload-btn">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7,10 12,15 17,10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Subir Datos
             </button>
           </div>
         </div>
       </main>
     </div>
+
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.querySelector(".sidebar-overlay");
+        const menuToggle = document.querySelector(".menu-toggle");
+
+        sidebar.classList.toggle("open");
+        overlay.classList.toggle("active");
+        menuToggle.classList.toggle("open");
+      }
+
+      function closeSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.querySelector(".sidebar-overlay");
+        const menuToggle = document.querySelector(".menu-toggle");
+
+        sidebar.classList.remove("open");
+        overlay.classList.remove("active");
+        menuToggle.classList.remove("open");
+      }
+
+      // Close sidebar when pressing Escape key
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeSidebar();
+        }
+      });
+    </script>
   </body>
 </html>
