@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getRegistros, getUsuarios, getBiomas, getAnteproyectos, getEcorangers, createRecord, createBiomas, autenticacion } from "../controllers/index.controllers.js";
+import { getChatCompletion } from "../controllers/chat.controllers.js";
 import upload from "../middleware/multerConfig.js";
 //import { verificarToken } from "../middleware/token.js";
 
@@ -13,6 +14,6 @@ router.get("/ecorangers", getEcorangers);
 router.post("/records",upload.array("images", 5), createRecord);
 router.post('/biomas', upload.none(), createBiomas);
 router.post("/login", autenticacion);
-
+router.post("/chat/completions", getChatCompletion);
 
 export default router;
