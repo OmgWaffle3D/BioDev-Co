@@ -3,143 +3,84 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mawi - Asistente Mi Biomo</title>
+    <title>Mi Biomo - Mawi</title>
     <link rel="stylesheet" href="../styles/style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <div class="mi-bio-container">
-      <!-- Menu Toggle Button -->
-      <button class="menu-toggle" onclick="toggleSidebar()">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <polyline points="9,18 15,12 9,6"></polyline>
-        </svg>
-      </button>
+  <body class="home-bg">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo-container">
+        <img
+          src="../imagenes/logo.png"
+          alt="Mawi Logo"
+          style="width: 24px; height: 24px"
+        />
+        <span>Mawi</span>
+      </div>
+      <div class="user-profile">
+        <span>EcoRanger</span>
+        <div class="avatar"></div>
+      </div>
+    </nav>
 
-      <!-- Sidebar Overlay -->
-      <div class="sidebar-overlay" onclick="closeSidebar()"></div>
-
+    <!-- Main Container -->
+    <div class="main-container">
       <!-- Sidebar -->
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-          <h1>Mawi</h1>
+      <div id="sidebar" class="sidebar">
+        <!-- Toggle Button -->
+        <div class="toggle-btn">
+          <span class="material-icons">chevron_left</span>
         </div>
 
-        <nav class="sidebar-nav">
-          <a href="home.html" class="nav-item">Inicio</a>
-          <a href="mi-bio.html" class="nav-item active"
-            >Asistente de Mi Biomo</a
-          >
-          <a href="#" class="nav-item">Asistente de Nuevas Convocatorias</a>
-          <a href="#" class="nav-item">Asistente Explorador de Anteproyectos</a>
-          <a href="#" class="nav-item">Informes, Métricas y Análisis</a>
-        </nav>
+        <!-- Menu Items -->
+        <ul class="menu-items">
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#" style="color: white">Asistente de Mi Biomo</a></li>
+          <li><a href="#">Asistente de Nuevas Convocatorias</a></li>
+          <li><a href="#">Asistente Explorador de Anteproyectos</a></li>
+          <li><a href="#">Informes, Métricas y Análisis</a></li>
+        </ul>
 
-        <div class="sidebar-footer">
-          <button class="support-btn">Contacta con el soporte</button>
+        <!-- Support Button -->
+        <div class="support-button-container">
+          <button class="support-button">
+            <span class="material-icons">support_agent</span>
+            Contacta con el soporte
+          </button>
         </div>
-      </aside>
+      </div>
 
       <!-- Main Content -->
-      <main class="main-content">
-        <div class="topbar">
-          <div class="user-info">
-            <span>EcoRanger</span>
-            <div class="user-avatar">E</div>
-          </div>
-        </div>
+      <div class="main-content">
+        <h1 class="biomo-title">Asistente de Mi Biomo</h1>
+        <p class="biomo-id">Biombo ID: 1234</p>
 
-        <div class="content-area">
-          <header class="page-header">
-            <h1 class="page-title">Mi Biomo</h1>
-            <p class="page-subtitle">Bioma ID: 1234</p>
-          </header>
+        <!-- Agregar el contenedor del historial del chat -->
+        <div id="chat-history" class="chat-history"></div>
 
-          <div class="chat-container">
-            <div class="chat-messages">
-              <div class="empty-state">
-                Escribe tu consulta sobre biomonitorización...
-              </div>
-            </div>
-
-            <div class="chat-input-area">
-              <div class="input-container">
-                <input
-                  type="text"
-                  class="chat-input"
-                  placeholder="Escribe..."
-                />
-                <button class="send-btn">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="white"
-                    stroke-width="2"
-                  >
-                    <path d="m5 12 7-7 7 7"></path>
-                    <path d="m12 19 0-14"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="actions-bar">
+        <!-- Chat Input Area -->
+        <div class="chat-input-area">
+          <div class="chat-input-container">
+            <input
+              type="text"
+              id="user-input"
+              placeholder="Escribe tu mensaje..."
+              class="chat-input"
+            />
+            <button id="send-button" class="send-btn">
+              <span class="material-icons">send</span>
+            </button>
             <button class="upload-btn">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7,10 12,15 17,10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              Subir Datos
+              <span class="material-icons">file_upload</span>
             </button>
           </div>
         </div>
-      </main>
+      </div>
     </div>
-
-    <script>
-      function toggleSidebar() {
-        const sidebar = document.getElementById("sidebar");
-        const overlay = document.querySelector(".sidebar-overlay");
-        const menuToggle = document.querySelector(".menu-toggle");
-
-        sidebar.classList.toggle("open");
-        overlay.classList.toggle("active");
-        menuToggle.classList.toggle("open");
-      }
-
-      function closeSidebar() {
-        const sidebar = document.getElementById("sidebar");
-        const overlay = document.querySelector(".sidebar-overlay");
-        const menuToggle = document.querySelector(".menu-toggle");
-
-        sidebar.classList.remove("open");
-        overlay.classList.remove("active");
-        menuToggle.classList.remove("open");
-      }
-
-      // Close sidebar when pressing Escape key
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-          closeSidebar();
-        }
-      });
-    </script>
+    <script src="../scripts/asistente.js"></script>
   </body>
 </html>
