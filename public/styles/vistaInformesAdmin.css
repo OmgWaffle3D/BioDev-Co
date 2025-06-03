@@ -1,12 +1,12 @@
 /* Layout */
 .body-bg {
-  background-color: #111827;
+  background-color: #2F2F2F;
   min-height: 100vh;
   display: flex;
 }
 .sidebar {
   width: 16rem;
-  background-color: #1f2937;
+  background-color: #232425;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -33,14 +33,14 @@
   transition: background 0.2s;
 }
 .sidebar-link:hover {
-  background: #374151;
+  background: #505050;
 }
 .sidebar-footer {
   padding: 1.5rem;
 }
 .sidebar-support-btn {
   width: 100%;
-  background: #15803d;
+  background: #3F3F3F;
   color: #fff;
   padding: 0.5rem 0;
   border-radius: 0.375rem;
@@ -49,18 +49,20 @@
   cursor: pointer;
 }
 .sidebar-support-btn:hover {
-  background: #166534;
+  background: #505050;
 }
 
 /* Top bar */
+/* ...existing code... */
 .topbar {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background: #1f2937;
+  background: #232425; /* Match sidebar color */
   height: 4rem;
   padding: 0 2rem;
 }
+/* ...existing code... */
 .topbar-user {
   display: flex;
   align-items: center;
@@ -85,7 +87,7 @@
 .dashboard-main {
   flex: 1;
   padding: 2rem;
-  background: #111827;
+  background: #232425;
 }
 .dashboard-title {
   font-size: 1.5rem;
@@ -105,7 +107,7 @@
   }
 }
 .dashboard-card {
-  background: #1f2937;
+  background: #3F3F3F;
   border-radius: 0.5rem;
   padding: 1.5rem;
   display: flex;
@@ -143,7 +145,7 @@
 
 /* Table */
 .dashboard-table-container {
-  background: #1f2937;
+  background: #3F3F3F;
   border-radius: 0.5rem;
   padding: 1.5rem;
   overflow-x: auto;
@@ -156,26 +158,26 @@
 }
 .dashboard-table th {
   color: #4ade80;
-  border-bottom: 1px solid #374151;
+  border-bottom: 1px solid #3F3F3F;
   padding: 0.5rem 1rem;
 }
 .dashboard-table td {
   padding: 0.5rem 1rem;
 }
 .dashboard-table tbody tr {
-  border-bottom: 1px solid #374151;
+  border-bottom: 1px solid #232425;
 }
 .dashboard-table tbody tr:hover {
-  background: #262c36;
+  background: #232425;
   transition: background 0.2s;
 }
 
 /* Custom scrollbar for sidebar and table */
 ::-webkit-scrollbar {
   width: 8px;
-  background: #23272f;
+  background: #232425;
 }
 ::-webkit-scrollbar-thumb {
-  background: #374151;
+  background: #232425;
   border-radius: 4px;
 }
