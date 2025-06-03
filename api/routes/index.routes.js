@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getRegistros, getUsuarios, getBiomas, getAnteproyectos, getEcorangers, createRecord, createBiomas, autenticacion } from "../controllers/index.controllers.js";
+import { getRegistros, getUsuarios, getBiomas, getAnteproyectos, getEcorangers, createRecord, createBiomas, autenticacion } from "../controllers/user.controllers.js";
 import { getChatCompletion } from "../controllers/chat.controllers.js";
 import upload from "../middleware/multerConfig.js";
 //import { verificarToken } from "../middleware/token.js";
