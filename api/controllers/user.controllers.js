@@ -251,8 +251,20 @@ export const autenticacion = (req, res) => {
         return res.status(500).json({ isLogin: false, error: "Error en el servidor" });
       }
       if (results.length > 0) {
+        // Generar token JWT
+        const token = jwt.sign(
+          { 
+            id: results[0].id,
+            correo: results[0].correo,
+            rol: results[0].rol 
+          },
+          process.env.JWT_SECRET,
+          { expiresIn: '24h' }
+        );
+
         return res.json({
           isLogin: true,
+          token: token,
           user: {
             id: results[0].id,
             name: results[0].nombre,

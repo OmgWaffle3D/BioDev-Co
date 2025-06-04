@@ -2,18 +2,24 @@ import { Router } from "express";
 import { getRegistros, getUsuarios, getBiomas, getAnteproyectos, getEcorangers, createRecord, createBiomas, autenticacion } from "../controllers/user.controllers.js";
 import { getChatCompletion } from "../controllers/chat.controllers.js";
 import upload from "../middleware/multerConfig.js";
-//import { verificarToken } from "../middleware/token.js";
+import { verificarToken } from "../middleware/token.js";
+import { verificarAdmin } from "../middleware/verificarRol.js";
 
 const router = Router();
 
-router.get("/registros", getRegistros);
-router.get("/usuarios", getUsuarios);
-router.get("/anteproyectos", getAnteproyectos);
-router.get("/biomas", getBiomas);
-router.get("/ecorangers", getEcorangers);
-router.post("/records",upload.array("images", 5), createRecord);
-router.post('/biomas', upload.none(), createBiomas);
+// Rutas públicas
 router.post("/login", autenticacion);
-router.post("/chat/completions", getChatCompletion);
+
+// Rutas protegidas para todos los usuarios
+router.post("/records", verificarToken, upload.array("images", 5), createRecord);
+router.get("/biomas", verificarToken, getBiomas);
+router.post("/chat/completions", verificarToken, getChatCompletion);
+
+// Rutas protegidas solo para administradores
+router.get("/registros", verificarToken, verificarAdmin, getRegistros);
+router.get("/usuarios", verificarToken, verificarAdmin, getUsuarios);
+router.get("/anteproyectos", verificarToken, verificarAdmin, getAnteproyectos);
+router.get("/ecorangers", verificarToken, verificarAdmin, getEcorangers);
+router.post('/biomas', verificarToken, verificarAdmin, upload.none(), createBiomas);
 
 export default router;
