@@ -1,129 +1,241 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <title>Informes, Métricas y Análisis</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="../styles/vistaInformesAdmin.css">
-</head>
-<body class="body-bg">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div>
-      <div class="sidebar-logo">
-        <span style="font-size:2rem;font-weight:bold;display:flex;align-items:center;gap:0.5rem;">
-          <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
-            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
-          </svg>
-          Mawi
-        </span>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Informes, Métricas y Análisis</title>
+    <script src="../scripts/auth.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../styles/vistaInformesAdmin.css" />
+    <link rel="stylesheet" href="../styles/navbar.css" />
+  </head>
+  <body class="body-bg">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-logo">
+          <span
+            style="
+              font-size: 2rem;
+              font-weight: bold;
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+            "
+          >
+            <svg
+              class="w-7 h-7 text-white"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="4"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+              />
+            </svg>
+            Mawi
+          </span>
+        </div>
+        <nav class="sidebar-nav">
+          <ul class="sidebar-list">
+            <li><a href="home.html" class="sidebar-link">Home</a></li>
+            <li><a href="#" class="sidebar-link">Número de Biomas</a></li>
+            <li><a href="#" class="sidebar-link">Numero de Ecorangers</a></li>
+            <li>
+              <a href="#" class="sidebar-link">Número de Anteproyectos</a>
+            </li>
+            <li><a href="#" class="sidebar-link">Conexión SFDC</a></li>
+            <li>
+              <a href="vistaInformesAdmin.html" class="sidebar-link"
+                >Informes, Métricas y Análisis</a
+              >
+            </li>
+            <li><a href="#" class="sidebar-link">Crear EcoRanger</a></li>
+            <li>
+              <a href="vistaEcoRanger.html" class="sidebar-link"
+                >View de Ecoranger</a
+              >
+            </li>
+          </ul>
+        </nav>
       </div>
-      <nav class="sidebar-nav">
-        <ul class="sidebar-list">
-          <li><a href="home.html" class="sidebar-link">Home</a></li>
-          <li><a href="#" class="sidebar-link">Número de Biomas</a></li>
-          <li><a href="#" class="sidebar-link">Numero de Ecorangers</a></li>
-          <li><a href="#" class="sidebar-link">Número de Anteproyectos</a></li>
-          <li><a href="#" class="sidebar-link">Conexión SFDC</a></li>
-          <li><a href="vistaInformesAdmin.html" class="sidebar-link">Informes, Métricas y Análisis</a></li>
-          <li><a href="#" class="sidebar-link">Crear EcoRanger</a></li>
-          <li><a href="vistaEcoRanger.html" class="sidebar-link">View de Ecoranger</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="sidebar-footer">
-      <button class="sidebar-support-btn">Contacta con el soporte</button>
-    </div>
-  </aside>
+      <div class="sidebar-footer">
+        <button class="sidebar-support-btn">Contacta con el soporte</button>
+      </div>
+    </aside>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <!-- Top Bar -->
-    <header class="topbar">
-      <div class="topbar-user">
-        <span style="color:#d1d5db;">Administrador</span>
-        <span class="topbar-avatar">
-          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="8" r="4" />
-            <path d="M6 20c0-2.2 3.6-3.5 6-3.5s6 1.3 6 3.5" />
-          </svg>
-        </span>
-      </div>
-    </header>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="navbar-user-container">
+          <div class="user-info">
+            <div class="user-avatar">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="9" r="3"/>
+                <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+              </svg>
+            </div>
+            <span>Administrador</span>
+          </div>
+          <button onclick="cerrarSesion()" class="logout-button">
+            Cerrar Sesión
+          </button>
+        </div>
+      </header>
 
-    <!-- Dashboard Content -->
-    <main class="dashboard-main">
-      <h1 class="dashboard-title">Informes, Métricas y Análisis</h1>
-      <!-- Cards -->
-      <div class="dashboard-cards">
-        <div class="dashboard-card">
-          <div class="relative w-24 h-24 mb-4">
-            <svg class="w-full h-full" viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="75,100" />
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100" />
-            </svg>
-            <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">3</span>
+      <!-- Dashboard Content -->
+      <main class="dashboard-main">
+        <h1 class="dashboard-title">Informes, Métricas y Análisis</h1>
+        <!-- Cards -->
+        <div class="dashboard-cards">
+          <div class="dashboard-card">
+            <div class="relative w-24 h-24 mb-4">
+              <svg class="w-full h-full" viewBox="0 0 36 36">
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#15803d"
+                  stroke-width="4"
+                  stroke-dasharray="75,100"
+                />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#166534"
+                  stroke-width="4"
+                  stroke-dasharray="100,100"
+                />
+              </svg>
+              <span
+                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
+                >3</span
+              >
+            </div>
+            <div class="dashboard-card-title">Número de Biomos</div>
+            <div class="dashboard-card-desc">Cantidad de biomas creados</div>
+            <button class="dashboard-card-btn">View Report</button>
           </div>
-          <div class="dashboard-card-title">Número de Biomos</div>
-          <div class="dashboard-card-desc">Cantidad de biomas creados</div>
-          <button class="dashboard-card-btn">View Report</button>
-        </div>
-        <div class="dashboard-card">
-          <div class="relative w-24 h-24 mb-4">
-            <svg class="w-full h-full" viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="60,100" />
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100" />
-            </svg>
-            <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">2</span>
+          <div class="dashboard-card">
+            <div class="relative w-24 h-24 mb-4">
+              <svg class="w-full h-full" viewBox="0 0 36 36">
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#15803d"
+                  stroke-width="4"
+                  stroke-dasharray="60,100"
+                />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#166534"
+                  stroke-width="4"
+                  stroke-dasharray="100,100"
+                />
+              </svg>
+              <span
+                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
+                >2</span
+              >
+            </div>
+            <div class="dashboard-card-title">Número de EcoRanger</div>
+            <div class="dashboard-card-desc">
+              Cantidad de usuarios que usan esta herramienta.
+            </div>
+            <button class="dashboard-card-btn">View Report</button>
           </div>
-          <div class="dashboard-card-title">Número de EcoRanger</div>
-          <div class="dashboard-card-desc">Cantidad de usuarios que usan esta herramienta.</div>
-          <button class="dashboard-card-btn">View Report</button>
-        </div>
-        <div class="dashboard-card">
-          <div class="relative w-24 h-24 mb-4">
-            <svg class="w-full h-full" viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="40,100" />
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100" />
-            </svg>
-            <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">2</span>
+          <div class="dashboard-card">
+            <div class="relative w-24 h-24 mb-4">
+              <svg class="w-full h-full" viewBox="0 0 36 36">
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#15803d"
+                  stroke-width="4"
+                  stroke-dasharray="40,100"
+                />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#166534"
+                  stroke-width="4"
+                  stroke-dasharray="100,100"
+                />
+              </svg>
+              <span
+                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
+                >2</span
+              >
+            </div>
+            <div class="dashboard-card-title">Número de EcoRanger</div>
+            <div class="dashboard-card-desc">
+              Cantidad de usuarios que usan esta herramienta.
+            </div>
+            <button class="dashboard-card-btn">View Report</button>
           </div>
-          <div class="dashboard-card-title">Número de EcoRanger</div>
-          <div class="dashboard-card-desc">Cantidad de usuarios que usan esta herramienta.</div>
-          <button class="dashboard-card-btn">View Report</button>
         </div>
-      </div>
-      <!-- Table -->
-      <div class="dashboard-table-container">
-        <table class="dashboard-table">
-          <thead>
-            <tr>
-              <th>Biomo</th>
-              <th>Región</th>
-              <th>Fecha inicio</th>
-              <th>Fase actual</th>
-              <th>Comunidad Vinculada</th>
-              <th>Indicador de Avance</th>
-              <th>Última Actividad</th>
-            </tr>
-          </thead>
-          <tbody id="biomas-table-body">
-            <!-- JS will fill this with real data -->
-          </tbody>
-        </table>
-      </div>
-    </main>
-  </div>
-  <script>
-    // Example: Fetch and render biomas table data
-    fetch('/api/biomas')
-      .then(res => res.json())
-      .then(data => {
-        const tbody = document.getElementById('biomas-table-body');
-        tbody.innerHTML = '';
-        (data.data || []).forEach(bioma => {
-          tbody.innerHTML += `
+        <!-- Table -->
+        <div class="dashboard-table-container">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>Biomo</th>
+                <th>Región</th>
+                <th>Fecha inicio</th>
+                <th>Fase actual</th>
+                <th>Comunidad Vinculada</th>
+                <th>Indicador de Avance</th>
+                <th>Última Actividad</th>
+              </tr>
+            </thead>
+            <tbody id="biomas-table-body">
+              <!-- JS will fill this with real data -->
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+    <script>
+      // Example: Fetch and render biomas table data
+      fetch("/api/biomas", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const tbody = document.getElementById("biomas-table-body");
+          tbody.innerHTML = "";
+          (data.data || []).forEach((bioma) => {
+            tbody.innerHTML += `
             <tr>
               <td>${bioma.codigo_bioma}</td>
               <td>${bioma.region}</td>
@@ -134,8 +246,8 @@
               <td>${new Date(bioma.ultima_actividad).toLocaleDateString()}</td>
             </tr>
           `;
+          });
         });
-      });
-  </script>
-</body>
+    </script>
+  </body>
 </html>

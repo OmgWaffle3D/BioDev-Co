@@ -6,9 +6,22 @@ async function verificarAutenticacion() {
         return false;
     }
     
+    // Verificar si estamos en una página de admin
+    const isAdminPage = window.location.pathname.includes('vistaInformesAdmin') || 
+                       window.location.pathname.includes('vistaEcoRanger');
+    
+    // Obtener el rol del usuario
+    const userRole = sessionStorage.getItem('rol');
+    
+    // Si es página de admin y el usuario no es admin, redirigir a home
+    if (isAdminPage && userRole !== 'admin') {
+        window.location.href = '/pages/home.html';
+        return false;
+    }
+    
     try {
         // Hacer una petición a una ruta protegida para validar el token
-        const response = await fetch('http://localhost:4000/api/usuarios', {
+        const response = await fetch('http://localhost:4000/api/biomas', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
