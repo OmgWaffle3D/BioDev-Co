@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <script src="../scripts/coincidepassword.js"></script>
   <meta charset="UTF-8" />
   <title>Mawi - Crear cuenta</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,44 +12,43 @@
     <h2 class="text-2xl font-bold text-center mb-1">Crear cuenta</h2>
     <p class="text-sm text-center text-gray-300 mb-6">¿Tienes cuenta? Inicia sesión</p>
 
-    <form>
-      <!-- Nombre -->
-      <div class="mb-4">
-        <label class="block text-sm font-medium mb-1">Nombre*</label>
-        <input type="text" placeholder="Escribe..." class="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
-      </div>
+    <form onsubmit="return validarFormulario()">
+  <!-- Nombre -->
+  <div class="mb-4">
+    <label class="block text-sm font-medium mb-1">Nombre*</label>
+    <input type="text" required placeholder="Escribe..." class="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
+  </div>
 
-      <!-- Apellidos -->
-      <div class="mb-4">
-        <label class="block text-sm font-medium mb-1">Apellidos*</label>
-        <input type="text" placeholder="Escribe..." class="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
-      </div>
+  <!-- Apellidos -->
+  <div class="mb-4">
+    <label class="block text-sm font-medium mb-1">Apellidos*</label>
+    <input type="text" required placeholder="Escribe..." class="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
+  </div>
 
-      <!-- Correo electrónico -->
-      <div class="mb-4">
-        <label class="block text-sm font-medium mb-1">Correo electrónico*</label>
-        <input type="email" placeholder="Escribe..." class="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
-      </div>
+  <!-- Correo electrónico -->
+  <div class="mb-4">
+    <label class="block text-sm font-medium mb-1">Correo electrónico*</label>
+    <input type="email" required placeholder="Escribe..." class="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
+  </div>
 
-      <!-- Contraseña -->
-      <div class="mb-4">
-        <label class="block text-sm font-medium mb-1">Contraseña*</label>
-        <input type="password" placeholder="Escribe..." class="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
-      </div>
+  <!-- Contraseña -->
+  <div class="mb-4">
+    <label class="block text-sm font-medium mb-1">Contraseña*</label>
+    <input type="password" required placeholder="Escribe..." id="pass1" class="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
+  </div>
 
-      <!-- Confirmar contraseña -->
-      <div class="mb-6">
-        <label class="block text-sm font-medium mb-1">Confirmar nueva contraseña</label>
-        <input type="password" placeholder="Escribe..." class="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
-      </div>
+  <!-- Confirmar contraseña -->
+  <div class="mb-6">
+    <label class="block text-sm font-medium mb-1">Confirmar nueva contraseña</label>
+    <input type="password" required placeholder="Escribe..." id="pass2" class="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
+  </div>
 
-      <!-- Botón Siguiente -->
-      <a href="agregarimagen.html" class="w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-2 rounded-md flex items-center justify-center gap-2">
-  Siguiente
-  <span class="text-lg">➔</span>
-</a>
-
-    </form>
+  <!-- Botón Siguiente -->
+  <button type="submit" class="w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-2 rounded-md flex items-center justify-center gap-2">
+    Siguiente
+    <span class="text-lg">➔</span>
+  </button>
+</form>
 
     <!-- Ayuda -->
     <p class="text-xs text-center text-gray-400 mt-4">
