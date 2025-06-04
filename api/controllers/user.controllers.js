@@ -51,7 +51,8 @@ export const registerUser = (req, res) => {
     pais,
     provincia,
     ciudad,
-    organizacion
+    organizacion,
+    descripcion
   } = req.body;
 
   // Guarda la ruta del archivo si se subió una foto
@@ -61,9 +62,9 @@ export const registerUser = (req, res) => {
 
   pool.query(
     `INSERT INTO usuarios 
-      (nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, foto_perfil)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, foto_perfil],
+      (nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil],
     (err, results) => {
       if (err) return res.status(500).json({ error: err.message });
       res.status(201).json({ msg: "Usuario registrado", id: results.insertId });
