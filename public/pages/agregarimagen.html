@@ -12,10 +12,10 @@
 
     <!-- Icono circular + -->
     <label for="profile-image" class="cursor-pointer inline-block">
-      <div class="w-40 h-40 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
-        <span class="text-5xl text-gray-600">+</span>
+      <div id="image-preview" class="w-40 h-40 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-6 overflow-hidden">
+        <span id="plus-icon" class="text-5xl text-gray-600">+</span>
       </div>
-      <input type="file" id="profile-image" class="hidden" />
+      <input type="file" id="profile-image" accept="image/*" class="hidden" />
     </label>
 
     <!-- Botón siguiente -->
@@ -29,5 +29,7 @@
     </p>
   </div>
 
+  <!-- Script -->
+  <script src="../scripts/previewImage.js"></script>
 </body>
 </html>
