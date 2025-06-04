@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mawi - Asistente de Nuevas Convocatorias</title>
+    <script src="../scripts/auth.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="text-white font-sans" style="background-color: #353535">
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <aside
+        class="w-64 p-4 flex flex-col justify-between"
+        style="background-color: #202020"
+      >
+        <div>
+          <div class="text-2xl font-bold flex items-center gap-2 mb-6">
+            <span></span>
+            <span>Mawi</span>
+          </div>
+          <nav class="space-y-4">
+            <a href="#" class="block text-white hover:text-green-400">Inicio</a>
+            <a href="#" class="block text-white hover:text-green-400"
+              >Asistente de Mi Bioma</a
+            >
+            <a href="#" class="block text-green-400 font-semibold"
+              >Asistente de Nuevas Convocatorias</a
+            >
+            <a href="#" class="block text-white hover:text-green-400"
+              >Asistente Explorador de Anteproyectos</a
+            >
+            <a href="#" class="block text-white hover:text-green-400"
+              >Informes, Métricas y Análisis</a
+            >
+          </nav>
+        </div>
+        <button
+          class="bg-[#4F4F4F] text-white py-2 px-4 rounded hover:bg-gray-600"
+        >
+          Contacta con el soporte
+        </button>
+      </aside>
+
+      <!-- Main content -->
+      <main class="flex-1 p-0">
+        <!-- Top bar -->
+        <div
+          class="flex justify-between items-center px-10 py-4"
+          style="background-color: #151515"
+        >
+          <h1 class="text-2xl font-bold">Asistente de Nuevas Convocatorias</h1>
+          <div class="text-sm">EcoRanger <span class="ml-2"></span></div>
+        </div>
+
+        <!-- Form section -->
+        <div class="p-10 grid grid-cols-2 gap-6">
+          <!-- Left Column -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm mb-1">Nombre del anteproyecto</label>
+              <input
+                type="text"
+                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
+              />
+            </div>
+            <div>
+              <label class="block text-sm mb-1">Fecha de cierre</label>
+              <input
+                type="date"
+                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
+              />
+            </div>
+            <div>
+              <label class="block text-sm mb-1">Sitio web</label>
+              <input
+                type="text"
+                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
+              />
+            </div>
+            <button
+              class="bg-[#2E7033] text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+              Guardar ahora
+            </button>
+          </div>
+
+          <!-- Right Column -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm mb-1">Región</label>
+              <input
+                type="text"
+                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
+              />
+            </div>
+            <div>
+              <label class="block text-sm mb-1">Organización</label>
+              <input
+                type="text"
+                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
+              />
+            </div>
+            <div>
+              <label class="block text-sm mb-1">País</label>
+              <input
+                type="text"
+                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
+              />
+            </div>
+            <div>
+              <label class="block text-sm mb-1">Descripción</label>
+              <textarea
+                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
+                rows="3"
+              ></textarea>
+            </div>
+            <button
+              class="bg-[#2E7033] text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

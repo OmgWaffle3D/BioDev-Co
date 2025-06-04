@@ -1,4 +1,3 @@
-/* middlewares/token.js
 import jwt from "jsonwebtoken";
 
 export const verificarToken = (req, res, next) => {
@@ -18,4 +17,3 @@ export const verificarToken = (req, res, next) => {
     return res.status(401).json({ message: "Token inválido o expirado" });
   }
 };
-*/

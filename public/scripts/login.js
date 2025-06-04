@@ -15,6 +15,10 @@ const  login =  async () => {
     console.log('Respuesta del servidor:', res); // Agregar esta línea
     // Si el login es correcto
     if (res.isLogin) {
+        // Guardar el token JWT
+        localStorage.setItem('token', res.token);
+        
+        // Guardar información del usuario
         sessionStorage.setItem("name", res.user.name);
         sessionStorage.setItem("id", res.user.id);
         sessionStorage.setItem("rol", res.user.rol);
