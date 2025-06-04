@@ -40,6 +40,37 @@ export const getEcorangers = (req, res) => {
   });
 };
 
+// Post de usuarios
+export const registerUser = (req, res) => {
+  const {
+    nombre,
+    apellido,
+    correo,
+    contrasena,
+    telefono,
+    pais,
+    provincia,
+    ciudad,
+    organizacion
+  } = req.body;
+
+  // Guarda la ruta del archivo si se subió una foto
+  const foto_perfil = req.file ? `/uploads/${req.file.filename}` : null;
+
+  // Valida los campos requeridos aquí si lo deseas
+
+  pool.query(
+    `INSERT INTO usuarios 
+      (nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, foto_perfil)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, foto_perfil],
+    (err, results) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.status(201).json({ msg: "Usuario registrado", id: results.insertId });
+    }
+  );
+};
+
 // Combined POST for ecological data and images
 export const createRecord = (req, res) => {
   const {
