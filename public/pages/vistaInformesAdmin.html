@@ -2,252 +2,180 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Informes, Métricas y Análisis</title>
     <script src="../scripts/auth.js"></script>
-    <script src="../scripts/navbar.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="../styles/vistaInformesAdmin.css" />
-    <link rel="stylesheet" href="../styles/navbar.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const toggleBtn = document.getElementById("sidebarToggle");
+        const sidebar = document.getElementById("sidebar");
+        toggleBtn?.addEventListener("click", () => {
+          sidebar.classList.toggle("-translate-x-full");
+        });
+      });
+
+      function toggleDropdown() {
+        document.getElementById("userDropdown").classList.toggle("hidden");
+      }
+
+      function cerrarSesion() {
+        localStorage.removeItem("token");
+        window.location.href = "/login.html";
+      }
+    </script>
+    <style>
+      :root {
+        --color-dark: #1c1f1f;
+        --color-medium: #3c3c3c;
+        --color-light: #505050;
+      }
+      body {
+        background-color: var(--color-dark);
+      }
+    </style>
   </head>
-  <body class="body-bg">
+  <body class="flex h-screen text-white overflow-hidden">
     <!-- Sidebar -->
-    <aside class="sidebar">
-      <div>
-        <div class="sidebar-logo">
-          <span
-            style="
-              font-size: 2rem;
-              font-weight: bold;
-              display: flex;
-              align-items: center;
-              gap: 0.5rem;
-            "
-          >
-            <svg
-              class="w-7 h-7 text-white"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="2"
-                fill="none"
-              />
-              <circle
-                cx="12"
-                cy="12"
-                r="4"
-                stroke="currentColor"
-                stroke-width="2"
-                fill="none"
-              />
-            </svg>
-            Mawi
-          </span>
-        </div>
-        <nav class="sidebar-nav">
-          <ul class="sidebar-list">
-            <li><a href="#" class="sidebar-link">Home</a></li>
-            <li><a href="#" class="sidebar-link">Número de Biomas</a></li>
-            <li><a href="#" class="sidebar-link">Numero de Ecorangers</a></li>
-            <li>
-              <a href="#" class="sidebar-link">Número de Anteproyectos</a>
-            </li>
-            <li><a href="#" class="sidebar-link">Conexión SFDC</a></li>
-            <li>
-              <a href="vistaInformesAdmin.html" class="sidebar-link"
-                >Informes, Métricas y Análisis</a
-              >
-            </li>
-            <li><a href="#" class="sidebar-link">Crear EcoRanger</a></li>
-            <li>
-              <a href="vistaEcoRanger.html" class="sidebar-link"
-                >View de Ecoranger</a
-              >
-            </li>
-          </ul>
-        </nav>
+    <aside id="sidebar" class="w-64 p-4 space-y-4 transform transition-transform duration-300 md:translate-x-0 -translate-x-full md:relative fixed h-full z-30" style="background-color: var(--color-medium)">
+      <div class="text-2xl font-bold flex items-center gap-2">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" />
+        </svg>
+        Mawi
       </div>
-      <div class="sidebar-footer">
-        <button class="sidebar-support-btn">Contacta con el soporte</button>
-      </div>
+      <nav>
+        <ul class="space-y-2">
+          <li><a href="#" class="block p-2 hover:bg-gray-700 rounded">Home</a></li>
+          <li><a href="#" class="block p-2 hover:bg-gray-700 rounded">Número de Biomas</a></li>
+          <li><a href="#" class="block p-2 hover:bg-gray-700 rounded">Numero de Ecorangers</a></li>
+          <li><a href="#" class="block p-2 hover:bg-gray-700 rounded">Número de Anteproyectos</a></li>
+          <li><a href="#" class="block p-2 hover:bg-gray-700 rounded">Conexión SFDC</a></li>
+          <li><a href="vistaInformesAdmin.html" class="block p-2 hover:bg-gray-700 rounded">Informes, Métricas y Análisis</a></li>
+          <li><a href="#" class="block p-2 hover:bg-gray-700 rounded">Crear EcoRanger</a></li>
+          <li><a href="vistaEcoRanger.html" class="block p-2 hover:bg-gray-700 rounded">View de Ecoranger</a></li>
+        </ul>
+      </nav>
+      <button class="mt-auto w-full py-2 rounded flex items-center justify-center gap-2" style="background-color: var(--color-light)">
+        <span class="material-icons">support_agent</span> Contacta con el soporte
+      </button>
     </aside>
 
     <!-- Main Content -->
-    <div class="main-content">
-      <!-- Top Bar -->
-      <header class="topbar">
-        <div class="navbar-user-container">
-          <div class="user-info">
-            <div class="user-avatar">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <circle cx="12" cy="9" r="3"/>
-                <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
-              </svg>
-            </div>
-            <span>Administrador</span>
+    <div class="flex-1 flex flex-col overflow-auto">
+      <!-- Navbar -->
+      <nav class="flex justify-between items-center px-6 py-4 shadow-md" style="background-color: var(--color-medium)">
+        <button id="sidebarToggle" class="text-white md:hidden">
+          <span class="material-icons">menu</span>
+        </button>
+        <div class="text-2xl font-semibold">Mawi</div>
+        <div class="user-profile relative cursor-pointer" onclick="toggleDropdown()">
+          <span>Administrador</span>
+          <div class="avatar w-8 h-8 rounded-full bg-green-500 inline-block ml-2"></div>
+          <div id="userDropdown" class="absolute right-0 mt-2 bg-white text-black rounded shadow-lg hidden">
+            <a href="login.html" class="block px-4 py-2 hover:bg-gray-100" onclick="cerrarSesion()">
+              <i class="material-icons align-middle mr-2">logout</i> Cerrar sesión
+            </a>
           </div>
-          <button onclick="cerrarSesion()" class="logout-button">
-            Cerrar Sesión
-          </button>
         </div>
-      </header>
+      </nav>
 
       <!-- Dashboard Content -->
-      <main class="dashboard-main">
-        <h1 class="dashboard-title">Informes, Métricas y Análisis</h1>
-        <!-- Cards -->
-        <div class="dashboard-cards">
-          <div class="dashboard-card">
-            <div class="relative w-24 h-24 mb-4">
-              <svg class="w-full h-full" viewBox="0 0 36 36">
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="16"
-                  fill="none"
-                  stroke="#15803d"
-                  stroke-width="4"
-                  stroke-dasharray="75,100"
-                />
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="16"
-                  fill="none"
-                  stroke="#166534"
-                  stroke-width="4"
-                  stroke-dasharray="100,100"
-                />
-              </svg>
-              <span
-                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
-                >3</span
-              >
-            </div>
-            <div class="dashboard-card-title">Número de Biomos</div>
-            <div class="dashboard-card-desc">Cantidad de biomas creados</div>
-            <button class="dashboard-card-btn">View Report</button>
-          </div>
-          <div class="dashboard-card">
-            <div class="relative w-24 h-24 mb-4">
-              <svg class="w-full h-full" viewBox="0 0 36 36">
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="16"
-                  fill="none"
-                  stroke="#15803d"
-                  stroke-width="4"
-                  stroke-dasharray="60,100"
-                />
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="16"
-                  fill="none"
-                  stroke="#166534"
-                  stroke-width="4"
-                  stroke-dasharray="100,100"
-                />
-              </svg>
-              <span
-                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
-                >2</span
-              >
-            </div>
-            <div class="dashboard-card-title">Número de EcoRanger</div>
-            <div class="dashboard-card-desc">
-              Cantidad de usuarios que usan esta herramienta.
-            </div>
-            <button class="dashboard-card-btn">View Report</button>
-          </div>
-          <div class="dashboard-card">
-            <div class="relative w-24 h-24 mb-4">
-              <svg class="w-full h-full" viewBox="0 0 36 36">
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="16"
-                  fill="none"
-                  stroke="#15803d"
-                  stroke-width="4"
-                  stroke-dasharray="40,100"
-                />
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="16"
-                  fill="none"
-                  stroke="#166534"
-                  stroke-width="4"
-                  stroke-dasharray="100,100"
-                />
-              </svg>
-              <span
-                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
-                >2</span
-              >
-            </div>
-            <div class="dashboard-card-title">Número de EcoRanger</div>
-            <div class="dashboard-card-desc">
-              Cantidad de usuarios que usan esta herramienta.
-            </div>
-            <button class="dashboard-card-btn">View Report</button>
-          </div>
-        </div>
-        <!-- Table -->
-        <div class="dashboard-table-container">
-          <table class="dashboard-table">
-            <thead>
-              <tr>
-                <th>Biomo</th>
-                <th>Región</th>
-                <th>Fecha inicio</th>
-                <th>Fase actual</th>
-                <th>Comunidad Vinculada</th>
-                <th>Indicador de Avance</th>
-                <th>Última Actividad</th>
-              </tr>
-            </thead>
-            <tbody id="biomas-table-body">
-              <!-- JS will fill this with real data -->
-            </tbody>
-          </table>
-        </div>
-      </main>
+      <main class="p-6 overflow-auto" style="background-color: var(--color-dark)">
+  <h1 class="text-2xl font-bold mb-6">Informes, Métricas y Análisis</h1>
+
+  <!-- Tarjetas de métricas -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <!-- Tarjeta 1 -->
+    <div class="p-6 rounded-xl text-center" style="background-color: var(--color-medium)">
+      <div class="relative w-24 h-24 mx-auto mb-4">
+        <svg class="w-full h-full" viewBox="0 0 36 36">
+          <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="75,100" />
+          <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100" />
+        </svg>
+        <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">3</span>
+      </div>
+      <div class="font-bold text-lg">Número de Biomos</div>
+      <div class="text-gray-400 mb-4">Cantidad de biomas creados</div>
+      <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
     </div>
-    <script>
-      // Example: Fetch and render biomas table data
-      fetch("/api/biomas", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          const tbody = document.getElementById("biomas-table-body");
-          tbody.innerHTML = "";
-          (data.data || []).forEach((bioma) => {
-            tbody.innerHTML += `
-            <tr>
-              <td>${bioma.codigo_bioma}</td>
-              <td>${bioma.region}</td>
-              <td>${new Date(bioma.fecha_inicio).toLocaleDateString()}</td>
-              <td>${bioma.fase_actual}</td>
-              <td>${bioma.comunidad_vinculada}</td>
-              <td>${bioma.indicador_avance}%</td>
-              <td>${new Date(bioma.ultima_actividad).toLocaleDateString()}</td>
-            </tr>
-          `;
-          });
-        });
-    </script>
+
+    <!-- Tarjeta 2 -->
+    <div class="p-6 rounded-xl text-center" style="background-color: var(--color-medium)">
+      <div class="relative w-24 h-24 mx-auto mb-4">
+        <svg class="w-full h-full" viewBox="0 0 36 36">
+          <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="60,100" />
+          <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100" />
+        </svg>
+        <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">2</span>
+      </div>
+      <div class="font-bold text-lg">Número de EcoRanger</div>
+      <div class="text-gray-400 mb-4">Cantidad de usuarios que usan esta herramienta.</div>
+      <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
+    </div>
+
+    <!-- Tarjeta 3 -->
+    <div class="p-6 rounded-xl text-center" style="background-color: var(--color-medium)">
+      <div class="relative w-24 h-24 mx-auto mb-4">
+        <svg class="w-full h-full" viewBox="0 0 36 36">
+          <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="40,100" />
+          <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100" />
+        </svg>
+        <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">2</span>
+      </div>
+      <div class="font-bold text-lg">Número de EcoRanger</div>
+      <div class="text-gray-400 mb-4">Cantidad de usuarios que usan esta herramienta.</div>
+      <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
+    </div>
+  </div>
+
+  <!-- Tabla de Biomas -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full rounded-lg overflow-hidden" style="background-color: var(--color-medium)">
+      <thead class="text-green-400" style="background-color: var(--color-light)">
+        <tr>
+          <th class="px-4 py-2 text-left">Biomo</th>
+          <th class="px-4 py-2 text-left">Región</th>
+          <th class="px-4 py-2 text-left">Fecha inicio</th>
+          <th class="px-4 py-2 text-left">Fase actual</th>
+          <th class="px-4 py-2 text-left">Comunidad Vinculada</th>
+          <th class="px-4 py-2 text-left">Indicador de Avance</th>
+          <th class="px-4 py-2 text-left">Última Actividad</th>
+        </tr>
+      </thead>
+      <tbody class="text-white">
+        <tr class="border-t border-gray-700">
+          <td class="px-4 py-2">BIOMO-001</td>
+          <td class="px-4 py-2">Caldas/Riosucio</td>
+          <td class="px-4 py-2">2/1/2024</td>
+          <td class="px-4 py-2">Validación</td>
+          <td class="px-4 py-2">Resguardo Cañamomo</td>
+          <td class="px-4 py-2">75.00%</td>
+          <td class="px-4 py-2">5/12/2025</td>
+        </tr>
+        <tr class="border-t border-gray-700">
+          <td class="px-4 py-2">BIOMO-002</td>
+          <td class="px-4 py-2">Cauca/Silvia</td>
+          <td class="px-4 py-2">3/15/2024</td>
+          <td class="px-4 py-2">Desarrollo</td>
+          <td class="px-4 py-2">Comunidad Misak</td>
+          <td class="px-4 py-2">80.00%</td>
+          <td class="px-4 py-2">5/10/2025</td>
+        </tr>
+        <tr class="border-t border-gray-700">
+          <td class="px-4 py-2">BIOMO-003</td>
+          <td class="px-4 py-2">Putumayo/Mocoa</td>
+          <td class="px-4 py-2">1/10/2024</td>
+          <td class="px-4 py-2">Implementación</td>
+          <td class="px-4 py-2">Cabildo Inga</td>
+          <td class="px-4 py-2">20.00%</td>
+          <td class="px-4 py-2">5/16/2025</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+    </div>
   </body>
 </html>
