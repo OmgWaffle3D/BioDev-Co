@@ -42,10 +42,16 @@ async function getChatCompletion(message) {
         messages: [{ role: "user", content: message }],
     };
 
+    const token = localStorage.getItem('token');
+    if (!token) {
+        throw new Error('No estás autenticado');
+    }
+
     const response = await fetch(API_ENDPOINT, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(requestBody),
     });
