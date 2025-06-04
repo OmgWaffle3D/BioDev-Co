@@ -226,6 +226,9 @@ body.bg {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    min-height: calc(100vh - 60px); /* Altura total menos la altura del navbar */
+    display: flex;
+    align-items: center;
 }
   
 header {
@@ -260,6 +263,7 @@ header h1 {
     flex-direction: column;
     gap: 30px;
     align-items: center;
+    width: 100%;
 }
   
 .assistants-grid {
