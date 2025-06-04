@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_ENDPOINT = process.env.API_ENDPOINT;
-const API_KEY = process.env.API_KEY;
+const API_ENDPOINT = "http://10.14.255.61/v1/chat/completions";
+const API_KEY = "sk-mDmOn2bG9Z3GDNW-x8wdeQ";
 
 export const getChatCompletion = async (req, res) => {
     try {
