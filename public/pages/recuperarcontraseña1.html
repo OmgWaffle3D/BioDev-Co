@@ -11,22 +11,27 @@
     <div class="bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-md text-center">
       <h2 class="text-white text-xl font-bold mb-6">Recuperar contraseña</h2>
 
-      <div class="text-left mb-4">
-        <label for="email" class="block text-sm text-white mb-2">Correo electrónico</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Escribe tu correo..."
-          class="w-full px-4 py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
-      </div>
+      <!-- FORMULARIO -->
+      <form action="recuperarcontraseña2.html">
+        <div class="text-left mb-4">
+          <label for="email" class="block text-sm text-white mb-2">Correo electrónico</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="Escribe tu correo..."
+            class="w-full px-4 py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
 
-      <a
-  href="recuperarcontraseña2.html"
-  class="block w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-md text-center transition"
->
-  Enviar correo
-</a>
+        <button
+          type="submit"
+          class="block w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-md text-center transition"
+        >
+          Enviar correo
+        </button>
+      </form>
 
       <p class="text-sm text-gray-400 mt-4">
         ¿Necesitas ayuda? <a href="#" class="underline">Contacta con nosotros</a>
