@@ -6,57 +6,63 @@
     <title>Mawi - Asistente Explorador de Anteproyectos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../scripts/auth.js"></script>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
-  <body class="text-white font-sans" style="background-color: #353535">
-    <div class="flex h-screen">
+  <body class="home-bg">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo-container">
+        <span>Mawi</span>
+      </div>
+      <div class="user-profile">
+        <span>EcoRanger</span>
+        <div class="avatar"></div>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
       <!-- Sidebar -->
-      <aside
-        class="w-64 p-4 flex flex-col justify-between"
-        style="background-color: #202020"
-      >
-        <div>
-          <div class="text-2xl font-bold flex items-center gap-2 mb-6">
-            <span></span>
-            <span>Mawi</span>
-          </div>
-          <nav class="space-y-4">
-            <a href="#" class="block text-white hover:text-green-400">Inicio</a>
-            <a href="#" class="block text-white hover:text-green-400"
-              >Asistente de Mi Bioma</a
-            >
-            <a href="#" class="block text-white hover:text-green-400"
+      <div id="sidebar" class="sidebar">
+        <!-- Toggle Button -->
+        <div class="toggle-btn">
+          <span class="material-icons">chevron_left</span>
+        </div>
+
+        <!-- Menu Items -->
+        <ul class="menu-items">
+          <li><a href="./home.html">Inicio</a></li>
+          <li><a href="./mi-bio.html">Asistente de Mi Biomo</a></li>
+          <li>
+            <a href="./nuevas-convocatorias.html"
               >Asistente de Nuevas Convocatorias</a
             >
-            <a href="#" class="block text-green-400 font-semibold"
+          </li>
+          <li>
+            <a href="./explorador-anteproyectos.html" style="color: white"
               >Asistente Explorador de Anteproyectos</a
             >
-            <a href="#" class="block text-white hover:text-green-400"
-              >Informes, Métricas y Análisis</a
-            >
-          </nav>
-        </div>
-        <button
-          class="text-white py-2 px-4 rounded mt-6"
-          style="background-color: #4f4f4f"
-        >
-          Contacta con el soporte
-        </button>
-      </aside>
+          </li>
+          <li><a href="#">Informes, Métricas y Análisis</a></li>
+        </ul>
 
-      <!-- Main content -->
-      <main class="flex-1 p-0">
-        <!-- Top bar -->
-        <div
-          class="flex justify-between items-center px-10 py-4"
-          style="background-color: #151515"
-        >
-          <h1 class="text-2xl font-bold">
-            Asistente Explorador de Anteproyectos
-          </h1>
-          <div class="text-sm">EcoRanger <span class="ml-2"></span></div>
+        <!-- Support Button -->
+        <div class="support-button-container">
+          <button class="support-button">
+            <span class="material-icons">support_agent</span>
+            Contacta con el soporte
+          </button>
         </div>
+      </div>
 
-        <!-- Main section -->
+      <!-- Main Content -->
+      <div class="main-content">
+        <h1 class="biomo-title">Asistente Explorador de Anteproyectos</h1>
+
         <div class="p-10">
           <div class="mb-6">
             <label class="block text-sm mb-2">Nombre del Convocatoria</label>
@@ -68,7 +74,7 @@
                 style="background-color: #4f4f4f"
               />
               <button class="bg-gray-600 px-4 py-2 rounded hover:bg-gray-500">
-                ➤
+                <span class="material-icons">arrow_forward</span>
               </button>
             </div>
             <button
@@ -101,11 +107,14 @@
                 <p class="text-xs mt-1">Fecha de creación: 00/00/0000</p>
                 <p class="text-xs">Fecha límite: 00/00/0000</p>
               </div>
-              <div class="text-green-500 text-2xl"></div>
+              <div class="text-green-500 text-2xl">
+                <span class="material-icons">chevron_right</span>
+              </div>
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
+    <script src="../scripts/sidebar.js"></script>
   </body>
 </html>

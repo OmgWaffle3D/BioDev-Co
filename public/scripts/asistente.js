@@ -2,13 +2,6 @@ const chatHistory = document.getElementById("chat-history");
 const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
 
-// Add sidebar toggle functionality
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector(".toggle-btn")?.addEventListener("click", function() {
-        document.getElementById("sidebar").classList.toggle("collapsed");
-    });
-});
-
 sendButton?.addEventListener("click", sendMessage);
 
 userInput?.addEventListener("keypress", (event) => {
