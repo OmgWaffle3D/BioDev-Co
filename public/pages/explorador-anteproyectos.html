@@ -6,6 +6,7 @@
     <title>Mawi - Asistente Explorador de Anteproyectos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../scripts/auth.js"></script>
+    <script src="../scripts/navbar.js"></script>
     <link rel="stylesheet" href="../styles/style.css" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -21,6 +22,12 @@
       <div class="user-profile">
         <span>EcoRanger</span>
         <div class="avatar"></div>
+        <div id="userDropdown" class="user-dropdown hidden">
+          <a href="#" class="user-dropdown-item">
+            <i class="fas fa-sign-out-alt"></i>
+            Cerrar sesión
+          </a>
+        </div>
       </div>
     </nav>
 
