@@ -257,7 +257,7 @@ export const autenticacion = (req, res) => {
             id: results[0].id,
             name: results[0].nombre,
             correo: results[0].correo,
-            rol: results[0].rol // Adding the role to the response
+            rol: results[0].rol
           }
         });
       } else {
