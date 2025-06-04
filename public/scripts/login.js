@@ -12,22 +12,23 @@ const  login =  async () => {
         body: JSON.stringify(credentials)});
 
     const res = await data.json();
-    //console.log(username.value + " " + password.value);
+    console.log('Respuesta del servidor:', res); // Agregar esta línea
     // Si el login es correcto
     if (res.isLogin) {
         sessionStorage.setItem("name", res.user.name);
         sessionStorage.setItem("id", res.user.id);
-        window.location = "../pages/home.html";
-    }else {
+        sessionStorage.setItem("rol", res.user.rol);
+        
+        // Redireccionar según el rol
+        if (res.user.rol === "admin") {
+            window.location = "../pages/vistaInformesAdmin.html";
+        } else {
+            window.location = "../pages/home.html";
+        }
+    } else {
         // Si el login es incorrecto
-    alert("Credenciales incorrectas");
-
+        alert("Credenciales incorrectas");
     }
-   
-    
-    
-
-    
 };
 
 
