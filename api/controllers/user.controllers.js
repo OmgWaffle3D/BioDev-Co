@@ -1,6 +1,7 @@
 import { pool } from "../db/db.js";
 import upload from "../middleware/multerConfig.js";
 import path from "path"; // For ES module compatibility
+import jwt from 'jsonwebtoken';
 
 // GET all registros
 export const getRegistros = (req, res) => {
