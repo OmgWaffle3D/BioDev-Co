@@ -260,7 +260,7 @@ export const autenticacion = (req, res) => {
             rol: results[0].rol 
           },
           process.env.JWT_SECRET,
-          { expiresIn: '24h' }
+          { expiresIn: '3h' }
         );
 
         return res.json({
