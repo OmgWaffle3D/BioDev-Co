@@ -10,44 +10,71 @@
   <div class="bg-gray-800 text-white p-10 rounded-xl w-full max-w-sm text-center shadow-lg">
     <h2 class="text-xl font-semibold mb-6">Tu imagen de perfil</h2>
 
-
     <form id="registerForm" enctype="multipart/form-data">
       <label for="profile-image" class="cursor-pointer inline-block">
-        <div class="w-40 h-40 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
-          <span class="text-5xl text-gray-600">+</span>
+        <div id="image-preview" class="w-40 h-40 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-6 overflow-hidden">
+          <span id="plus-icon" class="text-5xl text-gray-600">+</span>
         </div>
         <input type="file" id="profile-image" name="foto_perfil" accept="image/*" class="hidden" required />
       </label>
+
       <button type="submit" class="block w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-2 rounded-md mb-4">
         Registrar <span class="ml-2">➔</span>
       </button>
     </form>
 
-
-    <!-- Ayuda -->
     <p class="text-xs text-gray-400">
       <a href="#" class="hover:underline">¿Necesitas ayuda? Contacta con nosotros</a>
     </p>
   </div>
 
-
   <script>
+    const input = document.getElementById("profile-image");
+    const preview = document.getElementById("image-preview");
+    const plusIcon = document.getElementById("plus-icon");
+
+    input.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          plusIcon.style.display = "none";
+          preview.style.backgroundImage = `url(${e.target.result})`;
+          preview.style.backgroundSize = "cover";
+          preview.style.backgroundPosition = "center";
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+
     document.getElementById('registerForm').onsubmit = async function(e) {
       e.preventDefault();
+
       const formData = new FormData(this);
       const data = JSON.parse(localStorage.getItem('registerData')) || {};
+
       for (const key in data) {
         formData.append(key, data[key]);
       }
-      const res = await fetch('/api/register', { method: 'POST', body: formData });
-      const result = await res.json();
-      if(result.msg) {
-        localStorage.removeItem('registerData');
-        window.location.href = "register-complete.html";
-      } else {
-        alert(result.error || "Error al registrar");
+
+      try {
+        const res = await fetch('/api/register', { method: 'POST', body: formData });
+        const result = await res.json();
+
+        if (result.msg) {
+          localStorage.removeItem('registerData');
+          window.location.href = "register-complete.html";
+        } else {
+          alert(result.error || "Error al registrar");
+        }
+      } catch (error) {
+        alert("Error de conexión al servidor");
+        console.error(error);
       }
     };
   </script>
+
 </body>
 </html>
