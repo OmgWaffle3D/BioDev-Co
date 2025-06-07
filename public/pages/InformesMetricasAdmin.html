@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Informes, Métricas y Análsis</title>
+    <script src="../scripts/auth.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="home-bg">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo-container">
+        <span>Mawi</span>
+      </div>
+      <div class="user-profile">
+        <span>Administrador</span>
+        <div class="avatar"></div>
+        <div id="userDropdown" class="user-dropdown hidden">
+          <a href="#" class="user-dropdown-item">
+            <i class="fas fa-sign-out-alt"></i>
+            Cerrar sesión
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Sidebar -->
+      <div id="sidebar" class="sidebar">
+        <!-- Toggle Button -->
+        <div class="toggle-btn">
+          <span class="material-icons">chevron_left</span>
+        </div>
+
+        <!-- Menu Items -->
+        <ul class="menu-items">
+          <li><a href="./home.html">Inicio</a></li>
+          <li>
+            <a href="./mi-bio.html" style="color: white"
+              >Asistente de Mi Biomo</a
+            >
+          </li>
+          <li>
+            <a href="./nuevas-convocatorias.html"
+              >Asistente de Nuevas Convocatorias</a
+            >
+          </li>
+          <li>
+            <a href="./explorador-anteproyectos.html"
+              >Asistente Explorador de Anteproyectos</a
+            >
+          </li>
+          <li><a href="./InformesMetricasAdmin.html">Informes, Métricas y Análisis</a></li>
+        </ul>
+
+        <!-- Support Button -->
+        <div class="support-button-container">
+          <button class="support-button">
+            <span class="material-icons">support_agent</span>
+            Contacta con el soporte
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <h1 class="biomo-title">Informes, Métricas y Análisis</h1>
+
+        <!-- Agregar el contenedor del historial del chat -->
+        <div id="chat-history" class="chat-history"></div>
+
+        <!-- Chat Input Area -->
+        <div class="chat-input-area">
+          <div class="chat-input-container">
+            <input
+              type="text"
+              id="user-input"
+              placeholder="Escribe tu mensaje..."
+              class="chat-input"
+            />
+            <button id="send-button" class="send-btn">
+              <span class="material-icons">send</span>
+            </button>
+            <button class="upload-btn">
+              <span class="material-icons">file_upload</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../scripts/sidebar.js"></script>
+    <script src="../scripts/asistente.js"></script>
+  </body>
+</html>

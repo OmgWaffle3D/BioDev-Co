@@ -23,8 +23,9 @@
       <nav class="sidebar-nav">
         <ul class="sidebar-list">
           <li><a href="#" class="sidebar-link">Home</a></li>
-          <li><a href="vistaInformesAdmin.html" class="sidebar-link">Informes, Métricas y Análisis</a></li>
+          <li><a href="vistaInformesAdmin.html" class="sidebar-link">Vista Adminisrador</a></li>
           <li><a href="vistaEcoRanger.html" class="sidebar-link">View de Ecoranger</a></li>
+          <li><a href="InformesMetricasAdmin.html" class="block p-2 hover:bg-gray-700 rounded">Informes, Métricas y Análisis</a></li>
         </ul>
       </nav>
     </div>
@@ -50,36 +51,35 @@
 
     <!-- Dashboard Content -->
     <main class="View EcoRanger p-6 space-y-6">
-  <!-- EcoRanger Card -->
-  <div class="bg-green-700 text-white rounded-lg p-4 flex flex-col md:flex-row items-center justify-between shadow-lg">
-    <!-- Imagen y datos -->
-    <div class="flex items-center gap-4">
-      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="EcoRanger" class="w-24 h-24 rounded-md object-cover">
-      <div class="text-sm space-y-1">
-        <p><strong>Labor:</strong> EcoRanger</p>
-        <p><strong>Nombre:</strong> Lucas</p>
-        <p><strong>Apellidos:</strong> Jiménez Roca</p>
-        <p><strong>País:</strong> España</p>
-        <p><strong>Región:</strong> Castilla y León</p>
-        <p><strong>Ciudad:</strong> Salamanca</p>
-        <p><strong>Correo:</strong> lucas.jiménez@somosawaq.org</p>
-        <p><strong>Número de contacto:</strong> +34 655 76 25 93</p>
-      </div>
-    </div>
+      <!-- EcoRanger Card -->
+      <div class="bg-green-700 text-white rounded-lg p-4 flex flex-col md:flex-row items-center justify-between shadow-lg">
+        <!-- Imagen y datos -->
+        <div class="flex items-center gap-4">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="EcoRanger" class="w-24 h-24 rounded-md object-cover">
+          <div class="text-sm space-y-1">
+            <p><strong>Labor:</strong> EcoRanger</p>
+            <p><strong>Nombre:</strong> Lucas</p>
+            <p><strong>Apellidos:</strong> Jiménez Roca</p>
+            <p><strong>País:</strong> España</p>
+            <p><strong>Región:</strong> Castilla y León</p>
+            <p><strong>Ciudad:</strong> Salamanca</p>
+            <p><strong>Correo:</strong> lucas.jiménez@somosawaq.org</p>
+            <p><strong>Número de contacto:</strong> +34 655 76 25 93</p>
+          </div>
+        </div>
 
-     <!-- Botones y análisis -->
-    <div class="flex flex-col items-end gap-2 mt-4 md:mt-0">
-      <button class="bg-gray-700 text-white px-4 py-2 rounded-md font-semibold">
-        Informes, Métricas y Análisis
-      </button>
-      <div class="flex gap-2">
-        <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md">Crear EcoRanger</button>
-        <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-1 rounded-md">Editar EcoRanger</button>
+        <!-- Botones y análisis -->
+        <div class="flex flex-col items-end gap-2 mt-4 md:mt-0">
+          <a href="InformesMetricasAdmin.html" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md font-semibold text-center">
+            Informes, Métricas y Análisis
+          </a>
+          <div class="flex gap-2">
+            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md">Crear EcoRanger</button>
+            <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-1 rounded-md">Editar EcoRanger</button>
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
   </div>
-
-
-  </main>
 </body>
 </html>
