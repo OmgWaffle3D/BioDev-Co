@@ -1,153 +1,208 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Aprobar Usuarios - Mawi</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/styles/vistaInformesAdmin.css">
-    <script src="../scripts/navbar.js" defer></script> <!-- para que funcione el dropdown -->
-</head>
+    <link rel="stylesheet" href="/styles/vistaInformesAdmin.css" />
+    <script src="../scripts/navbar.js" defer></script>
+    <!-- para que funcione el dropdown -->
+  </head>
 
-<body class="body-bg">
-
+  <body class="body-bg">
     <!-- Sidebar -->
     <aside class="sidebar">
-        <div>
-            <div class="sidebar-logo">
-                <h1 class="text-2xl font-bold">Mawi</h1>
-            </div>
-            <nav class="sidebar-nav">
-                <ul class="sidebar-list">
-                    <li><a href="vistaInformesAdmin.html" class="sidebar-link">Vista Administrador</a></li>
-                    <li><a href="vistaEcoRanger.html" class="sidebar-link">View de Ecoranger</a></li>
-                    <li><a href="validarusuario.html" class="sidebar-link text-green-400 font-bold">Ver Perfiles por Validar</a></li>
-                </ul>
-            </nav>
+      <div>
+        <div class="sidebar-logo">
+          <h1 class="text-2xl font-bold">Mawi</h1>
         </div>
-        <div class="sidebar-footer">
-            <button class="sidebar-support-btn">Contacta con el soporte</button>
-        </div>
+        <nav class="sidebar-nav">
+          <ul class="sidebar-list">
+            <li>
+              <a href="vistaInformesAdmin.html" class="sidebar-link"
+                >Vista Administrador</a
+              >
+            </li>
+            <li>
+              <a href="vistaEcoRanger.html" class="sidebar-link"
+                >View de Ecoranger</a
+              >
+            </li>
+            <li>
+              <a
+                href="validarusuario.html"
+                class="sidebar-link text-green-400 font-bold"
+                >Ver Perfiles por Validar</a
+              >
+            </li>
+            <li>
+              <a href="InformesMetricasAdmin.html" class="sidebar-link"
+                >Informes, Métricas y Análisis</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="sidebar-footer">
+        <button class="sidebar-support-btn">Contacta con el soporte</button>
+      </div>
     </aside>
 
     <!-- Main Content -->
     <div class="main-content">
-
-        <!-- Top Bar -->
-        <header class="topbar">
-            <div class="topbar-user user-profile relative cursor-pointer text-white">
-                <span style="color:#d1d5db;">Administrador</span>
-                <span class="topbar-avatar bg-green-500 w-8 h-8 rounded-full ml-2 inline-flex items-center justify-center">
-                    <svg class="w-5 h-5 text-gray-100" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <circle cx="12" cy="8" r="4" />
-                        <path d="M6 20c0-2.2 3.6-3.5 6-3.5s6 1.3 6 3.5" />
-                    </svg>
-                </span>
-                <!-- Dropdown -->
-                <div id="userDropdown" class="absolute right-0 mt-2 bg-white text-black rounded shadow-lg hidden">
-                    <a href="/pages/login.html" class="block px-4 py-2 hover:bg-gray-100 user-dropdown-item">
-                        <i class="material-icons align-middle mr-2">Cerrar sesión</i> 
-                    </a>
-                </div>
-            </div>
-        </header>
-
-        <!-- Dashboard Content -->
-        <div class="dashboard-main">
-            <h1 class="dashboard-title">Aprobar Usuarios</h1>
-
-            <!-- Mensaje bonito -->
-            <div id="statusMessage" class="hidden mb-4 p-3 rounded text-white font-semibold"></div>
-
-            <div id="usuariosContainer" class="dashboard-cards">
-                <!-- Los usuarios se insertarán aquí -->
-            </div>
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div
+          class="topbar-user user-profile relative cursor-pointer text-white"
+        >
+          <span style="color: #d1d5db">Administrador</span>
+          <span
+            class="topbar-avatar bg-green-500 w-8 h-8 rounded-full ml-2 inline-flex items-center justify-center"
+          >
+            <svg
+              class="w-5 h-5 text-gray-100"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="8" r="4" />
+              <path d="M6 20c0-2.2 3.6-3.5 6-3.5s6 1.3 6 3.5" />
+            </svg>
+          </span>
+          <!-- Dropdown -->
+          <div
+            id="userDropdown"
+            class="absolute right-0 mt-2 bg-white text-black rounded shadow-lg hidden"
+          >
+            <a
+              href="/pages/login.html"
+              class="block px-4 py-2 hover:bg-gray-100 user-dropdown-item"
+            >
+              <i class="material-icons align-middle mr-2">Cerrar sesión</i>
+            </a>
+          </div>
         </div>
+      </header>
 
+      <!-- Dashboard Content -->
+      <div class="dashboard-main">
+        <h1 class="dashboard-title">Aprobar Usuarios</h1>
+
+        <!-- Mensaje bonito -->
+        <div
+          id="statusMessage"
+          class="hidden mb-4 p-3 rounded text-white font-semibold"
+        ></div>
+
+        <div id="usuariosContainer" class="dashboard-cards">
+          <!-- Los usuarios se insertarán aquí -->
+        </div>
+      </div>
     </div>
 
     <!-- Script -->
     <script>
-        async function cargarUsuariosPendientes() {
-            try {
-                const response = await fetch('/api/usuarios/pendientes', {
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('token')
-                    }
-                });
-                const data = await response.json();
+      async function cargarUsuariosPendientes() {
+        try {
+          const response = await fetch("/api/usuarios/pendientes", {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+          const data = await response.json();
 
-                const container = document.getElementById('usuariosContainer');
-                container.innerHTML = '';
+          const container = document.getElementById("usuariosContainer");
+          container.innerHTML = "";
 
-                if (data.data.length === 0) {
-                    container.innerHTML = '<p class="text-gray-400">No hay usuarios pendientes.</p>';
-                    return;
-                }
+          if (data.data.length === 0) {
+            container.innerHTML =
+              '<p class="text-gray-400">No hay usuarios pendientes.</p>';
+            return;
+          }
 
-                data.data.forEach(usuario => {
-                    const userDiv = document.createElement('div');
-                    userDiv.className = 'dashboard-card';
+          data.data.forEach((usuario) => {
+            const userDiv = document.createElement("div");
+            userDiv.className = "dashboard-card";
 
-                    userDiv.innerHTML = `
-                        <h2 class="text-xl font-bold text-green-400 mb-4">${usuario.nombre} ${usuario.apellido}</h2>
+            userDiv.innerHTML = `
+                        <h2 class="text-xl font-bold text-green-400 mb-4">${
+                          usuario.nombre
+                        } ${usuario.apellido}</h2>
                         <div class="space-y-1 text-gray-300 text-left w-full">
-                            <p>Correo: <span class="text-white">${usuario.correo}</span></p>
-                            <p>Organización: <span class="text-white">${usuario.organizacion || '-'}</span></p>
-                            <p>Estado actual: <span class="font-bold text-white">${usuario.estado}</span></p>
+                            <p>Correo: <span class="text-white">${
+                              usuario.correo
+                            }</span></p>
+                            <p>Organización: <span class="text-white">${
+                              usuario.organizacion || "-"
+                            }</span></p>
+                            <p>Estado actual: <span class="font-bold text-white">${
+                              usuario.estado
+                            }</span></p>
                         </div>
                         <div class="flex space-x-4 mt-6">
-                            <button class="dashboard-card-btn bg-green-600 hover:bg-green-700" onclick="cambiarEstado(${usuario.id}, 'aprobado')">Aprobar</button>
-                            <button class="dashboard-card-btn bg-red-600 hover:bg-red-700" onclick="cambiarEstado(${usuario.id}, 'rechazado')">Rechazar</button>
+                            <button class="dashboard-card-btn bg-green-600 hover:bg-green-700" onclick="cambiarEstado(${
+                              usuario.id
+                            }, 'aprobado')">Aprobar</button>
+                            <button class="dashboard-card-btn bg-red-600 hover:bg-red-700" onclick="cambiarEstado(${
+                              usuario.id
+                            }, 'rechazado')">Rechazar</button>
                         </div>
                     `;
-                    container.appendChild(userDiv);
-                });
-            } catch (error) {
-                console.error('Error al cargar usuarios:', error);
-            }
+            container.appendChild(userDiv);
+          });
+        } catch (error) {
+          console.error("Error al cargar usuarios:", error);
+        }
+      }
+
+      async function cambiarEstado(id, nuevoEstado) {
+        try {
+          const response = await fetch("/api/usuarios/estado", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            body: JSON.stringify({ id, nuevoEstado }),
+          });
+          const result = await response.json();
+
+          mostrarMensaje(
+            `Usuario ${
+              nuevoEstado === "aprobado" ? "aprobado" : "rechazado"
+            } correctamente ✅`,
+            nuevoEstado
+          );
+
+          cargarUsuariosPendientes();
+        } catch (error) {
+          console.error("Error al cambiar estado:", error);
+        }
+      }
+
+      function mostrarMensaje(mensaje, tipo) {
+        const statusMessage = document.getElementById("statusMessage");
+        statusMessage.textContent = mensaje;
+
+        if (tipo === "aprobado") {
+          statusMessage.className =
+            "mb-4 p-3 rounded text-white font-semibold bg-green-600";
+        } else if (tipo === "rechazado") {
+          statusMessage.className =
+            "mb-4 p-3 rounded text-white font-semibold bg-red-600";
         }
 
-        async function cambiarEstado(id, nuevoEstado) {
-            try {
-                const response = await fetch('/api/usuarios/estado', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem('token')
-                    },
-                    body: JSON.stringify({ id, nuevoEstado })
-                });
-                const result = await response.json();
+        statusMessage.classList.remove("hidden");
 
-                mostrarMensaje(`Usuario ${nuevoEstado === 'aprobado' ? 'aprobado' : 'rechazado'} correctamente ✅`, nuevoEstado);
+        setTimeout(() => {
+          statusMessage.classList.add("hidden");
+        }, 3000); // 3 segundos
+      }
 
-                cargarUsuariosPendientes();
-            } catch (error) {
-                console.error('Error al cambiar estado:', error);
-            }
-        }
-
-        function mostrarMensaje(mensaje, tipo) {
-            const statusMessage = document.getElementById('statusMessage');
-            statusMessage.textContent = mensaje;
-
-            if (tipo === 'aprobado') {
-                statusMessage.className = 'mb-4 p-3 rounded text-white font-semibold bg-green-600';
-            } else if (tipo === 'rechazado') {
-                statusMessage.className = 'mb-4 p-3 rounded text-white font-semibold bg-red-600';
-            }
-
-            statusMessage.classList.remove('hidden');
-
-            setTimeout(() => {
-                statusMessage.classList.add('hidden');
-            }, 3000); // 3 segundos
-        }
-
-        // Carga inicial
-        cargarUsuariosPendientes();
+      // Carga inicial
+      cargarUsuariosPendientes();
     </script>
-
-</body>
+  </body>
 </html>

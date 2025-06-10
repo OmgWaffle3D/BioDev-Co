@@ -6,7 +6,10 @@
     <title>Vista Administrador</title>
     <script src="../scripts/auth.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <style>
       :root {
         --color-dark: #1c1f1f;
@@ -20,98 +23,247 @@
   </head>
   <body class="flex h-screen text-white overflow-hidden">
     <!-- Sidebar -->
-    <aside id="sidebar" class="w-64 p-4 space-y-4 transform transition-transform duration-300 md:translate-x-0 -translate-x-full md:relative fixed h-full z-30" style="background-color: var(--color-medium)">
+    <aside
+      id="sidebar"
+      class="w-64 p-4 space-y-4 transform transition-transform duration-300 md:translate-x-0 -translate-x-full md:relative fixed h-full z-30"
+      style="background-color: var(--color-medium)"
+    >
       <div class="text-2xl font-bold flex items-center gap-2">
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" />
+        <svg
+          class="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="4" />
         </svg>
         Mawi
       </div>
       <nav>
         <ul class="space-y-2">
-          <li><a href="vistaInformesAdmin.html" class="block p-2 hover:bg-gray-700 rounded">Vista Administrador</a></li>
-          <li><a href="vistaEcoRanger.html" class="block p-2 hover:bg-gray-700 rounded">View de Ecoranger</a></li>
-          <li><a href="validarusuario.html" class="block p-2 hover:bg-gray-700 rounded">Ver Perfiles por Validar</a></li>
-          <li><a href="InformesMetricasAdmin.html" class="block p-2 hover:bg-gray-700 rounded">Informes, Métricas y Análisis</a></li>
+          <li>
+            <a
+              href="vistaInformesAdmin.html"
+              class="block p-2 hover:bg-gray-700 rounded"
+              >Vista Administrador</a
+            >
+          </li>
+          <li>
+            <a
+              href="vistaEcoRanger.html"
+              class="block p-2 hover:bg-gray-700 rounded"
+              >View de Ecoranger</a
+            >
+          </li>
+          <li>
+            <a
+              href="validarusuario.html"
+              class="block p-2 hover:bg-gray-700 rounded"
+              >Ver Perfiles por Validar</a
+            >
+          </li>
+          <li>
+            <a
+              href="InformesMetricasAdmin.html"
+              class="block p-2 hover:bg-gray-700 rounded"
+              >Informes, Métricas y Análisis</a
+            >
+          </li>
         </ul>
       </nav>
-      <button class="mt-auto w-full py-2 rounded flex items-center justify-center gap-2" style="background-color: var(--color-light)">
-        <span class="material-icons">support_agent</span> Contacta con el soporte
+      <button
+        class="mt-auto w-full py-2 rounded flex items-center justify-center gap-2"
+        style="background-color: var(--color-light)"
+      >
+        <span class="material-icons">support_agent</span> Contacta con el
+        soporte
       </button>
     </aside>
 
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-auto">
       <!-- Navbar -->
-      <nav class="flex justify-between items-center px-6 py-4 shadow-md" style="background-color: var(--color-medium)">
+      <nav
+        class="flex justify-between items-center px-6 py-4 shadow-md"
+        style="background-color: var(--color-medium)"
+      >
         <button id="sidebarToggle" class="text-white md:hidden">
           <span class="material-icons">menu</span>
         </button>
         <div class="text-2xl font-semibold">Mawi</div>
-        <div class="user-profile relative cursor-pointer" onclick="toggleDropdown()">
+        <div
+          class="user-profile relative cursor-pointer"
+          onclick="toggleDropdown()"
+        >
           <span>Administrador</span>
-          <div class="avatar w-8 h-8 rounded-full bg-green-500 inline-block ml-2"></div>
-          <div id="userDropdown" class="absolute right-0 mt-2 bg-white text-black rounded shadow-lg hidden">
-            <a href="login.html" class="block px-4 py-2 hover:bg-gray-100" onclick="cerrarSesion()">
-              <i class="material-icons align-middle mr-2">logout</i> Cerrar sesión
+          <div
+            class="avatar w-8 h-8 rounded-full bg-green-500 inline-block ml-2"
+          ></div>
+          <div
+            id="userDropdown"
+            class="absolute right-0 mt-2 bg-white text-black rounded shadow-lg hidden"
+          >
+            <a
+              href="login.html"
+              class="block px-4 py-2 hover:bg-gray-100"
+              onclick="cerrarSesion()"
+            >
+              <i class="material-icons align-middle mr-2">logout</i> Cerrar
+              sesión
             </a>
           </div>
         </div>
       </nav>
 
       <!-- Dashboard Content -->
-      <main class="p-6 overflow-auto" style="background-color: var(--color-dark)">
+      <main
+        class="p-6 overflow-auto"
+        style="background-color: var(--color-dark)"
+      >
         <h1 class="text-2xl font-bold mb-6">Vista Administrador</h1>
 
         <!-- Tarjetas de métricas -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <!-- Tarjeta 1 -->
-          <div class="p-6 rounded-xl text-center" style="background-color: var(--color-medium)">
+          <div
+            class="p-6 rounded-xl text-center"
+            style="background-color: var(--color-medium)"
+          >
             <div class="relative w-24 h-24 mx-auto mb-4">
               <svg class="w-full h-full" viewBox="0 0 36 36">
-                <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="75,100" />
-                <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100" />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#15803d"
+                  stroke-width="4"
+                  stroke-dasharray="75,100"
+                />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#166534"
+                  stroke-width="4"
+                  stroke-dasharray="100,100"
+                />
               </svg>
-              <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">3</span>
+              <span
+                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
+                >3</span
+              >
             </div>
             <div class="font-bold text-lg">Número de Biomos</div>
             <div class="text-gray-400 mb-4">Cantidad de biomas creados</div>
-            <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
+            <button
+              class="px-4 py-2 rounded"
+              style="background-color: var(--color-light)"
+            >
+              View Report
+            </button>
           </div>
 
           <!-- Tarjeta 2 -->
-          <div class="p-6 rounded-xl text-center" style="background-color: var(--color-medium)">
+          <div
+            class="p-6 rounded-xl text-center"
+            style="background-color: var(--color-medium)"
+          >
             <div class="relative w-24 h-24 mx-auto mb-4">
               <svg class="w-full h-full" viewBox="0 0 36 36">
-                <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="60,100" />
-                <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100" />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#15803d"
+                  stroke-width="4"
+                  stroke-dasharray="60,100"
+                />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#166534"
+                  stroke-width="4"
+                  stroke-dasharray="100,100"
+                />
               </svg>
-              <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">2</span>
+              <span
+                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
+                >2</span
+              >
             </div>
             <div class="font-bold text-lg">Número de EcoRanger</div>
-            <div class="text-gray-400 mb-4">Cantidad de usuarios que usan esta herramienta.</div>
-            <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
+            <div class="text-gray-400 mb-4">
+              Cantidad de usuarios que usan esta herramienta.
+            </div>
+            <button
+              class="px-4 py-2 rounded"
+              style="background-color: var(--color-light)"
+            >
+              View Report
+            </button>
           </div>
 
           <!-- Tarjeta 3 -->
-          <div class="p-6 rounded-xl text-center" style="background-color: var(--color-medium)">
+          <div
+            class="p-6 rounded-xl text-center"
+            style="background-color: var(--color-medium)"
+          >
             <div class="relative w-24 h-24 mx-auto mb-4">
               <svg class="w-full h-full" viewBox="0 0 36 36">
-                <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="40,100" />
-                <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100" />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#15803d"
+                  stroke-width="4"
+                  stroke-dasharray="40,100"
+                />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#166534"
+                  stroke-width="4"
+                  stroke-dasharray="100,100"
+                />
               </svg>
-              <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">2</span>
+              <span
+                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
+                >2</span
+              >
             </div>
             <div class="font-bold text-lg">Número de EcoRanger</div>
-            <div class="text-gray-400 mb-4">Cantidad de usuarios que usan esta herramienta.</div>
-            <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
+            <div class="text-gray-400 mb-4">
+              Cantidad de usuarios que usan esta herramienta.
+            </div>
+            <button
+              class="px-4 py-2 rounded"
+              style="background-color: var(--color-light)"
+            >
+              View Report
+            </button>
           </div>
         </div>
 
         <!-- Tabla de Biomas -->
         <div class="overflow-x-auto">
-          <table class="min-w-full rounded-lg overflow-hidden" style="background-color: var(--color-medium)">
-            <thead class="text-green-400" style="background-color: var(--color-light)">
+          <table
+            class="min-w-full rounded-lg overflow-hidden"
+            style="background-color: var(--color-medium)"
+          >
+            <thead
+              class="text-green-400"
+              style="background-color: var(--color-light)"
+            >
               <tr>
                 <th class="px-4 py-2 text-left">Biomo</th>
                 <th class="px-4 py-2 text-left">Región</th>
