@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mawi - Asistente de Nuevas Convocatorias</title>
+    <title>Mawi - Nuevas Convocatorias</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../scripts/auth.js"></script>
     <script src="../scripts/navbar.js"></script>
@@ -18,7 +18,9 @@
     <!-- Navbar -->
     <nav class="navbar">
       <div class="logo-container">
-        <span>Mawi</span>
+        <a href="./home.html" style="color: white; text-decoration: none">
+          <span>Mawi</span>
+        </a>
       </div>
       <div class="user-profile">
         <span id="userName">EcoRanger</span>
@@ -46,12 +48,12 @@
           <li><a href="./mi-bio.html">Asistente de Mi Biomo</a></li>
           <li>
             <a href="./nuevas-convocatorias.html" style="color: white"
-              >Asistente de Nuevas Convocatorias</a
+              >Nuevas Convocatorias</a
             >
           </li>
           <li>
             <a href="./explorador-anteproyectos.html"
-              >Asistente Explorador de Anteproyectos</a
+              >Explorador de Anteproyectos</a
             >
           </li>
         </ul>
@@ -67,40 +69,26 @@
 
       <!-- Main Content -->
       <div class="main-content">
-        <h1 class="biomo-title">Asistente de Nuevas Convocatorias</h1>
+        <h1 class="biomo-title">Nuevas Convocatorias</h1>
+        <p class="biomo-id">Gestión de Convocatorias Activas</p>
 
         <!-- Form section -->
         <div class="p-10 grid grid-cols-2 gap-6">
           <!-- Left Column -->
           <div class="space-y-4">
             <div>
-              <label class="block text-sm mb-1 text-white"
-                >Nombre del anteproyecto</label
-              >
-              <input
-                type="text"
-                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
-              />
+              <label class="form-label">Nombre del anteproyecto</label>
+              <input type="text" class="form-input" />
             </div>
             <div>
-              <label class="block text-sm mb-1 text-white"
-                >Fecha de cierre</label
-              >
-              <input
-                type="date"
-                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
-              />
+              <label class="form-label">Fecha de cierre</label>
+              <input type="date" class="form-input" />
             </div>
             <div>
-              <label class="block text-sm mb-1 text-white">Sitio web</label>
-              <input
-                type="text"
-                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
-              />
+              <label class="form-label">Sitio web</label>
+              <input type="text" class="form-input" />
             </div>
-            <button
-              class="bg-[#2E7033] text-white px-4 py-2 rounded hover:bg-green-600 flex items-center"
-            >
+            <button class="btn-primary flex items-center">
               <span class="material-icons mr-2">upload</span>
               Subir Datos
             </button>
@@ -109,39 +97,23 @@
           <!-- Right Column -->
           <div class="space-y-4">
             <div>
-              <label class="block text-sm mb-1 text-white">Región</label>
-              <input
-                type="text"
-                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
-              />
+              <label class="form-label">Región</label>
+              <input type="text" class="form-input" />
             </div>
             <div>
-              <label class="block text-sm mb-1 text-white">Organización</label>
-              <input
-                type="text"
-                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
-              />
+              <label class="form-label">Organización</label>
+              <input type="text" class="form-input" />
             </div>
             <div>
-              <label class="block text-sm mb-1 text-white">País</label>
-              <input
-                type="text"
-                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
-              />
+              <label class="form-label">País</label>
+              <input type="text" class="form-input" />
             </div>
             <div>
-              <label class="block text-sm mb-1 text-white">Descripción</label>
-              <textarea
-                class="bg-[#4F4F4F] text-white px-4 py-2 rounded w-full"
-                rows="3"
-              ></textarea>
+              <label class="form-label">Descripción</label>
+              <textarea class="form-input" rows="3"></textarea>
             </div>
             <div class="mt-4">
-              <button
-                class="bg-[#2E7033] text-white px-4 py-2 rounded hover:bg-green-600"
-              >
-                Guardar
-              </button>
+              <button class="btn-primary">Guardar</button>
             </div>
           </div>
         </div>

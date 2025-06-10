@@ -497,16 +497,66 @@ header h1 {
     width: 100%;
 }
 
-.biomo-title {
-    color: white;
-    font-size: 1.5rem;
-    margin: 0;
+/* Main content titles - Consistent styling across all pages */
+.main-content .biomo-title,
+h1.biomo-title {
+    color: white !important;
+    font-size: 1.5rem !important;
+    margin: 0 !important;
+    font-weight: normal !important;
+    line-height: 1.2 !important;
 }
 
 .biomo-id {
     color: #808080;
     font-size: 0.9rem;
     margin-top: 0.25rem;
+    font-weight: bold;
+}
+
+/* Subtitles - Consistent styling for all subtitle elements */
+.subtitle {
+    color: #808080;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    font-weight: bold;
+}
+
+/* Form Labels - Consistent styling */
+.form-label {
+    color: white;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Form Inputs - Consistent styling */
+.form-input {
+    background-color: #4f4f4f;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    width: 100%;
+}
+
+.form-input::placeholder {
+    color: #9ca3af;
+}
+
+/* Primary Button - Consistent styling */
+.btn-primary {
+    background-color: #2e7033;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #1e4a23;
 }
 
 /* Chat Input Area */
@@ -635,4 +685,15 @@ header h1 {
     .assistant-card {
         height: auto;
     }
+}
+
+/* Force consistent title styling - Override any conflicting styles */
+.main-content h1.biomo-title,
+.biomo-title {
+    color: white !important;
+    font-size: 1.5rem !important;
+    font-weight: normal !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+    padding: 0 !important;
 }

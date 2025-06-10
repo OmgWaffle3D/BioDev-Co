@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mawi - Asistente Explorador de Anteproyectos</title>
+    <title>Mawi - Explorador de Anteproyectos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../scripts/auth.js"></script>
     <script src="../scripts/navbar.js"></script>
@@ -18,7 +18,9 @@
     <!-- Navbar -->
     <nav class="navbar">
       <div class="logo-container">
-        <span>Mawi</span>
+        <a href="./home.html" style="color: white; text-decoration: none">
+          <span>Mawi</span>
+        </a>
       </div>
       <div class="user-profile">
         <span id="userName">EcoRanger</span>
@@ -45,13 +47,11 @@
         <ul class="menu-items">
           <li><a href="./mi-bio.html">Asistente de Mi Biomo</a></li>
           <li>
-            <a href="./nuevas-convocatorias.html"
-              >Asistente de Nuevas Convocatorias</a
-            >
+            <a href="./nuevas-convocatorias.html">Nuevas Convocatorias</a>
           </li>
           <li>
             <a href="./explorador-anteproyectos.html" style="color: white"
-              >Asistente Explorador de Anteproyectos</a
+              >Explorador de Anteproyectos</a
             >
           </li>
         </ul>
@@ -67,28 +67,23 @@
 
       <!-- Main Content -->
       <div class="main-content">
-        <h1 class="biomo-title">Asistente Explorador de Anteproyectos</h1>
+        <h1 class="biomo-title">Explorador de Anteproyectos</h1>
+        <p class="biomo-id">Búsqueda y Gestión de Proyectos</p>
 
         <div class="p-10">
           <div class="mb-6">
-            <label class="block text-sm mb-2">Nombre del Convocatoria</label>
+            <label class="form-label">Nombre de la Convocatoria</label>
             <div class="flex items-center gap-2">
               <input
                 type="text"
                 placeholder="Escriba..."
-                class="text-white px-4 py-2 rounded w-1/2"
-                style="background-color: #4f4f4f"
+                class="form-input w-1/2"
               />
               <button class="bg-gray-600 px-4 py-2 rounded hover:bg-gray-500">
                 <span class="material-icons">arrow_forward</span>
               </button>
             </div>
-            <button
-              class="mt-4 text-white px-4 py-2 rounded"
-              style="background-color: #2e7033"
-            >
-              Crear Nuevo Anteproyecto
-            </button>
+            <button class="btn-primary mt-4">Crear Nuevo Anteproyecto</button>
           </div>
 
           <!-- Tabs -->
@@ -108,10 +103,12 @@
               style="background-color: #4f4f4f"
             >
               <div>
-                <h2 class="font-semibold">Título</h2>
+                <h2 class="font-semibold text-white text-lg">Título</h2>
                 <p class="text-sm text-gray-300">Descripción</p>
-                <p class="text-xs mt-1">Fecha de creación: 00/00/0000</p>
-                <p class="text-xs">Fecha límite: 00/00/0000</p>
+                <p class="text-xs mt-1 text-gray-400">
+                  Fecha de creación: 00/00/0000
+                </p>
+                <p class="text-xs text-gray-400">Fecha límite: 00/00/0000</p>
               </div>
               <div class="text-green-500 text-2xl">
                 <span class="material-icons">chevron_right</span>
