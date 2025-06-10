@@ -19,6 +19,16 @@ export const getUsuarios = (req, res) => {
   });
 };
 
+export const getUsuariosPendientes = (req, res) => {
+  pool.query(
+    "SELECT * FROM usuarios WHERE estado = 'pendiente'",
+    (error, results) => {
+      if (error) return res.status(500).json({ message: error.message });
+      res.status(200).json({ msg: "OK", data: results });
+    }
+  );
+};
+
 export const getAnteproyectos = (req, res) => {
   pool.query("SELECT * FROM anteproyectos", (error, results) => {
     if (error) return res.status(500).json({ message: error.message });
@@ -61,13 +71,31 @@ export const registerUser = (req, res) => {
   // Valida los campos requeridos aquí si lo deseas
 
   pool.query(
-    `INSERT INTO usuarios 
-      (nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil],
-    (err, results) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.status(201).json({ msg: "Usuario registrado", id: results.insertId });
+  `INSERT INTO usuarios 
+    (nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil, estado)
+   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+  [nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil, 'pendiente'],
+  (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.status(201).json({ msg: "Usuario registrado", id: results.insertId });
+  }
+);
+};
+
+export const actualizarEstadoUsuario = (req, res) => {
+  const { id, nuevoEstado } = req.body;
+
+  const validStates = ["pendiente", "aprobado", "rechazado"];
+  if (!validStates.includes(nuevoEstado)) {
+    return res.status(400).json({ message: "Estado no válido" });
+  }
+
+  pool.query(
+    "UPDATE usuarios SET estado = ? WHERE id = ?",
+    [nuevoEstado, id],
+    (error, results) => {
+      if (error) return res.status(500).json({ message: error.message });
+      res.status(200).json({ msg: "Estado actualizado correctamente" });
     }
   );
 };
@@ -283,30 +311,44 @@ export const autenticacion = (req, res) => {
         console.error(err);
         return res.status(500).json({ isLogin: false, error: "Error en el servidor" });
       }
-      if (results.length > 0) {
-        // Generar token JWT
-        const token = jwt.sign(
-          { 
-            id: results[0].id,
-            correo: results[0].correo,
-            rol: results[0].rol 
-          },
-          process.env.JWT_SECRET,
-          { expiresIn: '3h' }
-        );
 
-        return res.json({
-          isLogin: true,
-          token: token,
-          user: {
-            id: results[0].id,
-            name: results[0].nombre,
-            correo: results[0].correo,
-            rol: results[0].rol
-          }
-        });
+      if (results.length > 0) {
+        const user = results[0];
+
+        if (user.estado === 'aprobado') {
+          // Usuario aprobado → generamos token
+          const token = jwt.sign(
+            { 
+              id: user.id,
+              correo: user.correo,
+              rol: user.rol 
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '3h' }
+          );
+
+          return res.json({
+            isLogin: true,
+            token: token,
+            user: {
+              id: user.id,
+              name: user.nombre,
+              correo: user.correo,
+              rol: user.rol
+            }
+          });
+
+        } else {
+          // Usuario no aprobado → regresamos razón
+          return res.json({
+            isLogin: false,
+            reason: user.estado === 'pendiente' ? 'pending' : 'rejected'
+          });
+        }
+
       } else {
-        return res.json({ isLogin: false });
+        // Usuario no existe o password incorrecto
+        return res.json({ isLogin: false, reason: 'invalid_credentials' });
       }
     }
   );

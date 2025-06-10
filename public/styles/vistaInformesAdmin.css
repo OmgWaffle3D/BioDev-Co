@@ -6,13 +6,15 @@
 }
 .sidebar {
   width: 16rem;
-  background-color: #232425;
+  background-color: #2C2F32; 
   color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+  border-right: 1px solid #3F3F3F; 
 }
+
 .sidebar-logo {
   display: flex;
   align-items: center;
