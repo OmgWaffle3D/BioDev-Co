@@ -334,7 +334,8 @@ export const autenticacion = (req, res) => {
               id: user.id,
               name: user.nombre,
               correo: user.correo,
-              rol: user.rol
+              rol: user.rol,
+              pfp: user.foto_perfil
             }
           });
 
