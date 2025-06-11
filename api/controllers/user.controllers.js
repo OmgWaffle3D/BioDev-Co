@@ -2,6 +2,7 @@ import { pool } from "../db/db.js";
 import upload from "../middleware/multerConfig.js";
 import path from "path"; // For ES module compatibility
 import jwt from 'jsonwebtoken';
+import { getSalt, hashPassword, verifyPassword } from "../utils/hash.js";
 
 // GET all registros
 export const getRegistros = (req, res) => {
@@ -64,6 +65,9 @@ export const registerUser = (req, res) => {
     organizacion,
     descripcion
   } = req.body;
+  const salt = getSalt();
+  const hash = hashPassword(contrasena, salt);
+  const hashedPassword = salt + hash;
 
   // Guarda la ruta del archivo si se subió una foto
   const foto_perfil = req.file ? `/uploads/${req.file.filename}` : null;
@@ -74,7 +78,7 @@ export const registerUser = (req, res) => {
   `INSERT INTO usuarios 
     (nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil, estado)
    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-  [nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil, 'pendiente'],
+  [nombre, apellido, correo, hashedPassword, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil, 'pendiente'],
   (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
     res.status(201).json({ msg: "Usuario registrado", id: results.insertId });
@@ -304,8 +308,8 @@ if (
 export const autenticacion = (req, res) => {
   const { username, password } = req.body;
   pool.query(
-    "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?",
-    [username, password],
+    "SELECT * FROM usuarios WHERE correo = ?",
+    [username],
     (err, results) => {
       if (err) {
         console.error(err);
@@ -314,6 +318,11 @@ export const autenticacion = (req, res) => {
 
       if (results.length > 0) {
         const user = results[0];
+        
+        // Verificar la contraseña hasheada
+        if (!verifyPassword(password, user.contrasena)) {
+          return res.json({ isLogin: false, reason: 'invalid_credentials' });
+        }
 
         if (user.estado === 'aprobado') {
           // Usuario aprobado → generamos token
@@ -347,7 +356,7 @@ export const autenticacion = (req, res) => {
         }
 
       } else {
-        // Usuario no existe o password incorrecto
+        // Usuario no existe
         return res.json({ isLogin: false, reason: 'invalid_credentials' });
       }
     }
