@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { getRegistros, getUsuarios, getUsuariosPendientes, actualizarEstadoUsuario, getBiomas, getAnteproyectos, getEcorangers, createRecord, createBiomas, autenticacion, postConvocatoria } from "../controllers/user.controllers.js";
 import { registerUser } from "../controllers/user.controllers.js";
-import { getChatCompletion } from "../controllers/chat.controllers.js";
-import upload from "../middleware/multerConfig.js";
+import { getChatCompletion, uploadChatFile } from "../controllers/chat.controllers.js";
+import upload, { chatUpload } from "../middleware/multerConfig.js";
 import { verificarToken } from "../middleware/token.js";
 import { verificarAdmin } from "../middleware/verificarRol.js";
 
@@ -15,6 +15,7 @@ router.post("/login", autenticacion);
 router.post("/records", verificarToken, upload.array("images", 5), createRecord);
 router.get("/biomas", verificarToken, getBiomas);
 router.post("/chat/completions", verificarToken, getChatCompletion);
+router.post("/chat/upload", verificarToken, chatUpload.single("file"), uploadChatFile);
 
 // Rutas protegidas solo para administradores
 router.get("/registros", verificarToken, verificarAdmin, getRegistros);
