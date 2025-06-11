@@ -8,6 +8,7 @@
     <script src="../scripts/auth.js"></script>
     <script src="../scripts/navbar.js"></script>
     <script src="../scripts/userProfile.js"></script>
+    <script src="../scripts/convocatorias.js"></script>
     <link rel="stylesheet" href="../styles/style.css" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -77,18 +78,18 @@
           <!-- Left Column -->
           <div class="space-y-4">
             <div>
-              <label class="form-label">Nombre del anteproyecto</label>
-              <input type="text" class="form-input" />
+              <label class="form-label">Nombre</label>
+              <input type="text" id="nombre" name="nombre" class="form-input" />
             </div>
             <div>
               <label class="form-label">Fecha de cierre</label>
-              <input type="date" class="form-input" />
+              <input type="date" id="fecha" name="fecha" class="form-input" />
             </div>
             <div>
               <label class="form-label">Sitio web</label>
-              <input type="text" class="form-input" />
+              <input type="text" id="sitio" name="sitio" class="form-input" />
             </div>
-            <button class="btn-primary flex items-center">
+            <button id="botonUpload" class="btn-primary flex items-center">
               <span class="material-icons mr-2">upload</span>
               Subir Datos
             </button>
@@ -98,22 +99,21 @@
           <div class="space-y-4">
             <div>
               <label class="form-label">Región</label>
-              <input type="text" class="form-input" />
+              <input type="text" id="region" name="region" class="form-input" />
             </div>
             <div>
               <label class="form-label">Organización</label>
-              <input type="text" class="form-input" />
+              <input type="text" id="org" name="org" class="form-input" />
             </div>
             <div>
               <label class="form-label">País</label>
-              <input type="text" class="form-input" />
+              <input type="text" id="pais" name="pais" class="form-input" />
             </div>
             <div>
               <label class="form-label">Descripción</label>
-              <textarea class="form-input" rows="3"></textarea>
+              <textarea class="form-input" id="desc" name="desc" rows="3"></textarea>
             </div>
             <div class="mt-4">
-              <button class="btn-primary">Guardar</button>
             </div>
           </div>
         </div>
