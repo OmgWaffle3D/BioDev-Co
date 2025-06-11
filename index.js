@@ -23,7 +23,7 @@ const app = express();
 app.use(cors()); // Enable CORS for all origins
 app.use(express.json());
 app.use(express.static("public"));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api/uploads", express.static(path.join(__dirname, "api/uploads")));
 app.use("/api", indexRoutes);
 
 const port = 4000;

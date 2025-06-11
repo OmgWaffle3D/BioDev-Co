@@ -22,6 +22,7 @@ const  login =  async () => {
         sessionStorage.setItem("name", res.user.name);
         sessionStorage.setItem("id", res.user.id);
         sessionStorage.setItem("rol", res.user.rol);
+        sessionStorage.setItem("pfp", `/api${res.user.pfp}`);
         
         // Redireccionar según el rol
         if (res.user.rol === "admin") {
