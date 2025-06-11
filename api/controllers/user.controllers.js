@@ -353,3 +353,35 @@ export const autenticacion = (req, res) => {
     }
   );
 };
+
+// postea convocatoria a la base de datos
+export const postConvocatoria = (req, res) => {
+  const {
+    nombre, 
+    region,
+    organizacion,
+    pais,
+    descripcion,
+    sitio_web,
+    fecha
+  } = req.body;
+
+  // validar formato de fecha: YYYY-MM-DD
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+    return res.status(400).json({ error: "Formato de fecha inválido. Usa 'YYYY-MM-DD'" });
+  }
+
+  pool.execute(
+    `INSERT INTO convocatorias 
+    (nombre, region, organizacion, pais, descripcion, sitio_web, fecha) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    [nombre, region, organizacion, pais, descripcion, sitio_web, fecha],
+    (error, results) => {
+      if (error) {
+        res.status(500).json({ error: error.message });
+        return;
+      }
+      res.status(201).json({ msg: "Convocatoria insertada", results });
+    }
+  );
+};

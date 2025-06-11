@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getRegistros, getUsuarios, getUsuariosPendientes, actualizarEstadoUsuario, getBiomas, getAnteproyectos, getEcorangers, createRecord, createBiomas, autenticacion } from "../controllers/user.controllers.js";
+import { getRegistros, getUsuarios, getUsuariosPendientes, actualizarEstadoUsuario, getBiomas, getAnteproyectos, getEcorangers, createRecord, createBiomas, autenticacion, postConvocatoria } from "../controllers/user.controllers.js";
 import { registerUser } from "../controllers/user.controllers.js";
 import { getChatCompletion } from "../controllers/chat.controllers.js";
 import upload from "../middleware/multerConfig.js";
@@ -25,4 +25,5 @@ router.post('/biomas', verificarToken, verificarAdmin, upload.none(), createBiom
 router.post("/register", upload.single("foto_perfil"), registerUser);
 router.get("/usuarios/pendientes", verificarToken, verificarAdmin, getUsuariosPendientes);
 router.post("/usuarios/estado", verificarToken, verificarAdmin, actualizarEstadoUsuario);
+router.post("/convocatorias", postConvocatoria);
 export default router;
