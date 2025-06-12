@@ -12,6 +12,8 @@ export const getRegistros = (req, res) => {
   });
 };
 
+
+
 // GET all usuarios
 export const getUsuarios = (req, res) => {
   pool.query("SELECT * FROM usuarios", (error, results) => {
