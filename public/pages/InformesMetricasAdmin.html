@@ -10,6 +10,10 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="../styles/style.css" />
     <style>
       :root {
@@ -55,7 +59,7 @@
             <a
               href="vistaEcoRanger.html"
               class="block p-2 hover:bg-gray-700 rounded"
-              >View de Ecoranger</a
+              >Vista de Ecoranger</a
             >
           </li>
           <li>
@@ -102,17 +106,14 @@
           <div
             class="avatar w-8 h-8 rounded-full bg-green-500 inline-block ml-2"
           ></div>
-          <div
-            id="userDropdown"
-            class="absolute right-0 mt-2 bg-white text-black rounded shadow-lg hidden"
-          >
+          <div id="userDropdown" class="user-dropdown hidden">
             <a
               href="login.html"
-              class="block px-4 py-2 hover:bg-gray-100"
+              class="user-dropdown-item"
               onclick="cerrarSesion()"
             >
-              <i class="material-icons align-middle mr-2">logout</i> Cerrar
-              sesión
+              <i class="fas fa-sign-out-alt"></i>
+              Cerrar sesión
             </a>
           </div>
         </div>
