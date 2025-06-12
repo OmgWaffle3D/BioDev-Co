@@ -71,6 +71,7 @@ export const getAnteproyectos = (req, res) => {
   });
 };
 
+
 export const getBiomas = (req, res) => {
   pool.query("SELECT * FROM biomas", (error, results) => {
     if (error) return res.status(500).json({ message: error.message });
@@ -428,4 +429,14 @@ export const postConvocatoria = (req, res) => {
       res.status(201).json({ msg: "Convocatoria insertada", results });
     }
   );
+};
+
+export const getConvocatoria = (req, res) => {
+  pool.execute('SELECT id_convocatoria, nombre FROM convocatorias', (error, results) => {
+    if (error) {
+      res.status(500).json({error: error.message});
+      return;
+    }
+    res.status(200).json(results); 
+  });
 };
