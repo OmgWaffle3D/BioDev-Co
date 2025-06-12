@@ -2,8 +2,18 @@
 const boton = document.getElementById("btn-login");
 const username = document.getElementById("username");
 const password = document.getElementById("password");
+const errorMessage = document.getElementById("error-message");
 
-const  login =  async () => {
+// Limpiar mensaje de error cuando el usuario comience a escribir
+username.addEventListener("input", clearErrorMessage);
+password.addEventListener("input", clearErrorMessage);
+
+function clearErrorMessage() {
+    errorMessage.classList.add("hidden");
+    errorMessage.textContent = "";
+}
+
+const login = async () => {
     // validar credenciales
     const credentials = {username:username.value, password: password.value}
     const data = await fetch("http://localhost:4000/api/login", {
@@ -13,8 +23,15 @@ const  login =  async () => {
 
     const res = await data.json();
     console.log('Respuesta del servidor:', res); // Agregar esta línea
+    
+    // Referencia al elemento de mensaje de error
+    const errorMessage = document.getElementById("error-message");
+    
     // Si el login es correcto
     if (res.isLogin) {
+        // Ocultar mensaje de error si estaba visible
+        errorMessage.classList.add("hidden");
+        
         // Guardar el token JWT
         localStorage.setItem('token', res.token);
         
@@ -31,8 +48,9 @@ const  login =  async () => {
             window.location = "../pages/home.html";
         }
     } else {
-        // Si el login es incorrecto
-        alert("Credenciales incorrectas");
+        // Si el login es incorrecto, mostrar mensaje en la página
+        errorMessage.textContent = "Credenciales incorrectas. Por favor, verifica tu usuario y contraseña.";
+        errorMessage.classList.remove("hidden");
     }
 };
 
