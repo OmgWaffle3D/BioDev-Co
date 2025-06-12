@@ -86,7 +86,6 @@ export const getEcorangers = (req, res) => {
   });
 };
 
-// Post de usuarios
 export const registerUser = (req, res) => {
   const {
     nombre,
@@ -100,26 +99,94 @@ export const registerUser = (req, res) => {
     organizacion,
     descripcion
   } = req.body;
+
   const salt = getSalt();
   const hash = hashPassword(contrasena, salt);
   const hashedPassword = salt + hash;
 
-  // Guarda la ruta del archivo si se subió una foto
   const foto_perfil = req.file ? `/uploads/${req.file.filename}` : null;
 
-  // Valida los campos requeridos aquí si lo deseas
-
+  // Primer INSERT: Usuarios
   pool.query(
-  `INSERT INTO usuarios 
-    (nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil, estado)
-   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-  [nombre, apellido, correo, hashedPassword, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil, 'pendiente'],
-  (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.status(201).json({ msg: "Usuario registrado", id: results.insertId });
-  }
-);
+    `INSERT INTO usuarios 
+      (nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil, estado)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [nombre, apellido, correo, hashedPassword, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil, 'pendiente'],
+    (err, result1) => {
+      if (err) {
+        console.error('Error en INSERT usuarios:', err);
+        return res.status(500).json({ error: err.message });
+      }
+
+      const usuarioId = result1.insertId;
+
+      // Segundo INSERT: niveles_completados
+      pool.query(
+        `INSERT INTO niveles_completados (nivel, usuario_id, fecha_completado) VALUES (?, ?, NOW())`,
+        [0, usuarioId],
+        (err2) => {
+          if (err2) {
+            console.error('Error en INSERT niveles_completados:', err2);
+            return res.status(500).json({ error: err2.message });
+          }
+
+          // Solo si ambos inserts fueron exitosos, enviamos la respuesta
+          res.status(201).json({ msg: "Usuario registrado y nivel inicial creado", id: usuarioId });
+        }
+      );
+    }
+  );
 };
+
+
+// Post de usuarios
+// export const registerUser = (req, res) => {
+//   const {
+//     nombre,
+//     apellido,
+//     correo,
+//     contrasena,
+//     telefono,
+//     pais,
+//     provincia,
+//     ciudad,
+//     organizacion,
+//     descripcion
+//   } = req.body;
+//   const salt = getSalt();
+//   const hash = hashPassword(contrasena, salt);
+//   const hashedPassword = salt + hash;
+
+//   // Guarda la ruta del archivo si se subió una foto
+//   const foto_perfil = req.file ? `/uploads/${req.file.filename}` : null;
+
+//   // Valida los campos requeridos aquí si lo deseas
+
+//   pool.query(
+//   `INSERT INTO usuarios 
+//     (nombre, apellido, correo, contrasena, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil, estado)
+//    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+//   [nombre, apellido, correo, hashedPassword, telefono, pais, provincia, ciudad, organizacion, descripcion, foto_perfil, 'pendiente'],
+//   (err, results) => {
+//     if (err) return res.status(500).json({ error: err.message });
+//     res.status(201).json({ msg: "Usuario registrado", id: results.insertId });
+//   }
+// );
+
+// post de la tabla de juegos con el usuario registrado
+// const usuarioId = results.insertId;
+
+// pool.query(
+//       `INSERT INTO niveles_completados (nivel, usuario_id, fecha_completada) VALUES (?, ?, NOW())`,
+//       [0, usuarioId],
+//       (err2) => {
+//         if (err2) return res.status(500).json({ error: err2.message });
+
+//         res.status(201).json({ msg: "Usuario registrado", id: usuarioId });
+//       }
+//   );
+
+// };
 
 export const actualizarEstadoUsuario = (req, res) => {
   const { id, nuevoEstado } = req.body;
