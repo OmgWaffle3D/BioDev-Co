@@ -20,6 +20,14 @@ export const getUsuarios = (req, res) => {
   });
 };
 
+// user.controllers.js
+export const getUsuariosAprobados = (req, res) => {
+  pool.query("SELECT * FROM usuarios WHERE estado = 'aprobado'", (error, results) => {
+    if (error) return res.status(500).json({ message: error.message });
+    res.status(200).json({ msg: "OK", data: results });
+  });
+};
+
 export const getUsuariosPendientes = (req, res) => {
   pool.query(
     "SELECT * FROM usuarios WHERE estado = 'pendiente'",
