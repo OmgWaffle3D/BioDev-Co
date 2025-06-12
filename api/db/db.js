@@ -1,5 +1,5 @@
+// Establece la conexion a la base de datos MySQL usando mysql2
 import mysql from "mysql2";
-
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER || "root",
