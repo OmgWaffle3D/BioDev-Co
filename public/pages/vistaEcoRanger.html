@@ -238,6 +238,7 @@
                   <p><strong>Rol:</strong> ${user.rol}</p>
                   <p><strong>Estado:</strong> ${user.estado}</p>
                   <button class="mt-2 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-1 px-4 rounded edit-btn" data-id="${user.id}">Editar</button>
+                  <button class="mt-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded delete-btn" data-id="${user.id}">Eliminar</button>
                 </div>
               </div>
             </div>
@@ -251,6 +252,30 @@
             openEditModal(id);
           });
         });
+
+        // Asignar eventos a los botones de eliminar
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            const id = e.target.getAttribute('data-id');
+            if (confirm('¿Seguro que deseas eliminar este usuario?')) {
+              const token = localStorage.getItem('token');
+              const res = await fetch(`/api/usuarios/${id}`, {
+                method: 'DELETE',
+                headers: {
+                  'Authorization': 'Bearer ' + token
+                }
+              });
+              if (res.ok) {
+                usuariosData = usuariosData.filter(u => u.id != id);
+                renderUsuarios();
+                alert('Usuario eliminado correctamente');
+              } else {
+                alert('Error al eliminar usuario');
+              }
+            }
+          });
+        });
+
       } else {
         dashboard.innerHTML = `<p class="text-gray-400">No hay usuarios registrados.</p>`;
       }

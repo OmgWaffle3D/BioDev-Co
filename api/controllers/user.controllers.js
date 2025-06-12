@@ -52,6 +52,17 @@ export const updateUsuario = (req, res) => {
   );
 };
 
+export const deleteUsuario = (req, res) => {
+  const { id } = req.params;
+  pool.query(
+    "DELETE FROM usuarios WHERE id = ?",
+    [id],
+    (err, results) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.status(200).json({ msg: "Usuario eliminado" });
+    }
+  );
+};
 
 export const getAnteproyectos = (req, res) => {
   pool.query("SELECT * FROM anteproyectos", (error, results) => {
