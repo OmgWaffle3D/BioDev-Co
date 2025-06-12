@@ -118,6 +118,20 @@ export const registerUser = (req, res) => {
     res.status(201).json({ msg: "Usuario registrado", id: results.insertId });
   }
 );
+
+// post de la tabla de juegos con el usuario registrado
+const usuarioId = results.insertId;
+
+pool.query(
+      `INSERT INTO niveles_completados (nivel, usuario_id, fecha_completada) VALUES (?, ?, NOW())`,
+      [0, usuarioId],
+      (err2) => {
+        if (err2) return res.status(500).json({ error: err2.message });
+
+        res.status(201).json({ msg: "Usuario registrado", id: usuarioId });
+      }
+  );
+
 };
 
 export const actualizarEstadoUsuario = (req, res) => {
