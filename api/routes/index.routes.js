@@ -5,7 +5,7 @@ import { getChatCompletion, uploadChatFile } from "../controllers/chat.controlle
 import upload, { chatUpload } from "../middleware/multerConfig.js";
 import { verificarToken } from "../middleware/token.js";
 import { verificarAdmin } from "../middleware/verificarRol.js";
-
+import { getUser } from "../controllers/game.controllers.js";
 const router = Router();
 
 // Rutas públicas
@@ -27,4 +27,5 @@ router.post("/register", upload.single("foto_perfil"), registerUser);
 router.get("/usuarios/pendientes", verificarToken, verificarAdmin, getUsuariosPendientes);
 router.post("/usuarios/estado", verificarToken, verificarAdmin, actualizarEstadoUsuario);
 router.post("/convocatorias", postConvocatoria);
+router.get("/game/users/:id", getUser);
 export default router;
