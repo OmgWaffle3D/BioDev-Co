@@ -73,9 +73,7 @@
       <button id="sidebarToggleMobile" class="text-white md:hidden">
         <span class="material-icons">menu</span>
       </button>
-      <div class="text-2xl font-semibold">
-        
-      </div>
+      <div class="text-2xl font-semibold"></div>
       <div class="user-profile relative cursor-pointer" onclick="toggleDropdown()">
         <span>Administrador</span>
         <div class="avatar w-8 h-8 rounded-full bg-green-500 inline-block ml-2"></div>
@@ -100,11 +98,13 @@
               <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="75,100"></circle>
               <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100"></circle>
             </svg>
-            <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">3</span>
+            <span id="biomas-count" class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">0</span>
           </div>
           <div class="font-bold text-lg">Número de Biomos</div>
           <div class="text-gray-400 mb-4">Cantidad de biomos creados</div>
-          <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
+          <a href="numeroBiomos.html">
+            <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
+          </a>
         </div>
 
         <!-- Tarjeta 2 -->
@@ -114,11 +114,13 @@
               <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="60,100"></circle>
               <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100"></circle>
             </svg>
-            <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">2</span>
+            <span id="ecorangers-count" class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">0</span>
           </div>
           <div class="font-bold text-lg">Número de EcoRanger</div>
           <div class="text-gray-400 mb-4">Cantidad de usuarios que usan esta herramienta.</div>
-          <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
+          <a href="vistaEcoRanger.html">
+            <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
+          </a>
         </div>
 
         <!-- Tarjeta 3 -->
@@ -128,11 +130,13 @@
               <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="40,100"></circle>
               <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100"></circle>
             </svg>
-            <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">2</span>
+            <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">0</span>
           </div>
           <div class="font-bold text-lg">Número de Anteproyectos</div>
           <div class="text-gray-400 mb-4">Anteproyectos tanto abiertos como cerrados.</div>
-          <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
+          <a href="numeroAnteproyectos.html">
+            <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
+          </a>
         </div>
       </div>
     </main>
@@ -149,13 +153,40 @@
       window.location.href = "/login.html";
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
       const sidebarToggleMobile = document.getElementById("sidebarToggleMobile");
       const sidebar = document.getElementById("sidebar");
 
       sidebarToggleMobile?.addEventListener("click", () => {
         sidebar.classList.toggle("collapsed");
       });
+
+      // --- Números dinámicos ---
+      const token = localStorage.getItem('token');
+
+      // Biomas
+      try {
+        const resBiomas = await fetch('/api/biomas', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        const dataBiomas = await resBiomas.json();
+        const biomasCount = dataBiomas.data ? dataBiomas.data.length : 0;
+        document.getElementById('biomas-count').textContent = biomasCount;
+      } catch {
+        document.getElementById('biomas-count').textContent = 0;
+      }
+
+      // EcoRangers (usuarios)
+      try {
+        const resUsuarios = await fetch('/api/usuarios/all', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        const dataUsuarios = await resUsuarios.json();
+        const ecorangersCount = dataUsuarios.data ? dataUsuarios.data.length : 0;
+        document.getElementById('ecorangers-count').textContent = ecorangersCount;
+      } catch {
+        document.getElementById('ecorangers-count').textContent = 0;
+      }
     });
   </script>
 
