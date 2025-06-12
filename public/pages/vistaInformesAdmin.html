@@ -1,196 +1,266 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vista Administrador</title>
-  <script src="../scripts/auth.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <style>
-    :root {
-      --color-dark: #1c1f1f;
-      --color-medium: #3c3c3c;
-      --color-light: #505050;
-    }
-    body {
-      background-color: var(--color-dark);
-    }
-    #sidebar.collapsed {
-      transform: translateX(-100%);
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vista Administrador</title>
+    <script src="../scripts/auth.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link href="../styles/vistaInformesAdmin.css" rel="stylesheet" />
+  </head>
 
-<body class="flex h-screen text-white overflow-hidden">
-
-  <!-- Sidebar -->
-  <aside
-    id="sidebar"
-    class="w-64 p-4 space-y-4 transform transition-transform duration-300 md:translate-x-0 -translate-x-full md:relative fixed h-full z-30"
-    style="background-color: var(--color-medium)"
-  >
-    <div class="flex items-center gap-2 text-2xl font-bold mb-4">
-      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" />
-        <circle cx="12" cy="12" r="4" />
-      </svg>
-      Mawi
-    </div>
-
-    <nav>
-      <ul class="space-y-2">
-        <li>
-          <a href="vistaInformesAdmin.html" class="block p-2 hover:bg-gray-700 rounded text-green-400 font-bold">Vista Administrador</a>
-        </li>
-        <li>
-          <a href="vistaEcoRanger.html" class="block p-2 hover:bg-gray-700 rounded">View de Ecoranger</a>
-        </li>
-        <li>
-          <a href="validarusuario.html" class="block p-2 hover:bg-gray-700 rounded">Ver Perfiles por Validar</a>
-        </li>
-        <li>
-          <a href="InformesMetricasAdmin.html" class="block p-2 hover:bg-gray-700 rounded">ChatBot</a>
-        </li>
-      </ul>
-    </nav>
-
-    <button
-      class="mt-auto w-full py-2 rounded flex items-center justify-center gap-2"
-      style="background-color: var(--color-light)"
-    >
-      <span class="material-icons">support_agent</span> Contacta con el soporte
-    </button>
-  </aside>
-
-  <!-- Main Content -->
-  <div class="flex-1 flex flex-col overflow-auto">
-    <!-- Navbar -->
-    <nav
-      class="flex justify-between items-center px-6 py-4 shadow-md"
+  <body class="flex h-screen text-white overflow-hidden">
+    <!-- Sidebar -->
+    <aside
+      id="sidebar"
+      class="w-64 p-4 space-y-4 transform transition-transform duration-300 md:translate-x-0 -translate-x-full md:relative fixed h-full z-30"
       style="background-color: var(--color-medium)"
     >
-      <button id="sidebarToggleMobile" class="text-white md:hidden">
-        <span class="material-icons">menu</span>
+      <div class="flex items-center gap-2 text-2xl font-bold mb-4">
+        <svg
+          class="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="4" />
+        </svg>
+        Mawi
+      </div>
+
+      <nav>
+        <ul class="space-y-2">
+          <li>
+            <a
+              href="vistaInformesAdmin.html"
+              class="block p-2 hover:bg-gray-700 rounded text-green-400 font-bold"
+              >Vista Administrador</a
+            >
+          </li>
+          <li>
+            <a
+              href="vistaEcoRanger.html"
+              class="block p-2 hover:bg-gray-700 rounded"
+              >View de Ecoranger</a
+            >
+          </li>
+          <li>
+            <a
+              href="validarusuario.html"
+              class="block p-2 hover:bg-gray-700 rounded"
+              >Ver Perfiles por Validar</a
+            >
+          </li>
+          <li>
+            <a
+              href="InformesMetricasAdmin.html"
+              class="block p-2 hover:bg-gray-700 rounded"
+              >ChatBot</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <button
+        class="mt-auto w-full py-2 rounded flex items-center justify-center gap-2"
+        style="background-color: var(--color-light)"
+      >
+        <span class="material-icons">support_agent</span> Contacta con el
+        soporte
       </button>
-      <div class="text-2xl font-semibold"></div>
-      <div class="user-profile relative cursor-pointer" onclick="toggleDropdown()">
-        <span>Administrador</span>
-        <div class="avatar w-8 h-8 rounded-full bg-green-500 inline-block ml-2"></div>
-        <div id="userDropdown" class="absolute right-0 mt-2 bg-white text-black rounded shadow-lg hidden">
-          <a href="login.html" class="block px-4 py-2 hover:bg-gray-100" onclick="cerrarSesion()">
-            <i class="material-icons align-middle mr-2">logout</i> Cerrar sesión
-          </a>
-        </div>
-      </div>
-    </nav>
+    </aside>
 
-    <!-- Dashboard Content -->
-    <main class="p-6 overflow-auto" style="background-color: var(--color-dark)">
-      <h1 class="text-2xl font-bold mb-6">Vista Administrador</h1>
-
-      <!-- Tarjetas de métricas -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <!-- Tarjeta 1 -->
-        <div class="p-6 rounded-xl text-center" style="background-color: var(--color-medium)">
-          <div class="relative w-24 h-24 mx-auto mb-4">
-            <svg class="w-full h-full" viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="75,100"></circle>
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100"></circle>
-            </svg>
-            <span id="biomas-count" class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">0</span>
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-auto">
+      <!-- Navbar -->
+      <nav
+        class="flex justify-between items-center px-6 py-4 shadow-md"
+        style="background-color: var(--color-medium)"
+      >
+        <button id="sidebarToggleMobile" class="text-white md:hidden">
+          <span class="material-icons">menu</span>
+        </button>
+        <div class="text-2xl font-semibold"></div>
+        <div
+          class="user-profile relative cursor-pointer"
+          onclick="toggleDropdown()"
+        >
+          <span>Administrador</span>
+          <div
+            class="avatar w-8 h-8 rounded-full bg-green-500 inline-block ml-2"
+          ></div>
+          <div
+            id="userDropdown"
+            class="absolute right-0 mt-2 bg-white text-black rounded shadow-lg hidden"
+          >
+            <a
+              href="login.html"
+              class="block px-4 py-2 hover:bg-gray-100"
+              onclick="cerrarSesion()"
+            >
+              <i class="material-icons align-middle mr-2">logout</i> Cerrar
+              sesión
+            </a>
           </div>
-          <div class="font-bold text-lg">Número de Biomos</div>
-          <div class="text-gray-400 mb-4">Cantidad de biomos creados</div>
-          <a href="numeroBiomos.html">
-            <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
-          </a>
         </div>
+      </nav>
 
-        <!-- Tarjeta 2 -->
-        <div class="p-6 rounded-xl text-center" style="background-color: var(--color-medium)">
-          <div class="relative w-24 h-24 mx-auto mb-4">
-            <svg class="w-full h-full" viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="60,100"></circle>
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100"></circle>
-            </svg>
-            <span id="ecorangers-count" class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">0</span>
+      <!-- Dashboard Content -->
+      <main
+        class="p-6 overflow-auto"
+        style="background-color: var(--color-dark)"
+      >
+        <h1 class="text-2xl font-bold mb-6">Vista Administrador</h1>
+
+        <!-- Tarjetas de métricas -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <!-- Tarjeta 1 -->
+          <div
+            class="p-6 rounded-xl text-center"
+            style="background-color: var(--color-medium)"
+          >
+            <div class="relative w-24 h-24 mx-auto mb-4">
+              <svg class="w-full h-full" viewBox="0 0 36 36">
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#15803d"
+                  stroke-width="4"
+                  stroke-dasharray="75,100"
+                ></circle>
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#166534"
+                  stroke-width="4"
+                  stroke-dasharray="100,100"
+                ></circle>
+              </svg>
+              <span
+                id="biomas-count"
+                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
+                >0</span
+              >
+            </div>
+            <div class="font-bold text-lg">Número de Biomos</div>
+            <div class="text-gray-400 mb-4">Cantidad de biomos creados</div>
+            <a href="numeroBiomos.html">
+              <button
+                class="px-4 py-2 rounded"
+                style="background-color: var(--color-light)"
+              >
+                View Report
+              </button>
+            </a>
           </div>
-          <div class="font-bold text-lg">Número de EcoRanger</div>
-          <div class="text-gray-400 mb-4">Cantidad de usuarios que usan esta herramienta.</div>
-          <a href="vistaEcoRanger.html">
-            <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
-          </a>
-        </div>
 
-        <!-- Tarjeta 3 -->
-        <div class="p-6 rounded-xl text-center" style="background-color: var(--color-medium)">
-          <div class="relative w-24 h-24 mx-auto mb-4">
-            <svg class="w-full h-full" viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="40,100"></circle>
-              <circle cx="18" cy="18" r="16" fill="none" stroke="#166534" stroke-width="4" stroke-dasharray="100,100"></circle>
-            </svg>
-            <span class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold">0</span>
+          <!-- Tarjeta 2 -->
+          <div
+            class="p-6 rounded-xl text-center"
+            style="background-color: var(--color-medium)"
+          >
+            <div class="relative w-24 h-24 mx-auto mb-4">
+              <svg class="w-full h-full" viewBox="0 0 36 36">
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#15803d"
+                  stroke-width="4"
+                  stroke-dasharray="60,100"
+                ></circle>
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#166534"
+                  stroke-width="4"
+                  stroke-dasharray="100,100"
+                ></circle>
+              </svg>
+              <span
+                id="ecorangers-count"
+                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
+                >0</span
+              >
+            </div>
+            <div class="font-bold text-lg">Número de EcoRanger</div>
+            <div class="text-gray-400 mb-4">
+              Cantidad de usuarios que usan esta herramienta.
+            </div>
+            <a href="vistaEcoRanger.html">
+              <button
+                class="px-4 py-2 rounded"
+                style="background-color: var(--color-light)"
+              >
+                View Report
+              </button>
+            </a>
           </div>
-          <div class="font-bold text-lg">Número de Anteproyectos</div>
-          <div class="text-gray-400 mb-4">Anteproyectos tanto abiertos como cerrados.</div>
-          <a href="numeroAnteproyectos.html">
-            <button class="px-4 py-2 rounded" style="background-color: var(--color-light)">View Report</button>
-          </a>
+
+          <!-- Tarjeta 3 -->
+          <div
+            class="p-6 rounded-xl text-center"
+            style="background-color: var(--color-medium)"
+          >
+            <div class="relative w-24 h-24 mx-auto mb-4">
+              <svg class="w-full h-full" viewBox="0 0 36 36">
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#15803d"
+                  stroke-width="4"
+                  stroke-dasharray="40,100"
+                ></circle>
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="#166534"
+                  stroke-width="4"
+                  stroke-dasharray="100,100"
+                ></circle>
+              </svg>
+              <span
+                class="absolute inset-0 flex items-center justify-center text-2xl text-green-400 font-bold"
+                >0</span
+              >
+            </div>
+            <div class="font-bold text-lg">Número de Anteproyectos</div>
+            <div class="text-gray-400 mb-4">
+              Anteproyectos tanto abiertos como cerrados.
+            </div>
+            <a href="numeroAnteproyectos.html">
+              <button
+                class="px-4 py-2 rounded"
+                style="background-color: var(--color-light)"
+              >
+                View Report
+              </button>
+            </a>
+          </div>
         </div>
-      </div>
-    </main>
-  </div>
+      </main>
+    </div>
 
-  <!-- Scripts -->
-  <script>
-    function toggleDropdown() {
-      document.getElementById("userDropdown").classList.toggle("hidden");
-    }
-
-    function cerrarSesion() {
-      localStorage.removeItem("token");
-      window.location.href = "/login.html";
-    }
-
-    document.addEventListener("DOMContentLoaded", async () => {
-      const sidebarToggleMobile = document.getElementById("sidebarToggleMobile");
-      const sidebar = document.getElementById("sidebar");
-
-      sidebarToggleMobile?.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-      });
-
-      // --- Números dinámicos ---
-      const token = localStorage.getItem('token');
-
-      // Biomas
-      try {
-        const resBiomas = await fetch('/api/biomas', {
-          headers: { 'Authorization': 'Bearer ' + token }
-        });
-        const dataBiomas = await resBiomas.json();
-        const biomasCount = dataBiomas.data ? dataBiomas.data.length : 0;
-        document.getElementById('biomas-count').textContent = biomasCount;
-      } catch {
-        document.getElementById('biomas-count').textContent = 0;
-      }
-
-      // EcoRangers (usuarios)
-      try {
-        const resUsuarios = await fetch('/api/usuarios/all', {
-          headers: { 'Authorization': 'Bearer ' + token }
-        });
-        const dataUsuarios = await resUsuarios.json();
-        const ecorangersCount = dataUsuarios.data ? dataUsuarios.data.length : 0;
-        document.getElementById('ecorangers-count').textContent = ecorangersCount;
-      } catch {
-        document.getElementById('ecorangers-count').textContent = 0;
-      }
-    });
-  </script>
-
-  <script src="../scripts/biomasTable.js"></script>
-  <script src="../scripts/sidebar.js" defer></script>
-</body>
+    <!-- Scripts -->
+    <script src="../scripts/vistaInformesAdmin.js"></script>
+    <script src="../scripts/biomasTable.js"></script>
+    <script src="../scripts/sidebar.js" defer></script>
+  </body>
 </html>
