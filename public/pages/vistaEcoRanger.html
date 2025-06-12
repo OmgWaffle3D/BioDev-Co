@@ -125,11 +125,77 @@
         class="p-6 overflow-auto"
         style="background-color: var(--color-dark)"
       >
-        <h1 class="text-2xl font-bold mb-6">Vista EcoRanger</h1>
-        <div
-          id="usuarios-dashboard"
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        ></div>
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-2xl font-bold">Vista EcoRanger</h1>
+          <div class="text-sm text-gray-400">
+            <span id="user-count">0</span> usuarios registrados
+          </div>
+        </div>
+
+        <!-- Tabla de usuarios -->
+        <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-700">
+                <tr>
+                  <th
+                    class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider"
+                  >
+                    Usuario
+                  </th>
+                  <th
+                    class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider"
+                  >
+                    Contacto
+                  </th>
+                  <th
+                    class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider"
+                  >
+                    Ubicación
+                  </th>
+                  <th
+                    class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider"
+                  >
+                    Organización
+                  </th>
+                  <th
+                    class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider"
+                  >
+                    Rol
+                  </th>
+                  <th
+                    class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider"
+                  >
+                    Estado
+                  </th>
+                  <th
+                    class="px-6 py-4 text-center text-sm font-semibold text-gray-300 uppercase tracking-wider"
+                  >
+                    Acciones
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="usuarios-table-body" class="divide-y divide-gray-700">
+                <!-- Los usuarios se cargarán aquí dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Estado vacío -->
+          <div id="empty-state" class="hidden text-center py-12">
+            <div class="text-gray-500 text-6xl mb-4">
+              <span class="material-icons" style="font-size: inherit"
+                >group_off</span
+              >
+            </div>
+            <h3 class="text-lg font-medium text-gray-400 mb-2">
+              No hay usuarios registrados
+            </h3>
+            <p class="text-gray-500">
+              Los usuarios aparecerán aquí cuando se registren.
+            </p>
+          </div>
+        </div>
       </main>
     </div>
 
@@ -211,15 +277,6 @@
               type="text"
               name="organizacion"
               id="edit-organizacion"
-              class="w-full px-3 py-2 rounded bg-gray-700 text-white"
-            />
-          </div>
-          <div>
-            <label class="block text-sm mb-1">Descripción</label>
-            <input
-              type="text"
-              name="descripcion"
-              id="edit-descripcion"
               class="w-full px-3 py-2 rounded bg-gray-700 text-white"
             />
           </div>
