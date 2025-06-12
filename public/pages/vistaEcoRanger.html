@@ -36,6 +36,9 @@
     #sidebar.collapsed ~ .sidebar-toggle-wrapper {
       left: 0.5rem;
     }
+    .modal-bg {
+      background: rgba(0,0,0,0.6);
+    }
   </style>
 </head>
 
@@ -114,79 +117,65 @@
     </main>
   </div>
 
-  <!-- Script -->
+  <!-- Modal de edición -->
+  <div id="editModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-bg">
+    <div class="bg-gray-800 p-8 rounded-lg w-full max-w-md relative">
+      <button id="closeModal" class="absolute top-2 right-2 text-gray-400 hover:text-white">
+        <span class="material-icons">close</span>
+      </button>
+      <h2 class="text-xl font-bold mb-4">Editar Usuario</h2>
+      <form id="editUserForm" class="space-y-3">
+        <input type="hidden" name="id" id="edit-id" />
+        <div>
+          <label class="block text-sm mb-1">Correo</label>
+          <input type="email" name="correo" id="edit-correo" class="w-full px-3 py-2 rounded bg-gray-700 text-white" required />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Teléfono</label>
+          <input type="text" name="telefono" id="edit-telefono" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Rol</label>
+          <select name="rol" id="edit-rol" class="w-full px-3 py-2 rounded bg-gray-700 text-white">
+            <option value="usuario">Usuario</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm mb-1">País</label>
+          <input type="text" name="pais" id="edit-pais" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Provincia</label>
+          <input type="text" name="provincia" id="edit-provincia" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Ciudad</label>
+          <input type="text" name="ciudad" id="edit-ciudad" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Organización</label>
+          <input type="text" name="organizacion" id="edit-organizacion" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Descripción</label>
+          <input type="text" name="descripcion" id="edit-descripcion" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <button type="submit" class="w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-2 rounded">Guardar cambios</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script>
     function toggleDropdown() {
       document.getElementById("userDropdown").classList.toggle("hidden");
     }
-
     function cerrarSesion() {
       localStorage.removeItem("token");
       window.location.href = "/login.html";
     }
-
-    document.addEventListener("DOMContentLoaded", async () => {
-      // Sidebar scripts
-      const sidebarToggle = document.getElementById("sidebarToggle");
-      const sidebar = document.getElementById("sidebar");
-      const sidebarToggleIcon = document.getElementById("sidebarToggleIcon");
-
-      sidebarToggle?.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-        if (sidebar.classList.contains("collapsed")) {
-          sidebarToggleIcon.textContent = "chevron_right";
-        } else {
-          sidebarToggleIcon.textContent = "chevron_left";
-        }
-      });
-
-      const sidebarToggleMobile = document.getElementById("sidebarToggleMobile");
-      sidebarToggleMobile?.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-      });
-
-      // --- Usuarios dinámicos ---
-      const token = localStorage.getItem('token');
-      const res = await fetch('/api/usuarios/all', {
-        headers: {
-          'Authorization': 'Bearer ' + token
-        }
-      });
-      const data = await res.json();
-      const dashboard = document.getElementById('usuarios-dashboard');
-      dashboard.innerHTML = "";
-
-      if (data.data && data.data.length > 0) {
-        data.data.forEach(user => {
-          dashboard.innerHTML += `
-            <div class="bg-green-700 text-white rounded-lg p-4 flex flex-col md:flex-row items-center justify-between shadow-lg mb-4">
-              <div class="flex items-center gap-4">
-                <img
-                  src="${user.foto_perfil ? user.foto_perfil : 'https://randomuser.me/api/portraits/men/32.jpg'}"
-                  alt="EcoRanger"
-                  class="w-24 h-24 rounded-md object-cover"
-                />
-                <div class="text-sm space-y-1">
-                  <p><strong>Nombre:</strong> ${user.nombre}</p>
-                  <p><strong>Apellido:</strong> ${user.apellido}</p>
-                  <p><strong>Correo:</strong> ${user.correo}</p>
-                  <p><strong>Teléfono:</strong> ${user.telefono || ''}</p>
-                  <p><strong>País:</strong> ${user.pais || ''}</p>
-                  <p><strong>Provincia:</strong> ${user.provincia || ''}</p>
-                  <p><strong>Ciudad:</strong> ${user.ciudad || ''}</p>
-                  <p><strong>Organización:</strong> ${user.organizacion || ''}</p>
-                  <p><strong>Descripción:</strong> ${user.descripcion || ''}</p>
-                  <p><strong>Rol:</strong> ${user.rol}</p>
-                  <p><strong>Estado:</strong> ${user.estado}</p>
-                </div>
-              </div>
-            </div>
-          `;
-        });
-      } else {
-        dashboard.innerHTML = `<p class="text-gray-400">No hay usuarios registrados.</p>`;
-      }
-    });
   </script>
+  <script src="../scripts/vistaEcoRanger.js"></script>
 </body>
 </html>
