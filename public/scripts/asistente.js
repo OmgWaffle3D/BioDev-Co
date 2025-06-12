@@ -10,6 +10,12 @@ fileInput.style.display = "none";
 fileInput.accept = ".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.txt,.csv,.xlsx,.xls";
 document.body.appendChild(fileInput);
 
+// Session storage key for chat history
+const CHAT_HISTORY_KEY = "chatHistory";
+
+// Load chat history when page loads
+document.addEventListener("DOMContentLoaded", loadChatHistory);
+
 sendButton?.addEventListener("click", sendMessage);
 uploadButton?.addEventListener("click", () => fileInput.click());
 fileInput?.addEventListener("change", handleFileUpload);
@@ -42,6 +48,48 @@ function displayMessage(message, sender) {
     messageDiv.textContent = message;
     chatHistory.appendChild(messageDiv);
     chatHistory.scrollTop = chatHistory.scrollHeight;
+    
+    // Save message to session storage
+    saveChatHistory(message, sender);
+}
+
+// Function to save chat history to session storage
+function saveChatHistory(message, sender) {
+    try {
+        const history = JSON.parse(sessionStorage.getItem(CHAT_HISTORY_KEY)) || [];
+        history.push({
+            message: message,
+            sender: sender,
+            timestamp: new Date().toISOString()
+        });
+        sessionStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(history));
+    } catch (error) {
+        console.error("Error saving chat history:", error);
+    }
+}
+
+// Function to load chat history from session storage
+function loadChatHistory() {
+    try {
+        const history = JSON.parse(sessionStorage.getItem(CHAT_HISTORY_KEY)) || [];
+        history.forEach(entry => {
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add(`${entry.sender}-message`);
+            messageDiv.textContent = entry.message;
+            chatHistory.appendChild(messageDiv);
+        });
+        if (history.length > 0) {
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+    } catch (error) {
+        console.error("Error loading chat history:", error);
+    }
+}
+
+// Function to clear chat history (optional - you can add a button for this)
+function clearChatHistory() {
+    sessionStorage.removeItem(CHAT_HISTORY_KEY);
+    chatHistory.innerHTML = "";
 }
 
 async function getChatCompletion(message) {

@@ -14,11 +14,7 @@
       --color-medium: #3c3c3c;
       --color-light: #505050;
     }
-
-    body {
-      background-color: var(--color-dark);
-    }
-
+    body { background-color: var(--color-dark); }
     #sidebar.collapsed {
       width: 0 !important;
       min-width: 0 !important;
@@ -26,8 +22,6 @@
       overflow: hidden !important;
       transform: none !important;
     }
-
-    /* Botón flechita siempre visible */
     .sidebar-toggle-wrapper {
       position: fixed;
       top: 1rem;
@@ -39,9 +33,11 @@
       cursor: pointer;
       transition: left 0.3s ease;
     }
-
     #sidebar.collapsed ~ .sidebar-toggle-wrapper {
       left: 0.5rem;
+    }
+    .modal-bg {
+      background: rgba(0,0,0,0.6);
     }
   </style>
 </head>
@@ -61,7 +57,6 @@
       </svg>
       Mawi
     </div>
-
     <!-- Menú -->
     <nav>
       <ul class="space-y-2">
@@ -79,7 +74,6 @@
         </li>
       </ul>
     </nav>
-
     <!-- Botón soporte -->
     <button
       class="mt-auto w-full py-2 rounded flex items-center justify-center gap-2"
@@ -104,8 +98,7 @@
       <button id="sidebarToggleMobile" class="text-white md:hidden">
         <span class="material-icons">menu</span>
       </button>
-      <div class="text-2xl font-semibold">
-      </div>
+      <div class="text-2xl font-semibold"></div>
       <div class="user-profile relative cursor-pointer" onclick="toggleDropdown()">
         <span>Administrador</span>
         <div class="avatar w-8 h-8 rounded-full bg-green-500 inline-block ml-2"></div>
@@ -120,39 +113,57 @@
     <!-- Dashboard Content -->
     <main class="p-6 overflow-auto" style="background-color: var(--color-dark)">
       <h1 class="text-2xl font-bold mb-6">Vista EcoRanger</h1>
-
-      <!-- EcoRanger Card -->
-      <div
-        class="bg-green-700 text-white rounded-lg p-4 flex flex-col md:flex-row items-center justify-between shadow-lg"
-      >
-        <!-- Imagen y datos -->
-        <div class="flex items-center gap-4">
-          <img
-            src="https://randomuser.me/api/portraits/men/32.jpg"
-            alt="EcoRanger"
-            class="w-24 h-24 rounded-md object-cover"
-          />
-          <div class="text-sm space-y-1">
-            <p><strong>Labor:</strong> EcoRanger</p>
-            <p><strong>Nombre:</strong> Lucas</p>
-            <p><strong>Apellidos:</strong> Jiménez Roca</p>
-            <p><strong>País:</strong> España</p>
-            <p><strong>Región:</strong> Castilla y León</p>
-            <p><strong>Ciudad:</strong> Salamanca</p>
-            <p><strong>Correo:</strong> lucas.jiménez@somosawaq.org</p>
-            <p><strong>Número de contacto:</strong> +34 655 76 25 93</p>
-          </div>
-        </div>
-
-        <!-- Botones -->
-        <div class="flex flex-col items-end gap-2 mt-4 md:mt-0">
-          <div class="flex gap-2">
-            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md">Crear EcoRanger</button>
-            <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-1 rounded-md">Editar EcoRanger</button>
-          </div>
-        </div>
-      </div>
+      <div id="usuarios-dashboard"></div>
     </main>
+  </div>
+
+  <!-- Modal de edición -->
+  <div id="editModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-bg">
+    <div class="bg-gray-800 p-8 rounded-lg w-full max-w-md relative">
+      <button id="closeModal" class="absolute top-2 right-2 text-gray-400 hover:text-white">
+        <span class="material-icons">close</span>
+      </button>
+      <h2 class="text-xl font-bold mb-4">Editar Usuario</h2>
+      <form id="editUserForm" class="space-y-3">
+        <input type="hidden" name="id" id="edit-id" />
+        <div>
+          <label class="block text-sm mb-1">Correo</label>
+          <input type="email" name="correo" id="edit-correo" class="w-full px-3 py-2 rounded bg-gray-700 text-white" required />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Teléfono</label>
+          <input type="text" name="telefono" id="edit-telefono" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Rol</label>
+          <select name="rol" id="edit-rol" class="w-full px-3 py-2 rounded bg-gray-700 text-white">
+            <option value="usuario">Usuario</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm mb-1">País</label>
+          <input type="text" name="pais" id="edit-pais" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Provincia</label>
+          <input type="text" name="provincia" id="edit-provincia" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Ciudad</label>
+          <input type="text" name="ciudad" id="edit-ciudad" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Organización</label>
+          <input type="text" name="organizacion" id="edit-organizacion" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Descripción</label>
+          <input type="text" name="descripcion" id="edit-descripcion" class="w-full px-3 py-2 rounded bg-gray-700 text-white" />
+        </div>
+        <button type="submit" class="w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-2 rounded">Guardar cambios</button>
+      </form>
+    </div>
   </div>
 
   <!-- Script -->
@@ -166,14 +177,16 @@
       window.location.href = "/login.html";
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
+    let usuariosData = [];
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      // Sidebar scripts
       const sidebarToggle = document.getElementById("sidebarToggle");
       const sidebar = document.getElementById("sidebar");
       const sidebarToggleIcon = document.getElementById("sidebarToggleIcon");
 
       sidebarToggle?.addEventListener("click", () => {
         sidebar.classList.toggle("collapsed");
-
         if (sidebar.classList.contains("collapsed")) {
           sidebarToggleIcon.textContent = "chevron_right";
         } else {
@@ -181,12 +194,124 @@
         }
       });
 
-      // Botón mobile
       const sidebarToggleMobile = document.getElementById("sidebarToggleMobile");
       sidebarToggleMobile?.addEventListener("click", () => {
         sidebar.classList.toggle("collapsed");
       });
+
+      // --- Usuarios dinámicos ---
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/usuarios/all', {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      });
+      const data = await res.json();
+      usuariosData = data.data || [];
+      renderUsuarios();
     });
+
+    function renderUsuarios() {
+      const dashboard = document.getElementById('usuarios-dashboard');
+      dashboard.innerHTML = "";
+
+      if (usuariosData.length > 0) {
+        usuariosData.forEach(user => {
+          dashboard.innerHTML += `
+            <div class="bg-green-700 text-white rounded-lg p-4 flex flex-col md:flex-row items-center justify-between shadow-lg mb-4">
+              <div class="flex items-center gap-4">
+                <img
+                  src="${user.foto_perfil ? user.foto_perfil : 'https://randomuser.me/api/portraits/men/32.jpg'}"
+                  alt="EcoRanger"
+                  class="w-24 h-24 rounded-md object-cover"
+                />
+                <div class="text-sm space-y-1">
+                  <p><strong>Nombre:</strong> ${user.nombre}</p>
+                  <p><strong>Apellido:</strong> ${user.apellido}</p>
+                  <p><strong>Correo:</strong> ${user.correo}</p>
+                  <p><strong>Teléfono:</strong> ${user.telefono || ''}</p>
+                  <p><strong>País:</strong> ${user.pais || ''}</p>
+                  <p><strong>Provincia:</strong> ${user.provincia || ''}</p>
+                  <p><strong>Ciudad:</strong> ${user.ciudad || ''}</p>
+                  <p><strong>Organización:</strong> ${user.organizacion || ''}</p>
+                  <p><strong>Descripción:</strong> ${user.descripcion || ''}</p>
+                  <p><strong>Rol:</strong> ${user.rol}</p>
+                  <p><strong>Estado:</strong> ${user.estado}</p>
+                  <button class="mt-2 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-1 px-4 rounded edit-btn" data-id="${user.id}">Editar</button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        // Asignar eventos a los botones de editar
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = e.target.getAttribute('data-id');
+            openEditModal(id);
+          });
+        });
+      } else {
+        dashboard.innerHTML = `<p class="text-gray-400">No hay usuarios registrados.</p>`;
+      }
+    }
+
+    function openEditModal(id) {
+      const user = usuariosData.find(u => u.id == id);
+      if (!user) return;
+      document.getElementById('edit-id').value = user.id;
+      document.getElementById('edit-correo').value = user.correo;
+      document.getElementById('edit-telefono').value = user.telefono || '';
+      document.getElementById('edit-rol').value = user.rol || 'usuario';
+      document.getElementById('edit-pais').value = user.pais || '';
+      document.getElementById('edit-provincia').value = user.provincia || '';
+      document.getElementById('edit-ciudad').value = user.ciudad || '';
+      document.getElementById('edit-organizacion').value = user.organizacion || '';
+      document.getElementById('edit-descripcion').value = user.descripcion || '';
+      document.getElementById('editModal').classList.remove('hidden');
+    }
+
+    document.getElementById('closeModal').onclick = () => {
+      document.getElementById('editModal').classList.add('hidden');
+    };
+
+    document.getElementById('editUserForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const token = localStorage.getItem('token');
+      const id = document.getElementById('edit-id').value;
+      const body = {
+        correo: document.getElementById('edit-correo').value,
+        telefono: document.getElementById('edit-telefono').value,
+        rol: document.getElementById('edit-rol').value,
+        pais: document.getElementById('edit-pais').value,
+        provincia: document.getElementById('edit-provincia').value,
+        ciudad: document.getElementById('edit-ciudad').value,
+        organizacion: document.getElementById('edit-organizacion').value,
+        descripcion: document.getElementById('edit-descripcion').value
+      };
+
+      const res = await fetch(`/api/usuarios/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (res.ok) {
+        // Actualiza el usuario en el array local y vuelve a renderizar
+        const idx = usuariosData.findIndex(u => u.id == id);
+        if (idx !== -1) {
+          usuariosData[idx] = { ...usuariosData[idx], ...body };
+        }
+        renderUsuarios();
+        document.getElementById('editModal').classList.add('hidden');
+        alert('Usuario actualizado correctamente');
+      } else {
+        alert('Error al actualizar usuario');
+      }
+    };
   </script>
 </body>
 </html>
