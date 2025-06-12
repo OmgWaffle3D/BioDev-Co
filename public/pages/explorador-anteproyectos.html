@@ -8,6 +8,8 @@
     <script src="../scripts/auth.js"></script>
     <script src="../scripts/navbar.js"></script>
     <script src="../scripts/userProfile.js"></script>
+    <script src="../scripts/sidebar.js"></script>
+    <script src="../scripts/anteproyecto.js" defer></script>
     <link rel="stylesheet" href="../styles/style.css" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -40,22 +42,14 @@
       <div id="sidebar" class="sidebar">
         <!-- Toggle Button -->
         <div id="sidebarToggle" class="toggle-btn">
-          <span id="sidebarToggleIcon" class="material-icons"
-            >chevron_left</span
-          >
+          <span id="sidebarToggleIcon" class="material-icons">chevron_left</span>
         </div>
 
         <!-- Menu Items -->
         <ul class="menu-items">
           <li><a href="./mi-bio.html">Asistente de Mi Biomo</a></li>
-          <li>
-            <a href="./nuevas-convocatorias.html">Nuevas Convocatorias</a>
-          </li>
-          <li>
-            <a href="./explorador-anteproyectos.html" style="color: white"
-              >Explorador de Anteproyectos</a
-            >
-          </li>
+          <li><a href="./nuevas-convocatorias.html">Nuevas Convocatorias</a></li>
+          <li><a href="./explorador-anteproyectos.html" style="color: white">Explorador de Anteproyectos</a></li>
         </ul>
       </div>
 
@@ -69,11 +63,13 @@
             <label class="form-label">Nombre de la Convocatoria</label>
             <div class="flex items-center gap-2">
               <input
-                type="text"
+                list="convocatorias"
+                id="convocatoriaInput"
                 placeholder="Escriba..."
                 class="form-input w-1/2"
               />
-              <button class="bg-gray-600 px-4 py-2 rounded hover:bg-gray-500">
+              <datalist id="convocatorias"></datalist>
+              <button id="arrow" class="bg-gray-600 px-4 py-2 rounded hover:bg-gray-500">
                 <span class="material-icons">arrow_forward</span>
               </button>
             </div>
@@ -82,36 +78,14 @@
 
           <!-- Tabs -->
           <div class="flex space-x-4 mb-4">
-            <button class="border-b-2 border-green-500 pb-1 text-green-400">
-              Abiertos
-            </button>
-            <button class="pb-1 text-gray-400 hover:text-white">
-              Cerrados
-            </button>
+            <button class="border-b-2 border-green-500 pb-1 text-green-400">Abiertos</button>
+            <button class="pb-1 text-gray-400 hover:text-white">Cerrados</button>
           </div>
 
-          <!-- Cards -->
-          <div class="space-y-4">
-            <div
-              class="p-4 rounded flex justify-between items-center"
-              style="background-color: #4f4f4f"
-            >
-              <div>
-                <h2 class="font-semibold text-white text-lg">Título</h2>
-                <p class="text-sm text-gray-300">Descripción</p>
-                <p class="text-xs mt-1 text-gray-400">
-                  Fecha de creación: 00/00/0000
-                </p>
-                <p class="text-xs text-gray-400">Fecha límite: 00/00/0000</p>
-              </div>
-              <div class="text-green-500 text-2xl">
-                <span class="material-icons">chevron_right</span>
-              </div>
-            </div>
-          </div>
+          <!-- Results Container -->
+          <div id="anteproyectoList" class="space-y-4 mt-4"></div>
         </div>
       </div>
     </div>
-    <script src="../scripts/sidebar.js"></script>
   </body>
 </html>
