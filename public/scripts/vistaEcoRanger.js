@@ -19,6 +19,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   sidebarToggleMobile?.addEventListener("click", () => {
     sidebar.classList.toggle("collapsed");
   });
+  
+  // Configurar manejo del dropdown del usuario
+  const userProfile = document.querySelector('.user-profile');
+  if (userProfile) {
+    userProfile.addEventListener('click', toggleDropdown);
+  }
 
   // --- Usuarios dinámicos ---
   const token = localStorage.getItem('token');
@@ -215,11 +221,33 @@ document.getElementById('editUserForm').onsubmit = async function(e) {
 }
 
 // Funciones de utilidad para el dropdown y sesión
-function toggleDropdown() {
-  document.getElementById("userDropdown").classList.toggle("hidden");
+function toggleDropdown(event) {
+  event.preventDefault(); // Prevenir comportamiento predeterminado
+  const dropdown = document.getElementById("userDropdown");
+  if (dropdown) {
+    dropdown.classList.toggle("hidden");
+  }
+  
+  // Añadir manejador de clic global para cerrar el dropdown al hacer clic fuera de él
+  if (!dropdown.classList.contains("hidden")) {
+    setTimeout(() => {
+      document.addEventListener('click', closeDropdownOnClickOutside);
+    }, 10);
+  }
+}
+
+// Función para cerrar el dropdown cuando se hace clic fuera de él
+function closeDropdownOnClickOutside(event) {
+  const userProfile = document.querySelector('.user-profile');
+  const dropdown = document.getElementById("userDropdown");
+  
+  if (!userProfile.contains(event.target)) {
+    dropdown.classList.add("hidden");
+    document.removeEventListener('click', closeDropdownOnClickOutside);
+  }
 }
 
 function cerrarSesion() {
   localStorage.removeItem("token");
-  window.location.href = "/login.html";
+  window.location.href = "/pages/login.html";
 }
