@@ -251,3 +251,13 @@ function cerrarSesion() {
   localStorage.removeItem("token");
   window.location.href = "/pages/login.html";
 }
+
+
+  // Controla el botón de soporte
+document.addEventListener('DOMContentLoaded', function () {
+    const btnSoporte = document.getElementById('btn-soporte');
+
+    btnSoporte?.addEventListener('click', () => {
+        window.location.href = '../pages/soporte.html';
+    });
+});

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Formulario de Contacto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-900 flex justify-center items-center min-h-screen">
+
+    <div class="bg-gray-900 text-white rounded-t-[50px] w-11/12 max-w-5xl p-10 flex flex-col md:flex-row justify-between shadow-lg">
+        
+        <!-- Formulario -->
+        <div class="md:w-1/2 mb-8 md:mb-0 md:mr-10">
+            <label class="block mb-2 font-bold" for="nombre">Nombre</label>
+            <input type="text" id="nombre" placeholder="Escribe..." class="w-full p-3 mb-4 rounded-lg bg-gray-600 text-white focus:outline-none">
+
+            <label class="block mb-2 font-bold" for="correo">Correo electrónico</label>
+            <input type="email" id="correo" placeholder="Escribe..." class="w-full p-3 mb-4 rounded-lg bg-gray-600 text-white focus:outline-none">
+
+            <label class="block mb-2 font-bold" for="asunto">Asunto</label>
+            <input type="text" id="asunto" placeholder="Escribe..." class="w-full p-3 mb-4 rounded-lg bg-gray-600 text-white focus:outline-none">
+
+            <label class="block mb-2 font-bold" for="descripcion">Descripción del problema</label>
+            <textarea id="descripcion" placeholder="Escribe..." class="w-full p-3 mb-4 rounded-lg bg-gray-600 text-white focus:outline-none h-28 resize-none"></textarea>
+        </div>
+
+        <!-- Info + botón -->
+        <div class="md:w-1/2 flex flex-col justify-center items-center text-center">
+            <p class="mb-6">
+                En menos de 24h nos pondremos en contacto contigo a través de la dirección de correo que nos has facilitado, gracias por tu paciencia.
+            </p>
+            <button type="button" id="submit-btn" class="bg-green-700 hover:bg-green-800 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
+                Enviar datos
+            </button>
+        </div>
+    </div>
+
+    <script src="../scripts/soporte.js"></script>
+</body>
+</html>

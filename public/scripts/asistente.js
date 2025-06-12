@@ -26,6 +26,15 @@ userInput?.addEventListener("keypress", (event) => {
     }
 });
 
+// Controla el botón de soporte
+document.addEventListener('DOMContentLoaded', function () {
+    const btnSoporte = document.getElementById('btn-soporte');
+
+    btnSoporte?.addEventListener('click', () => {
+        window.location.href = '../pages/soporte.html';
+    });
+});
+
 async function sendMessage() {
     const userMessage = userInput.value;
     if (!userMessage) return;

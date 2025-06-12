@@ -26,6 +26,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   // --- Obtener números dinámicos ---
   await cargarDatos();
 });
+// Controla el botón de soporte
+document.addEventListener('DOMContentLoaded', function () {
+    const btnSoporte = document.getElementById('btn-soporte');
+
+    btnSoporte?.addEventListener('click', () => {
+        window.location.href = '../pages/soporte.html';
+    });
+});
 
 // Carga los datos dinámicos desde la API
 async function cargarDatos() {

@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+
   // Botón mobile
   const sidebarToggleMobile = document.getElementById("sidebarToggleMobile");
   sidebarToggleMobile?.addEventListener("click", () => {
@@ -109,3 +110,12 @@ async function cambiarEstado(id, nuevoEstado) {
     console.error("Error al cambiar estado:", error);
   }
 }
+
+  // Controla el botón de soporte
+document.addEventListener('DOMContentLoaded', function () {
+    const btnSoporte = document.getElementById('btn-soporte');
+
+    btnSoporte?.addEventListener('click', () => {
+        window.location.href = '../pages/soporte.html';
+    });
+});
