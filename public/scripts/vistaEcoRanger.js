@@ -157,4 +157,14 @@ document.getElementById('editUserForm').onsubmit = async function(e) {
   } else {
     alert('Error al actualizar usuario');
   }
-};
+}
+
+// Funciones de utilidad para el dropdown y sesión
+function toggleDropdown() {
+  document.getElementById("userDropdown").classList.toggle("hidden");
+}
+
+function cerrarSesion() {
+  localStorage.removeItem("token");
+  window.location.href = "/login.html";
+}
