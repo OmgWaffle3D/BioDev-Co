@@ -1,0 +1,35 @@
+
+:root {
+  --color-dark: #1c1f1f;
+  --color-medium: #3c3c3c;
+  --color-light: #505050;
+}
+
+body {
+  background-color: var(--color-dark);
+}
+
+#sidebar.collapsed {
+  width: 0 !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  transform: none !important;
+}
+
+/* Botón flechita siempre visible */
+.sidebar-toggle-wrapper {
+  position: fixed;
+  top: 1rem;
+  left: 16rem; /* Ancho del sidebar (64) = 16rem */
+  z-index: 50;
+  background-color: var(--color-medium);
+  border-radius: 9999px;
+  padding: 0.25rem;
+  cursor: pointer;
+  transition: left 0.3s ease;
+}
+
+#sidebar.collapsed ~ .sidebar-toggle-wrapper {
+  left: 0.5rem;
+}
