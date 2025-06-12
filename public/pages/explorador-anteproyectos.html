@@ -77,10 +77,14 @@
             <label class="form-label">Nombre de la Convocatoria</label>
             <div class="flex items-center gap-2">
               <input
-                type="text"
+                list="convocatorias"
+                id="convocatoriaInput"
                 placeholder="Escriba..."
                 class="form-input w-1/2"
               />
+              <datalist id="convocatorias">
+                <!-- JS will populate options here -->
+              </datalist>
               <button class="bg-gray-600 px-4 py-2 rounded hover:bg-gray-500">
                 <span class="material-icons">arrow_forward</span>
               </button>
