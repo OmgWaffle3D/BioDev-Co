@@ -77,7 +77,8 @@
         class="mt-auto w-full py-2 rounded flex items-center justify-center gap-2"
         style="background-color: var(--color-light)"
       >
-        <span class="material-icons">support_agent</span> Contacta con el soporte
+        <span class="material-icons">support_agent</span> Contacta con el
+        soporte
       </button>
     </aside>
 
@@ -286,31 +287,6 @@
         });
       });
     </script>
+    <script src="../scripts/game.js"></script>
   </body>
 </html>
-
-
-
-<!-- para agregar al sidebar el boton del juego -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const userId = sessionStorage.getItem("id");
-
-    if (userId) {
-      const sidebarMenu = document.querySelector(".menu-items");
-
-      const gameItem = document.createElement("li");
-      const gameLink = document.createElement("a");
-
-      gameLink.href = `/game/?user=${userId}`;
-      gameLink.textContent = "Juego";
-      gameLink.style.display = "block"; // que toda la area de boton se pueda clickear
-      gameLink.style.padding = "10px 15px";
-      gameLink.style.textDecoration = "none";
-      // gameLink.style.color = "white";
-
-      gameItem.appendChild(gameLink);
-      sidebarMenu.appendChild(gameItem);
-    }
-  });
-</script>
