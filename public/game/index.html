@@ -3,10 +3,64 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity Web Player | Reto_CAM_TEST</title>
+    <title>Juego - Mawi</title>
+    <script src="../scripts/navbar.js"></script>
+    <link rel="stylesheet" href="../styles/style.css" />
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
+  <body class="home-bg">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo-container">
+        <a href="../pages/home.html" style="color: white; text-decoration: none">
+          <span>Mawi</span>
+        </a>
+      </div>
+      <div class="user-profile">
+        <span id="userName">EcoRanger</span>
+        <!-- <img id="userAvatar" class="avatar" src="" alt="Avatar del usuario" /> -->
+        <div id="userDropdown" class="user-dropdown hidden">
+          <a href="#" class="user-dropdown-item">
+            <i class="fas fa-sign-out-alt"></i>
+            Cerrar sesión
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Sidebar -->
+      <div id="sidebar" class="sidebar">
+        <!-- Toggle Button -->
+        <div id="sidebarToggle" class="toggle-btn">
+          <span id="sidebarToggleIcon" class="material-icons"
+            >chevron_left</span
+          >
+        </div>
+
+        <!-- Menu Items -->
+        <ul class="menu-items">
+          <li>
+            <a href="../pages/mi-bio.html">Asistente de Mi Biomo</a>
+          </li>
+          <li>
+            <a href="../pages/nuevas-convocatorias.html">Nuevas Convocatorias</a>
+          </li>
+          <li>
+            <a href="../pages/explorador-anteproyectos.html"
+              >Explorador de Anteproyectos</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Main Content -->
   <body>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
