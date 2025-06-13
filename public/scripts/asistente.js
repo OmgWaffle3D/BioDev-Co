@@ -1,3 +1,5 @@
+const API_BASE_URL = 'https://biodev-co-3.onrender.com';
+
 const chatHistory = document.getElementById("chat-history");
 const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
@@ -62,7 +64,6 @@ function displayMessage(message, sender) {
     saveChatHistory(message, sender);
 }
 
-// Function to save chat history to session storage
 function saveChatHistory(message, sender) {
     try {
         const history = JSON.parse(sessionStorage.getItem(CHAT_HISTORY_KEY)) || [];
@@ -77,7 +78,6 @@ function saveChatHistory(message, sender) {
     }
 }
 
-// Function to load chat history from session storage
 function loadChatHistory() {
     try {
         const history = JSON.parse(sessionStorage.getItem(CHAT_HISTORY_KEY)) || [];
@@ -95,7 +95,6 @@ function loadChatHistory() {
     }
 }
 
-// Function to clear chat history (optional - you can add a button for this)
 function clearChatHistory() {
     sessionStorage.removeItem(CHAT_HISTORY_KEY);
     chatHistory.innerHTML = "";
@@ -135,22 +134,18 @@ async function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) return;
 
-    // Validate file size (5MB max)
     if (file.size > 5 * 1024 * 1024) {
         alert("El archivo es demasiado grande. Máximo 5MB permitido.");
         return;
     }
 
     try {
-        // Show loading message
         displayMessage(`📎 Subiendo archivo: ${file.name}...`, "user");
         
         const result = await uploadFile(file);
         
-        // Show success message
         displayMessage(`✅ Archivo "${result.originalName}" subido exitosamente`, "ai");
         
-        // Clear the file input
         fileInput.value = "";
         
     } catch (error) {
