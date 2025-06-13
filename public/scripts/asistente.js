@@ -101,6 +101,7 @@ function clearChatHistory() {
 }
 
 async function getChatCompletion(message) {
+    // Asegúrate de definir el endpoint usando API_BASE_URL
     const API_ENDPOINT = `${API_BASE_URL}/api/chat/completions`;
 
     const requestBody = {
