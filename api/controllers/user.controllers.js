@@ -56,12 +56,29 @@ export const updateUsuario = (req, res) => {
 
 export const deleteUsuario = (req, res) => {
   const { id } = req.params;
+
+  // Primero elimina los niveles completados del usuario
   pool.query(
-    "DELETE FROM usuarios WHERE id = ?",
+    "DELETE FROM niveles_completados WHERE usuario_id = ?",
     [id],
-    (err, results) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.status(200).json({ msg: "Usuario eliminado" });
+    (err1) => {
+      if (err1) {
+        console.error(err1);
+        return res.status(500).json({ error: err1.message });
+      }
+
+      // Luego elimina el usuario
+      pool.query(
+        "DELETE FROM usuarios WHERE id = ?",
+        [id],
+        (err2, results) => {
+          if (err2) {
+            console.error(err2);
+            return res.status(500).json({ error: err2.message });
+          }
+          res.status(200).json({ msg: "Usuario eliminado" });
+        }
+      );
     }
   );
 };
