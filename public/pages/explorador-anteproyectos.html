@@ -42,14 +42,22 @@
       <div id="sidebar" class="sidebar">
         <!-- Toggle Button -->
         <div id="sidebarToggle" class="toggle-btn">
-          <span id="sidebarToggleIcon" class="material-icons">chevron_left</span>
+          <span id="sidebarToggleIcon" class="material-icons"
+            >chevron_left</span
+          >
         </div>
 
         <!-- Menu Items -->
         <ul class="menu-items">
           <li><a href="./mi-bio.html">Asistente de Mi Biomo</a></li>
-          <li><a href="./nuevas-convocatorias.html">Nuevas Convocatorias</a></li>
-          <li><a href="./explorador-anteproyectos.html" style="color: white">Explorador de Anteproyectos</a></li>
+          <li>
+            <a href="./nuevas-convocatorias.html">Nuevas Convocatorias</a>
+          </li>
+          <li>
+            <a href="./explorador-anteproyectos.html" style="color: white"
+              >Explorador de Anteproyectos</a
+            >
+          </li>
         </ul>
       </div>
 
@@ -69,17 +77,34 @@
                 class="form-input w-1/2"
               />
               <datalist id="convocatorias"></datalist>
-              <button id="arrow" class="bg-gray-600 px-4 py-2 rounded hover:bg-gray-500">
+              <button
+                id="arrow"
+                class="bg-gray-600 px-4 py-2 rounded hover:bg-gray-500"
+              >
                 <span class="material-icons">arrow_forward</span>
               </button>
             </div>
-            <button id="crearAP" class="btn-primary mt-4">Crear Nuevo Anteproyecto</button>
+            <!-- Mensaje de búsqueda simple -->
+            <p id="searchNotification" class="text-sm mt-1 hidden"></p>
+            <button id="crearAP" class="btn-primary mt-4">
+              Crear Nuevo Anteproyecto
+            </button>
           </div>
 
           <!-- Tabs -->
           <div class="flex space-x-4 mb-4">
-            <button id="tabAbiertos" class="border-b-2 border-green-500 pb-1 text-green-400">Abiertos</button>
-            <button id="tabCerrados" class="pb-1 text-gray-400 hover:text-white">Cerrados</button>
+            <button
+              id="tabAbiertos"
+              class="border-b-2 border-green-500 pb-1 text-green-400"
+            >
+              Abiertos
+            </button>
+            <button
+              id="tabCerrados"
+              class="pb-1 text-gray-400 hover:text-white"
+            >
+              Cerrados
+            </button>
           </div>
 
           <!-- Results Container -->
@@ -89,33 +114,51 @@
       </div>
     </div>
     <!-- Modal -->
-      <div id="submitUI" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-gray-800 text-white p-6 rounded-lg w-96" style="background-color: #2f2f2f;">
-          <h2 class="text-xl font-semibold mb-4">Nuevo Anteproyecto</h2>
-          <label class="block mb-2 text-sm font-medium">Título</label>
-          <input
-            type="text"
-            id="modalTitulo"
-            class="w-full px-3 py-2 rounded mb-4"
-            style="background-color: #4f4f4f;"
-            placeholder="Título del anteproyecto"
-          />
+    <div
+      id="submitUI"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50"
+    >
+      <div
+        class="bg-gray-800 text-white p-6 rounded-lg w-96"
+        style="background-color: #2f2f2f"
+      >
+        <h2 class="text-xl font-semibold mb-4">Nuevo Anteproyecto</h2>
+        <!-- Mensaje de notificación simple -->
+        <p id="notification" class="text-sm mb-2 hidden"></p>
+        <label class="block mb-2 text-sm font-medium">Título</label>
+        <input
+          type="text"
+          id="modalTitulo"
+          class="w-full px-3 py-2 rounded mb-4"
+          style="background-color: #4f4f4f"
+          placeholder="Título del anteproyecto"
+        />
 
-          <label class="block mb-2 text-sm font-medium">Descripción</label>
-          <textarea
-            id="modalDescripcion"
-            class="w-full px-3 py-2 rounded mb-4"
-            style="background-color: #4f4f4f;"
-            rows="3"
-            placeholder="Descripción del anteproyecto"
-          ></textarea>
+        <label class="block mb-2 text-sm font-medium">Descripción</label>
+        <textarea
+          id="modalDescripcion"
+          class="w-full px-3 py-2 rounded mb-4"
+          style="background-color: #4f4f4f"
+          rows="3"
+          placeholder="Descripción del anteproyecto"
+        ></textarea>
 
-          <div class="flex justify-end gap-2">
-            <button id="cancelBtn" class="px-4 py-2 rounded bg-gray-700 hover:bg-gray-500">Cancelar</button>
-            <button id="submitBtn" class="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700">Crear</button>
-          </div>
+        <div class="flex justify-end gap-2">
+          <button
+            id="cancelBtn"
+            class="px-4 py-2 rounded bg-gray-700 hover:bg-gray-500"
+          >
+            Cancelar
+          </button>
+          <button
+            id="submitBtn"
+            class="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700"
+          >
+            Crear
+          </button>
         </div>
       </div>
+    </div>
   </body>
 </html>
 
