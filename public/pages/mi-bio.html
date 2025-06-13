@@ -90,51 +90,6 @@
     </div>
     <script src="../scripts/sidebar.js"></script>
     <script src="../scripts/asistente.js"></script>
+    <script src="../scripts/game.js"></script>
   </body>
 </html>
-
-
-<!-- para agregar al sidebar el boton del juego -->
- <!-- <script>
-  // Wait until DOM is fully loaded
-  document.addEventListener("DOMContentLoaded", function () {
-    const userId = sessionStorage.getItem("id");
-
-    if (userId) {
-      const sidebarMenu = document.querySelector(".menu-items");
-
-      const gameItem = document.createElement("li");
-      const gameLink = document.createElement("a");
-
-      gameLink.href = `/game/?user=${userId}`;
-      gameLink.textContent = "Juego";
-
-      gameItem.appendChild(gameLink);
-      sidebarMenu.appendChild(gameItem);
-    }
-  });
-</script> -->
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const userId = sessionStorage.getItem("id");
-
-    if (userId) {
-      const sidebarMenu = document.querySelector(".menu-items");
-
-      const gameItem = document.createElement("li");
-      const gameLink = document.createElement("a");
-
-      gameLink.href = `/game/?user=${userId}`;
-      gameLink.textContent = "Juego";
-      gameLink.style.display = "block"; // que toda la area de boton se pueda clickear
-      gameLink.style.padding = "10px 15px";
-      gameLink.style.textDecoration = "none";
-      // gameLink.style.color = "white";
-
-      gameItem.appendChild(gameLink);
-      sidebarMenu.appendChild(gameItem);
-    }
-  });
-</script>
