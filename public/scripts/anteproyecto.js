@@ -117,15 +117,31 @@ searchBtn.addEventListener("click", async () => {
     resultsContainerAbiertos.innerHTML = "";
     resultsContainerCerrados.innerHTML = "";
 
-    if (limitDate < now) {
-      // Expired convocatoria: show in cerrados
-      displayAnteproyectos(filtered, resultsContainerCerrados);
-      showTab("cerrados");
-    } else {
-      // Still open: show in abiertos
-      displayAnteproyectos(filtered, resultsContainerAbiertos);
-      showTab("abiertos");
-    }
+      const abiertos = [];
+      const cerrados = [];
+
+      filtered.forEach(ap => {
+        const apDate = new Date(ap.fecha);
+        if (apDate < now) {
+          cerrados.push(ap);
+        } else {
+          abiertos.push(ap);
+        }
+      });
+
+      // Mostrar resultados
+      resultsContainerAbiertos.innerHTML = "";
+      resultsContainerCerrados.innerHTML = "";
+
+      displayAnteproyectos(abiertos, resultsContainerAbiertos);
+      displayAnteproyectos(cerrados, resultsContainerCerrados);
+
+      // Mostrar pestaña abiertos por defecto si hay abiertos
+      if (abiertos.length > 0) {
+        showTab("abiertos");
+      } else {
+        showTab("cerrados");
+}
 
   } catch (err) {
     console.error("Error loading anteproyectos:", err);
