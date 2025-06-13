@@ -102,7 +102,7 @@ function clearChatHistory() {
 }
 
 async function getChatCompletion(message) {
-    const API_ENDPOINT = "/api/chat/completions";
+    const API_ENDPOINT = `${API_BASE_URL}/api/chat/completions`;
 
     const requestBody = {
         model: "gpt-3.5-turbo",
@@ -168,7 +168,7 @@ async function uploadFile(file) {
         throw new Error('No estás autenticado');
     }
 
-    const response = await fetch("/api/chat/upload", {
+    const response = await fetch(`${API_BASE_URL}/api/chat/upload`, {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${token}`
