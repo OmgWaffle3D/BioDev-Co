@@ -11,7 +11,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/vistaEcoRanger.css" />
-    <script src="../scripts/navbar.js" defer></script>
   </head>
 
   <body class="flex h-screen text-white overflow-hidden">
@@ -96,7 +95,10 @@
           <span class="material-icons">menu</span>
         </button>
         <div class="text-2xl font-semibold"></div>
-        <div class="user-profile relative cursor-pointer">
+        <div
+          class="user-profile relative cursor-pointer"
+          onclick="toggleDropdown()"
+        >
           <span>Administrador</span>
           <div
             class="avatar w-8 h-8 rounded-full bg-green-500 inline-block ml-2"
@@ -106,7 +108,7 @@
             class="absolute right-0 mt-2 bg-white text-black rounded shadow-lg hidden"
           >
             <a
-              href="/pages/login.html"
+              href="login.html"
               class="block px-4 py-2 hover:bg-gray-100"
               onclick="cerrarSesion()"
             >

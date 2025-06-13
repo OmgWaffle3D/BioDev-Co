@@ -1,0 +1,25 @@
+/* Estilos para las notificaciones */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.transition-opacity {
+  transition-property: opacity;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
