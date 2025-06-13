@@ -21,9 +21,10 @@
     <!-- Sidebar -->
     <aside
       id="sidebar"
-      class="w-64 p-4 space-y-4 transform transition-transform duration-300 md:translate-x-0 -translate-x-full md:relative fixed h-full z-30"
+      class="w-64 p-4 space-y-4 transform transition-all duration-300 md:relative fixed h-full z-30"
       style="background-color: var(--color-medium)"
     >
+      <!-- Logo -->
       <div class="flex items-center gap-2 text-2xl font-bold mb-4">
         <svg
           class="w-6 h-6 text-white"
@@ -37,6 +38,7 @@
         </svg>
         Mawi
       </div>
+      <!-- Menú -->
       <nav>
         <ul class="space-y-2">
           <li>
@@ -49,8 +51,8 @@
           <li>
             <a
               href="vistaEcoRanger.html"
-              class="block p-2 hover:bg-gray-700 rounded"
-              >View de Ecoranger</a
+              class="block p-2 hover:bg-gray-700 rounded text-green-400 font-bold"
+              >Vista de Ecoranger</a
             >
           </li>
           <li>
@@ -67,26 +69,16 @@
               >ChatBot</a
             >
           </li>
-          <li>
-            <a
-              href="numeroBiomos.html"
-              class="block p-2 hover:bg-gray-700 rounded text-green-400 font-bold"
-              >Número de Biomos</a
-            >
-          </li>
-          <li>
-            <a
-              href="numeroAnteproyectos.html"
-              class="block p-2 hover:bg-gray-700 rounded"
-              >Número de Anteproyectos</a
-            >
-          </li>
         </ul>
       </nav>
+      <!-- Botón soporte -->
       <button
+        id="btn-soporte"
         class="mt-auto w-full py-2 rounded flex items-center justify-center gap-2"
         style="background-color: var(--color-light)"
-      ></button>
+      >
+        <span class="material-icons">support_agent</span> Contacta con el soporte
+      </button>
     </aside>
 
     <!-- Main Content -->
