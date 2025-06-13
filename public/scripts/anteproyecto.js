@@ -9,9 +9,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   const cancelModalBtn = document.getElementById("cancelBtn");
   const convocatoriaInput = document.getElementById("convocatoriaInput");
 
+  // Función para mostrar notificaciones más simples
+  function showSearchNotification(message, type) {
+    const notification = document.getElementById("searchNotification");
+    notification.textContent = message;
+    notification.className = `text-sm mt-1 ${type === 'error' ? 'text-red-500' : type === 'success' ? 'text-green-500' : 'text-blue-500'}`;
+    notification.classList.remove("hidden");
+    
+    setTimeout(() => {
+      notification.classList.add("hidden");
+    }, 3000);
+  }
+  
+  // Función para mostrar notificaciones simples en el modal
+  function showModalNotification(message, type) {
+    const notification = document.getElementById("notification");
+    notification.textContent = message;
+    notification.className = `text-sm mb-2 ${type === 'error' ? 'text-red-500' : type === 'success' ? 'text-green-500' : 'text-blue-500'}`;
+    notification.classList.remove("hidden");
+    
+    setTimeout(() => {
+      notification.classList.add("hidden");
+    }, 3000);
+  }
+  
   createBtn.addEventListener("click", () => {
     if (!convocatoriaInput.value.trim()) {
-      alert("Selecciona una convocatoria válida antes de crear un anteproyecto.");
+      showSearchNotification("Selecciona una convocatoria válida antes de crear un anteproyecto.", "error");
       return;
     }
 
@@ -32,9 +56,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     const convocatoria = convocatoriaInput.value.trim();
 
     if (!titulo || !descripcion) {
-      alert("Por favor completa todos los campos.");
+      showModalNotification("Por favor completa todos los campos.", "error");
       return;
     }
+
+    // Modificar el botón para mostrar estado de carga
+    const originalText = submitModalBtn.innerHTML;
+    submitModalBtn.innerHTML = '<span class="material-icons">cached</span> Procesando...';
+    submitModalBtn.disabled = true;
 
     try {
       const res = await fetch("/api/anteproyectos", {
@@ -52,15 +81,30 @@ document.addEventListener("DOMContentLoaded", async () => {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Anteproyecto creado exitosamente.");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex")
+        // Mostrar estado de éxito en el botón
+        submitModalBtn.innerHTML = '<span class="material-icons">check</span>';
+        submitModalBtn.style.backgroundColor = "#4CAF50";
+        
+        // Ocultar modal después de un tiempo
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+          
+          // Restaurar el botón
+          submitModalBtn.innerHTML = originalText;
+          submitModalBtn.disabled = false;
+          submitModalBtn.style.backgroundColor = "";
+        }, 2000);
       } else {
-        alert("Error al crear anteproyecto: " + data.msg);
+        showModalNotification(data.msg || "Error al crear anteproyecto", "error");
+        submitModalBtn.innerHTML = originalText;
+        submitModalBtn.disabled = false;
       }
     } catch (err) {
       console.error("Error al crear anteproyecto:", err);
-      alert("Ocurrió un error inesperado.");
+      showModalNotification("Error de conexión", "error");
+      submitModalBtn.innerHTML = originalText;
+      submitModalBtn.disabled = false;
     } 
   });
   //////////////////////////////////////////////////////////
@@ -98,9 +142,14 @@ searchBtn.addEventListener("click", async () => {
   const convocatoriaData = convocatoriasMap.get(selectedName);
 
   if (!convocatoriaData) {
-    alert("Convocatoria no válida.");
+    showSearchNotification("Convocatoria no válida.", "error");
     return;
   }
+
+  // Mostrar estado de carga en el botón
+  const originalSearchBtnContent = searchBtn.innerHTML;
+  searchBtn.innerHTML = '<span class="material-icons">sync</span>';
+  searchBtn.disabled = true;
 
   try {
     const res = await fetch("/api/anteproyectosuser");
@@ -121,14 +170,21 @@ searchBtn.addEventListener("click", async () => {
       // Expired convocatoria: show in cerrados
       displayAnteproyectos(filtered, resultsContainerCerrados);
       showTab("cerrados");
+      showSearchNotification(`${filtered.length} anteproyecto(s) encontrado(s)`, "success");
     } else {
       // Still open: show in abiertos
       displayAnteproyectos(filtered, resultsContainerAbiertos);
       showTab("abiertos");
+      showSearchNotification(`${filtered.length} anteproyecto(s) encontrado(s)`, "success");
     }
 
   } catch (err) {
     console.error("Error loading anteproyectos:", err);
+    showSearchNotification("Error al cargar anteproyectos", "error");
+  } finally {
+    // Restaurar el botón
+    searchBtn.innerHTML = originalSearchBtnContent;
+    searchBtn.disabled = false;
   }
 });
 
@@ -136,7 +192,7 @@ function displayAnteproyectos(items, container) {
   container.innerHTML = "";
 
   if (items.length === 0) {
-    container.innerHTML = '<p class="text-white">No se encontraron anteproyectos.</p>';
+    container.innerHTML = '<p class="text-gray-400 text-sm">No se encontraron anteproyectos</p>';
     return;
   }
 
