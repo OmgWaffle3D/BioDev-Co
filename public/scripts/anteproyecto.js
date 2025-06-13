@@ -85,6 +85,53 @@ document.addEventListener("DOMContentLoaded", async () => {
         submitModalBtn.innerHTML = '<span class="material-icons">check</span>';
         submitModalBtn.style.backgroundColor = "#4CAF50";
         
+        // Agregar el nuevo anteproyecto a la lista en tiempo real
+        // Como la API solo devuelve el ID, debemos crear el objeto con los datos del formulario
+        const newAnteproyecto = {
+          id: data.id, // ID devuelto por la API
+          titulo: titulo,
+          descripcion: descripcion,
+          id_convocatoria: convocatoriasMap.get(convocatoria).id
+        };
+        
+        const convocatoriaData = convocatoriasMap.get(convocatoria);
+        const now = new Date();
+        const limitDate = new Date(convocatoriaData.fecha_limite);
+        
+        // Crear el elemento card para el nuevo anteproyecto
+        const newCard = document.createElement("div");
+        newCard.className = "p-4 rounded flex justify-between items-center";
+        newCard.style.backgroundColor = "#2c7434";
+        newCard.innerHTML = `
+          <div>
+            <h2 class="font-semibold text-white text-lg">${newAnteproyecto.titulo}</h2>
+            <p class="text-sm text-gray-300">${newAnteproyecto.descripcion}</p>
+          </div>
+          <div class="text-green-500 text-2xl">
+            <span class="material-icons">chevron_right</span>
+          </div>
+        `;
+        
+        // Agregar a la lista correspondiente según fecha límite
+        if (limitDate < now) {
+          // Convocatoria cerrada
+          resultsContainerCerrados.innerHTML = resultsContainerCerrados.innerHTML === '' || 
+            resultsContainerCerrados.innerHTML === '<p class="text-gray-400 text-sm">No se encontraron anteproyectos</p>' ? 
+            '' : resultsContainerCerrados.innerHTML;
+          resultsContainerCerrados.prepend(newCard);
+          showTab("cerrados");
+        } else {
+          // Convocatoria abierta
+          resultsContainerAbiertos.innerHTML = resultsContainerAbiertos.innerHTML === '' || 
+            resultsContainerAbiertos.innerHTML === '<p class="text-gray-400 text-sm">No se encontraron anteproyectos</p>' ? 
+            '' : resultsContainerAbiertos.innerHTML;
+          resultsContainerAbiertos.prepend(newCard);
+          showTab("abiertos");
+        }
+        
+        // Mostrar notificación de éxito
+        showSearchNotification("Anteproyecto creado exitosamente", "success");
+        
         // Ocultar modal después de un tiempo
         setTimeout(() => {
           modal.classList.add("hidden");
@@ -102,7 +149,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     } catch (err) {
       console.error("Error al crear anteproyecto:", err);
-      showModalNotification("Error de conexión", "error");
+      
+      // Mensaje de error más informativo
+      let errorMessage = "Error de conexión con el servidor. ";
+      
+      // Si el servidor está caído o hay un problema de red
+      if (!navigator.onLine) {
+        errorMessage += "Verifica tu conexión a internet.";
+      } else {
+        errorMessage += "Intenta de nuevo más tarde.";
+      }
+      
+      showModalNotification(errorMessage, "error");
       submitModalBtn.innerHTML = originalText;
       submitModalBtn.disabled = false;
     } 
