@@ -16,7 +16,7 @@ function clearErrorMessage() {
 const login = async () => {
     // validar credenciales
     const credentials = {username:username.value, password: password.value}
-    const data = await fetch("http://localhost:4000/api/login", {
+    const data = await fetch("/api/login", {
         method:"POST",
         headers:{"content-type":"application/json"}, 
         body: JSON.stringify(credentials)});
@@ -39,7 +39,11 @@ const login = async () => {
         sessionStorage.setItem("name", res.user.name);
         sessionStorage.setItem("id", res.user.id);
         sessionStorage.setItem("rol", res.user.rol);
-        sessionStorage.setItem("pfp", `/api${res.user.pfp}`);
+        // Construimos la ruta completa para la imagen de perfil
+        const pfpPath = res.user.pfp 
+            ? `/api/uploads/${res.user.pfp.split('/').pop()}` 
+            : '';
+        sessionStorage.setItem("pfp", pfpPath);
         
         // Redireccionar según el rol
         if (res.user.rol === "admin") {

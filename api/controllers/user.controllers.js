@@ -468,7 +468,7 @@ export const autenticacion = (req, res) => {
               name: user.nombre,
               correo: user.correo,
               rol: user.rol,
-              pfp: user.foto_perfil
+              pfp: user.foto_perfil ? user.foto_perfil : ''
             }
           });
 

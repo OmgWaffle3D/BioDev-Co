@@ -21,7 +21,7 @@ async function verificarAutenticacion() {
     
     try {
         // Hacer una petición a una ruta protegida para validar el token
-        const response = await fetch('http://localhost:4000/api/biomas', {
+        const response = await fetch('/api/biomas', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

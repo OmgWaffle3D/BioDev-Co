@@ -18,18 +18,24 @@ const __dirname = path.dirname(__filename);
 
 // Crear una instancia de la aplicación Express
 const app = express();
-// Habilitar CORS para todas las solicitudes
-app.use(cors());
+// Habilitar CORS para todas las solicitudes con configuración para producción
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' ? [
+    'https://biodev-co.onrender.com',
+    process.env.FRONTEND_URL
+  ] : '*',
+  credentials: true
+}));
 // Permitir que la aplicación procese datos JSON en solicitudes entrantes
 app.use(express.json());
 // Servir archivos estáticos desde la carpeta "public"
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 // Configurar una ruta específica para acceder a archivos subidos
 app.use("/api/uploads", express.static(path.join(__dirname, "api/uploads")));
 // Utilizar las rutas de la API definidas en indexRoutes
 app.use("/api", indexRoutes);
 
 // Definir el puerto en el que se ejecutará el servidor
-const port = 4000;
+const port = process.env.PORT || 4000;
 // Iniciar el servidor y mostrar un mensaje en la consola
-app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
+app.listen(port, () => console.log(`Server running on port ${port}`));
