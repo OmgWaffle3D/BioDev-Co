@@ -22,7 +22,27 @@ async function postDB() {
 
   // Validación básica
   if (!nombre || !fecha || !sitio_web || !organizacion || !region || !pais || !descripcion) {
-    alert("Por favor completa todos los campos");
+    // Mostrar mensaje de error elegante en lugar de alert
+    const errorMessage = document.createElement("p");
+    errorMessage.textContent = "Por favor completa todos los campos";
+    errorMessage.className = "text-red-500 text-sm mb-2";
+    
+    const formContainer = document.getElementById("botonUpload").parentNode;
+    const existingError = formContainer.querySelector(".text-red-500");
+    
+    if (existingError) {
+      formContainer.removeChild(existingError);
+    }
+    
+    formContainer.insertBefore(errorMessage, document.getElementById("botonUpload"));
+    
+    // Eliminar después de 3 segundos
+    setTimeout(() => {
+      if (errorMessage.parentNode) {
+        errorMessage.parentNode.removeChild(errorMessage);
+      }
+    }, 3000);
+    
     return;
   }
 

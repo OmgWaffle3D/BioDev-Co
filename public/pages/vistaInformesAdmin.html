@@ -264,3 +264,30 @@
     <script src="../scripts/sidebar.js" defer></script>
   </body>
 </html>
+
+
+
+<!-- SCRIPT PARA AGREGAR VIDEOJUEGO A VISTA ADMIN -->
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const userId = sessionStorage.getItem("id");
+
+    if (userId) {
+      // Select the sidebar menu (the <ul> with navigation links)
+      const sidebarMenu = document.querySelector("aside nav ul");
+
+      // Create the new Juego item
+      const gameItem = document.createElement("li");
+      const gameLink = document.createElement("a");
+
+      gameLink.href = `/game/?user=${userId}`;
+      gameLink.textContent = "Juego";
+      gameLink.className = "block p-2 hover:bg-gray-700 rounded"; // match other items
+
+      gameItem.appendChild(gameLink);
+
+      // Append the new item at the end of the <ul>
+      sidebarMenu.appendChild(gameItem);
+    }
+  });
+</script> -->

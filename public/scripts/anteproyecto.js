@@ -9,9 +9,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   const cancelModalBtn = document.getElementById("cancelBtn");
   const convocatoriaInput = document.getElementById("convocatoriaInput");
 
+  // Función para mostrar notificaciones más simples
+  function showSearchNotification(message, type) {
+    const notification = document.getElementById("searchNotification");
+    notification.textContent = message;
+    notification.className = `text-sm mt-1 ${type === 'error' ? 'text-red-500' : type === 'success' ? 'text-green-500' : 'text-blue-500'}`;
+    notification.classList.remove("hidden");
+    
+    setTimeout(() => {
+      notification.classList.add("hidden");
+    }, 3000);
+  }
+  
+  // Función para mostrar notificaciones simples en el modal
+  function showModalNotification(message, type) {
+    const notification = document.getElementById("notification");
+    notification.textContent = message;
+    notification.className = `text-sm mb-2 ${type === 'error' ? 'text-red-500' : type === 'success' ? 'text-green-500' : 'text-blue-500'}`;
+    notification.classList.remove("hidden");
+    
+    setTimeout(() => {
+      notification.classList.add("hidden");
+    }, 3000);
+  }
+  
   createBtn.addEventListener("click", () => {
     if (!convocatoriaInput.value.trim()) {
-      alert("Selecciona una convocatoria válida antes de crear un anteproyecto.");
+      showSearchNotification("Selecciona una convocatoria válida antes de crear un anteproyecto.", "error");
       return;
     }
 
@@ -32,9 +56,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     const convocatoria = convocatoriaInput.value.trim();
 
     if (!titulo || !descripcion) {
-      alert("Por favor completa todos los campos.");
+      showModalNotification("Por favor completa todos los campos.", "error");
       return;
     }
+
+    // Modificar el botón para mostrar estado de carga
+    const originalText = submitModalBtn.innerHTML;
+    submitModalBtn.innerHTML = '<span class="material-icons">cached</span> Procesando...';
+    submitModalBtn.disabled = true;
 
     try {
       const res = await fetch("/api/anteproyectos", {
@@ -52,15 +81,88 @@ document.addEventListener("DOMContentLoaded", async () => {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Anteproyecto creado exitosamente.");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex")
+        // Mostrar estado de éxito en el botón
+        submitModalBtn.innerHTML = '<span class="material-icons">check</span>';
+        submitModalBtn.style.backgroundColor = "#4CAF50";
+        
+        // Agregar el nuevo anteproyecto a la lista en tiempo real
+        // Como la API solo devuelve el ID, debemos crear el objeto con los datos del formulario
+        const newAnteproyecto = {
+          id: data.id, // ID devuelto por la API
+          titulo: titulo,
+          descripcion: descripcion,
+          id_convocatoria: convocatoriasMap.get(convocatoria).id
+        };
+        
+        const convocatoriaData = convocatoriasMap.get(convocatoria);
+        const now = new Date();
+        const limitDate = new Date(convocatoriaData.fecha_limite);
+        
+        // Crear el elemento card para el nuevo anteproyecto
+        const newCard = document.createElement("div");
+        newCard.className = "p-4 rounded flex justify-between items-center";
+        newCard.style.backgroundColor = "#2c7434";
+        newCard.innerHTML = `
+          <div>
+            <h2 class="font-semibold text-white text-lg">${newAnteproyecto.titulo}</h2>
+            <p class="text-sm text-gray-300">${newAnteproyecto.descripcion}</p>
+          </div>
+          <div class="text-green-500 text-2xl">
+            <span class="material-icons">chevron_right</span>
+          </div>
+        `;
+        
+        // Agregar a la lista correspondiente según fecha límite
+        if (limitDate < now) {
+          // Convocatoria cerrada
+          resultsContainerCerrados.innerHTML = resultsContainerCerrados.innerHTML === '' || 
+            resultsContainerCerrados.innerHTML === '<p class="text-gray-400 text-sm">No se encontraron anteproyectos</p>' ? 
+            '' : resultsContainerCerrados.innerHTML;
+          resultsContainerCerrados.prepend(newCard);
+          showTab("cerrados");
+        } else {
+          // Convocatoria abierta
+          resultsContainerAbiertos.innerHTML = resultsContainerAbiertos.innerHTML === '' || 
+            resultsContainerAbiertos.innerHTML === '<p class="text-gray-400 text-sm">No se encontraron anteproyectos</p>' ? 
+            '' : resultsContainerAbiertos.innerHTML;
+          resultsContainerAbiertos.prepend(newCard);
+          showTab("abiertos");
+        }
+        
+        // Mostrar notificación de éxito
+        showSearchNotification("Anteproyecto creado exitosamente", "success");
+        
+        // Ocultar modal después de un tiempo
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+          
+          // Restaurar el botón
+          submitModalBtn.innerHTML = originalText;
+          submitModalBtn.disabled = false;
+          submitModalBtn.style.backgroundColor = "";
+        }, 2000);
       } else {
-        alert("Error al crear anteproyecto: " + data.msg);
+        showModalNotification(data.msg || "Error al crear anteproyecto", "error");
+        submitModalBtn.innerHTML = originalText;
+        submitModalBtn.disabled = false;
       }
     } catch (err) {
       console.error("Error al crear anteproyecto:", err);
-      alert("Ocurrió un error inesperado.");
+      
+      // Mensaje de error más informativo
+      let errorMessage = "Error de conexión con el servidor. ";
+      
+      // Si el servidor está caído o hay un problema de red
+      if (!navigator.onLine) {
+        errorMessage += "Verifica tu conexión a internet.";
+      } else {
+        errorMessage += "Intenta de nuevo más tarde.";
+      }
+      
+      showModalNotification(errorMessage, "error");
+      submitModalBtn.innerHTML = originalText;
+      submitModalBtn.disabled = false;
     } 
   });
   //////////////////////////////////////////////////////////
@@ -98,9 +200,14 @@ searchBtn.addEventListener("click", async () => {
   const convocatoriaData = convocatoriasMap.get(selectedName);
 
   if (!convocatoriaData) {
-    alert("Convocatoria no válida.");
+    showSearchNotification("Convocatoria no válida.", "error");
     return;
   }
+
+  // Mostrar estado de carga en el botón
+  const originalSearchBtnContent = searchBtn.innerHTML;
+  searchBtn.innerHTML = '<span class="material-icons">sync</span>';
+  searchBtn.disabled = true;
 
   try {
     const res = await fetch("/api/anteproyectosuser");
@@ -145,6 +252,11 @@ searchBtn.addEventListener("click", async () => {
 
   } catch (err) {
     console.error("Error loading anteproyectos:", err);
+    showSearchNotification("Error al cargar anteproyectos", "error");
+  } finally {
+    // Restaurar el botón
+    searchBtn.innerHTML = originalSearchBtnContent;
+    searchBtn.disabled = false;
   }
 });
 
@@ -152,7 +264,7 @@ function displayAnteproyectos(items, container) {
   container.innerHTML = "";
 
   if (items.length === 0) {
-    container.innerHTML = '<p class="text-white">No se encontraron anteproyectos.</p>';
+    container.innerHTML = '<p class="text-gray-400 text-sm">No se encontraron anteproyectos</p>';
     return;
   }
 
