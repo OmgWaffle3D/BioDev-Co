@@ -67,11 +67,31 @@ export const deleteUsuario = (req, res) => {
 };
 
 export const getAnteproyectos = (req, res) => {
-  pool.query("SELECT * FROM anteproyectos", (error, results) => {
+  pool.query("SELECT a.*, c.fecha FROM anteproyectos a JOIN convocatorias c ON a.id_convocatoria = c.id_convocatoria;", (error, results) => {
     if (error) return res.status(500).json({ message: error.message });
     res.status(200).json({ msg: "OK", data: results });
   });
 };
+
+
+export const postAnteproyecto = (req, res) => {
+  const { titulo, descripcion, convocatoria_nombre } = req.body;
+
+  const query = `
+    INSERT INTO anteproyectos (titulo, descripcion, id_convocatoria)
+    VALUES (?, ?, (SELECT id_convocatoria FROM convocatorias WHERE nombre = ?))
+  `;
+
+  pool.execute(query, [titulo, descripcion, convocatoria_nombre], (error, results) => {
+    if (error) {
+      return res.status(500).json({ msg: "Error al crear anteproyecto", error });
+    }
+
+    res.status(201).json({ msg: "Anteproyecto creado con éxito", id: results.insertId });
+  });
+};
+
+
 
 
 export const getBiomas = (req, res) => {
@@ -501,7 +521,7 @@ export const postConvocatoria = (req, res) => {
 };
 
 export const getConvocatoria = (req, res) => {
-  pool.execute('SELECT id_convocatoria, nombre FROM convocatorias', (error, results) => {
+  pool.execute('SELECT id_convocatoria, nombre, fecha FROM convocatorias', (error, results) => {
     if (error) {
       res.status(500).json({error: error.message});
       return;
